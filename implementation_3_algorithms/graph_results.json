@@ -1,0 +1,111 @@
+[
+ {
+  "task": "regular",
+  "n_graphs": 200,
+  "sizes": [
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "DTQW signature kernel": [
+   1.0,
+   0.0
+  ],
+  "classical RW signature kernel": [
+   0.9949999999999999,
+   0.015000000000000017
+  ],
+  "WL subtree kernel": [
+   1.0,
+   0.0
+  ],
+  "hand-made statistics": [
+   0.9949999999999999,
+   0.015000000000000017
+  ],
+  "walk network (fixed Grover coin)": [
+   1.0,
+   0.0
+  ],
+  "walk network (trained coins)": [
+   1.0,
+   0.0
+  ]
+ },
+ {
+  "task": "bipartite",
+  "n_graphs": 200,
+  "sizes": [
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "DTQW signature kernel": [
+   0.9949999999999999,
+   0.015000000000000017
+  ],
+  "classical RW signature kernel": [
+   0.9766666666666666,
+   0.033499585403736314
+  ],
+  "WL subtree kernel": [
+   0.7083333333333334,
+   0.11407843305765068
+  ],
+  "hand-made statistics": [
+   0.9966666666666666,
+   0.012472191289246483
+  ],
+  "walk network (fixed Grover coin)": [
+   1.0,
+   0.0
+  ],
+  "walk network (trained coins)": [
+   1.0,
+   0.0
+  ]
+ },
+ {
+  "task": "community",
+  "n_graphs": 200,
+  "sizes": [
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "DTQW signature kernel": [
+   0.8366666666666666,
+   0.0930352382463524
+  ],
+  "classical RW signature kernel": [
+   0.8266666666666667,
+   0.07272474743090475
+  ],
+  "WL subtree kernel": [
+   0.6483333333333334,
+   0.08008675851155975
+  ],
+  "hand-made statistics": [
+   0.8216666666666667,
+   0.0726674311886388
+  ],
+  "walk network (fixed Grover coin)": [
+   0.84,
+   0.07788880963698615
+  ],
+  "walk network (trained coins)": [
+   0.8383333333333332,
+   0.08132581932503902
+  ]
+ }
+]

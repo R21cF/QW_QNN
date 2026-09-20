@@ -1,0 +1,28 @@
+Rc files read:
+  /etc/LatexMk
+Latexmk: This is Latexmk, John Collins, 20 November 2021, version: 4.76.
+Latexmk: File-database 'draft.fdb_latexmk' is of too new version, 4 > 3
+Latexmk: Found input bbl file 'draft.bbl'
+Latexmk: Found biber source file(s) [draft.bcf draft_thesis_references.bib]
+Rule 'biber draft': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'draft.bcf'
+------------
+Run number 1 of rule 'biber draft'
+------------
+------------
+Running 'biber  "draft.bcf"'
+------------
+Latexmk: ============== Inequiv cwd_fls cwd 'c:\Osaid\University\(2)\Thesis\thesis' '/sessions/rcw-01vc6d2ynymzyxscbnupn67s/mnt/Thesis/thesis'
+Latexmk: Examining 'draft.log'
+=== TeX engine is 'pdfTeX'
+Biber warning: [2395] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\QI\AppData\Local\Temp\biber_tmp_BM_m\d072f9084fe42ba976a0fc62547dccee_17236.utf8, line 2811, warning: 1 characters of junk seen at toplevel
+Latexmk: applying rule 'biber draft'...
+sh: 1: biber: not found
+Latexmk: Found biber source file(s) [draft.bcf draft_thesis_references.bib]
+Collected error summary (may duplicate other messages):
+  biber draft: Command for 'biber draft' gave return code 127
+Latexmk: Use the -f option to force complete processing,
+ unless error was exceeding maximum runs, or warnings treated as errors.
+Biber warning: [2395] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\QI\AppData\Local\Temp\biber_tmp_BM_m\d072f9084fe42ba976a0fc62547dccee_17236.utf8, line 2811, warning: 1 characters of junk seen at toplevel
+Latexmk: Errors, so I did not complete making targets
