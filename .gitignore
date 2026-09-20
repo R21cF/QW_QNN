@@ -1,1 +1,20 @@
+# Environments
 .venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# NOTE: notebooks are committed *with* their outputs (rendered circuit
+# diagrams are thesis material), and the *_results.json files are the data
+# behind the manuscript's tables and figures. Neither is ignored on purpose.
