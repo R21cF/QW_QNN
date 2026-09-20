@@ -1,0 +1,19 @@
+# Environments
+.venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# NOTE: the *_results.json / *.json data files are the source of the
+# manuscript's tables and figures — tracked on purpose, not ignored.
