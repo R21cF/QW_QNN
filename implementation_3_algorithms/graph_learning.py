@@ -1,11 +1,17 @@
 """
 Walk-based kernels and a walk-based network for graph classification.
 
-No public benchmark could be downloaded from this environment (TU Dortmund,
-GitHub and HuggingFace mirrors are all blocked by the egress policy), so the
-data are three synthetic binary tasks with controlled ground truth, all on
+Data are three synthetic binary tasks with controlled ground truth, all on
 graphs of 8-12 vertices with matched edge counts between classes so that
-size and density alone do not separate them:
+size and density alone do not separate them, plus four public benchmarks:
+MUTAG (TU-Dortmund format, from the GraKeL wheel's test data) and PTC_MR,
+PROTEINS and IMDB-BINARY (from the GIN repository's dataset bundle,
+weihua916/powerful-gnns; the nd7141 mirror of PTC_MR has only 235 graphs and
+was not used).
+The TU-Dortmund site itself is not reachable from this environment.  Node
+labels are used by the WL baseline only; the walk is label-blind.  The
+COBYLA-trained walk network is run on the synthetic sets, MUTAG and PTC_MR
+only; PROTEINS (1113 graphs) and IMDB-BINARY (1000) get the kernels only.
 
   regular    random 3-regular  vs  Erdos-Renyi with the same number of edges
   bipartite  random bipartite   vs  Erdos-Renyi with the same number of edges
@@ -99,6 +105,65 @@ def make_dataset(kind, rng):
     return graphs, np.array(labels)
 
 
+def load_tu(root, name):
+    """TU-Dortmund format (Morris et al.): *_A.txt, *_graph_indicator.txt,
+    *_graph_labels.txt, optional *_node_labels.txt.  Node labels are stored as
+    the 'label' attribute; the walk ignores them, the WL kernel uses them."""
+    import os
+    p = lambda suf: os.path.join(root, name, f"{name}_{suf}.txt")
+    ind = np.loadtxt(p("graph_indicator"), dtype=int)
+    gl = np.loadtxt(p("graph_labels"), dtype=int)
+    A = np.loadtxt(p("A"), delimiter=",", dtype=int)
+    nl = np.loadtxt(p("node_labels"), dtype=int) if os.path.exists(p("node_labels")) else None
+    graphs = []
+    for g in range(1, ind.max() + 1):
+        nodes = np.where(ind == g)[0] + 1
+        G = nx.Graph()
+        for v in nodes:
+            G.add_node(int(v), label=int(nl[v - 1]) if nl is not None else 1)
+        graphs.append(G)
+    gid = {}
+    for k, G in enumerate(graphs):
+        for v in G.nodes():
+            gid[v] = k
+    for u, v in A:
+        graphs[gid[int(u)]].add_edge(int(u), int(v))
+    out, ys = [], []
+    for G, y in zip(graphs, gl):
+        G.remove_nodes_from(list(nx.isolates(G)))
+        if G.number_of_nodes() < 4:
+            continue
+        out.append(nx.convert_node_labels_to_integers(G))
+        ys.append(1 if y > 0 else 0)
+    return out, np.array(ys)
+
+
+def load_gin(root, name):
+    """Format of Xu et al.'s GIN repository (weihua916/powerful-gnns/dataset):
+    line 1 = #graphs; per graph a header 'n y' then n lines 'label deg nb...'."""
+    import os
+    with open(os.path.join(root, name, f"{name}.txt")) as f:
+        ng = int(f.readline())
+        out, ys = [], []
+        for _ in range(ng):
+            n, y = map(int, f.readline().split())
+            G = nx.Graph()
+            rows = [list(map(int, f.readline().split())) for _ in range(n)]
+            for v, r in enumerate(rows):
+                G.add_node(v, label=r[0])
+            for v, r in enumerate(rows):
+                for u in r[2:2 + r[1]]:
+                    if u != v:
+                        G.add_edge(v, u)
+            G.remove_nodes_from(list(nx.isolates(G)))
+            if G.number_of_nodes() < 4:
+                continue
+            out.append(nx.convert_node_labels_to_integers(G))
+            ys.append(y)
+    ys = np.array(ys)
+    return out, (ys == ys.max()).astype(int) if len(set(ys)) == 2 else ys
+
+
 # --------------------------------------------------------------------------
 # signatures
 # --------------------------------------------------------------------------
@@ -189,7 +254,7 @@ def handmade(G):
 
 def wl_kernel(graphs, h=3):
     """Weisfeiler-Lehman subtree kernel (Shervashidze et al. 2011), normalised."""
-    labels = [{v: 1 for v in G.nodes()} for G in graphs]
+    labels = [{v: G.nodes[v].get("label", 1) for v in G.nodes()} for G in graphs]
     feats = [Counter() for _ in graphs]
     lookup = {}
     for it in range(h + 1):
@@ -275,8 +340,15 @@ def cv_walk_network(sigs, y, rng, trainable=True, maxiter=60):
 if __name__ == "__main__":
     rng = np.random.default_rng(SEED)
     out = []
-    for kind in ["regular", "bipartite", "community"]:
-        graphs, y = make_dataset(kind, rng)
+    BENCH = {"MUTAG": ("tu", "MUTAG"), "PTC_MR": ("gin", "PTC"),
+             "PROTEINS": ("gin", "PROTEINS"), "IMDB-BINARY": ("gin", "IMDBBINARY")}
+    NETWORK_ON = {"regular", "bipartite", "community", "MUTAG", "PTC_MR"}   # walk network is COBYLA-trained; skipped on the two large sets
+    for kind in ["regular", "bipartite", "community", "MUTAG", "PTC_MR", "PROTEINS", "IMDB-BINARY"]:
+        if kind in BENCH:
+            fmt, nm = BENCH[kind]
+            graphs, y = load_tu("data", nm) if fmt == "tu" else load_gin("data/gin/dataset", nm)
+        else:
+            graphs, y = make_dataset(kind, rng)
         sigs = [WalkSignature(G) for G in graphs]
         Xq = np.array([s.run([np.pi / 2] * T) for s in sigs])
         # cross-check the fast walk against the dense operator on one graph
@@ -293,13 +365,15 @@ if __name__ == "__main__":
         Xc = np.array([classical_signature(G, T) for G in graphs])
         Xh = np.array([handmade(G) for G in graphs])
         K_wl = wl_kernel(graphs)
-        row = {"task": kind, "n_graphs": len(graphs), "sizes": sorted(set(G.number_of_nodes() for G in graphs))}
+        row = {"task": kind, "n_graphs": len(graphs), "sizes": sorted(set(G.number_of_nodes() for G in graphs)),
+               "class_balance": float(y.mean())}
         row["DTQW signature kernel"] = cv_svm_features(Xq, y, rng)
         row["classical RW signature kernel"] = cv_svm_features(Xc, y, rng)
         row["WL subtree kernel"] = cv_svm_precomputed(K_wl, y)
         row["hand-made statistics"] = cv_svm_features(Xh, y, rng)
-        row["walk network (fixed Grover coin)"] = cv_walk_network(sigs, y, rng, trainable=False)
-        row["walk network (trained coins)"] = cv_walk_network(sigs, y, rng, trainable=True)
+        if kind in NETWORK_ON:
+            row["walk network (fixed Grover coin)"] = cv_walk_network(sigs, y, rng, trainable=False)
+            row["walk network (trained coins)"] = cv_walk_network(sigs, y, rng, trainable=True)
         out.append(row)
         for k_, v in row.items():
             if isinstance(v, tuple):

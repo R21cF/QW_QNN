@@ -15,17 +15,20 @@ vectors throughout; Qiskit + Aer where a circuit is the object of the claim
 | `make_figures.py` | `fig_*.pdf/png`, `tab_*.tex` | all figures and tables; copy to ../../thesis/ |
 
 Run order: `python search_scaling.py` (~2 min), `python shor_walk.py` (~4 min),
-`python qaoa_walk.py` (~5 min), `python graph_learning.py` (~20 min),
+`python qaoa_walk.py` (~5 min), `python graph_learning.py` (~55 min),
 `python make_figures.py`.
 
 Requirements: numpy, scipy, networkx, scikit-learn, matplotlib, qiskit>=2, qiskit-aer.
 
 ## Things to know before citing any of this
 
-* **No benchmark graph dataset.** MUTAG / PTC could not be downloaded from the
-  simulation environment (egress blocked). `graph_learning.py` uses synthetic
-  tasks; the loader would need to be added and the experiment rerun before
-  any comparison with published numbers.
+* **Benchmarks.** `data/MUTAG/` (TU format, from the GraKeL wheel's test data)
+  and `data/gin/dataset/{PTC,PROTEINS,IMDBBINARY}/` (GIN txt format, from
+  weihua916/powerful-gnns `dataset.zip`). The TU-Dortmund site is unreachable
+  from the simulation environment; GitHub's raw CDN was. Published WL numbers
+  are reproduced to within noise, which is the protocol check. The quantum
+  walk signature does NOT beat the classical walk signature on any benchmark
+  (MUTAG: classical ahead by 3 points).
 * **Linear walks cannot beat sqrt(N)** (BBBV). The "constant time" in
   `search_scaling.py` is the nonlinear model, and it costs g ~ N^1.27 and a
   peak width ~ N^-1/2. The thesis text says exactly this.

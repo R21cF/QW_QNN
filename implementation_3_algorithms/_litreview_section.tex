@@ -8,18 +8,11 @@
 % the Preliminaries), no complexity-theory or Turing-machine material.
 % Citations dropped in the trim remain in the .bib.
 
-This section surveys the literature the thesis rests on, organised around
-the problem statement of Section~\ref{sec:problem}: quantum walk-based
-quantum neural networks and quantum kernels for graph-structured data, and
-their design, trainability and empirical evaluation. The walk literature
-comes first (Section~\ref{sec:lr-primitive}), because it is where the design
-freedom of the walk --- above all the coin --- is established; quantum
-machine learning follows (Section~\ref{sec:lr-qml}), reviewed for the two
-model families the thesis instantiates and for the two questions the field
-has learned to ask of any new model, whether it can be trained and how it
-should be evaluated; the small body of work that runs walks inside learning
-models on graphs is then reviewed (Section~\ref{sec:lr-dtqwqml}); and the
-gap is stated along the three axes of the problem statement
+This section surveys the literature the thesis rests on, as one argument
+rather than a catalogue: the walk literature first
+(Section~\ref{sec:lr-primitive}), then quantum machine learning
+(Section~\ref{sec:lr-qml}), then the small body of work combining the two
+(Section~\ref{sec:lr-dtqwqml}), and finally the gap the thesis addresses
 (Section~\ref{sec:lr-gap}). Classical machine learning is treated in
 Chapter~\ref{ch:prelim} and is not reviewed here.
 
@@ -183,7 +176,7 @@ reported later establish relative behaviour between walk configurations on
 classical simulators, and no claim of quantum advantage is made anywhere in
 this work.
 
-\subsection{Quantum Walks in Learning on Graph-Structured Data}
+\subsection{Quantum Walks in Quantum Machine Learning}
 \label{sec:lr-dtqwqml}
 
 The literature combining the two subjects is much smaller than either.
@@ -222,54 +215,31 @@ second-order classical walk.
 \subsection{The Gap Addressed by This Thesis}
 \label{sec:lr-gap}
 
-The gap is stated along the three axes of the problem statement.
-
-Design. The walk literature establishes repeatedly that the behaviour of a
+Three observations follow from the survey and together define the gap. First,
+the walk literature establishes repeatedly that the performance of a
 walk-based algorithm is governed by a few parameters internal to the coin
-whose correct values are instance-dependent --- the lackadaisical self-loop
-weight is the clearest case~\cite{Nahimovs_2018, Rhodes_2019, Rapoza_2021}
---- and that position-dependent~\cite{Ahmad_2020},
+whose correct values are instance-dependent; the lackadaisical self-loop
+weight is the clearest case~\cite{Nahimovs_2018, Rhodes_2019, Rapoza_2021}.
+The coin is known there to be a design space, not a convention. Second, the
+walk-based learning literature does not treat it as one: with the partial
+exception of Dernbach et al.~\cite{Dernbach_2019}, walk-based learning models
+fix the coin to Hadamard, Grover or Fourier and report results for that
+choice, although position-dependent~\cite{Ahmad_2020},
 step-dependent~\cite{Panahiyan_2018} and general $U(2)$~\cite{Li_2012,
-Souza_2013} coins are all standard. The coin is known there to be a design
-space. The walk-based learning models of Section~\ref{sec:lr-dtqwqml} do not
-treat it as one: with the partial exception of Dernbach et
-al.~\cite{Dernbach_2019}, they fix the coin to Hadamard, Grover or Fourier,
-take its entries to be real, and report results for that choice. How a
-walk-based quantum neural network or quantum kernel for graph-structured
-data should be designed --- which coin, whether it depends on the local
-graph structure and the step, whether its entries are complex, and how the
-graph enters the circuit at all --- has not been set out as a design problem.
+Souza_2013} coins are all standard in the walk literature, and none has been
+evaluated against a learning objective. Third, the benchmarking literature
+shows why this has gone unnoticed: where a walk-based model beats a weak
+baseline there is no reason to ask whether another coin would have done
+better, and against tuned baselines walk-based models have not so far
+won~\cite{Bowles_2024}. The coin has been neither optimised nor ruled out.
 
-Trainability. The quantum machine-learning literature has two results that
-any new model must be measured against: the barren plateau of McClean et
-al.~\cite{McClean_2018} for variational circuits, and the exponential
-concentration of Thanasilp et al.~\cite{Thanasilp_2024} for kernels, with
-expressibility and entangling capability~\cite{Sim_2019} as the measures
-that predict both. None of these has been applied to a walk-based ansatz or
-a walk-based kernel. A walk step is a fixed entangling pattern given by the
-graph, and a deep walk is exactly the expressive encoding that induces
-concentration; whether walk-based models are trainable at useful depth, and
-whether their kernels stay informative, is an open question.
-
-Empirical evaluation. Where walk-based learning models have been evaluated
-they have been compared against weak baselines on a few small graphs, with
-truncation length and downstream classifier not held fixed across methods
-(Section~\ref{sec:lr-dtqwqml}); against tuned baselines under the discipline
-of Bowles et al.~\cite{Bowles_2024}, walk-based models have not been
-evaluated at all, and quantum models in general have not so far
-won~\cite{Bowles_2024}. The claims made for walks in learning are therefore
-neither confirmed nor ruled out.
-
-The thesis accordingly asks a narrow question. Taking the discrete-time
-coined walk as the computational primitive, and instantiating it in quantum
-neural networks with variational classifiers and in quantum kernel methods
-for graph-structured data: what does the design freedom of the walk buy,
-are the resulting models trainable, and how do they perform under a fair
-evaluation? Two design axes are varied --- whether the coin depends on local
-graph structure and on the step index, and whether its entries may be
-complex --- trainability is assessed through training behaviour, gradient
-magnitude and kernel concentration, and every comparison is made on
-simulators against tuned classical baselines under the reporting discipline
-of Bowles et al.~\cite{Bowles_2024}. A negative answer on any axis is a
-result and is reported as one.
+The thesis accordingly asks a narrow question. Taking the discrete-time coined
+walk as a computational primitive and instantiating it in the mainstream
+families above --- quantum neural networks with variational classifiers, and
+quantum kernel methods --- what does treating the coin as a design space buy?
+Two axes are varied: whether the coin depends on local graph structure and on
+the step index, and whether its entries may be complex. The question is
+empirical, answered on simulators against tuned classical baselines under the
+reporting discipline of Bowles et al.~\cite{Bowles_2024}, and a negative
+answer on either axis is a result and is reported as one.
 

@@ -2,10 +2,10 @@
 \label{sec:graphresults}
 % Added 20 Sep 2026.  Data, figure and table from
 % code/implementation_3_algorithms/graph_learning.py and make_figures.py.
-% No public benchmark (MUTAG, PTC) could be downloaded from the simulation
-% environment -- the TU Dortmund, GitHub and HuggingFace mirrors are all
-% blocked by its egress policy -- so the tasks are synthetic.  Rerun on a
-% benchmark before any external claim is made.
+% Benchmarks: MUTAG from the GraKeL wheel's bundled test data; PTC_MR,
+% PROTEINS, IMDB-BINARY from the GIN repository's dataset bundle (GitHub raw
+% CDN). The TU Dortmund site itself is unreachable from the simulation
+% environment. Synthetic tasks retained as controlled sanity checks.
 
 The two application sections above exercise the walk on tabular and pixel
 data, where the graph the walker moves on is chosen by the designer and the
@@ -24,95 +24,125 @@ given exactly the same statistics, which is the control that decides whether
 the quantum walk contributes anything.
 
 \paragraph*{Data and protocol.}
-No public benchmark could be retrieved in the simulation environment, so the
-data are three synthetic binary tasks on graphs of eight to twelve vertices,
-one hundred graphs per class, with edge counts matched between classes so
-that size and density alone do not separate them: random $3$-regular graphs
-against Erd\H{o}s--R\'enyi graphs of the same edge count (\emph{regular});
-random bipartite graphs against Erd\H{o}s--R\'enyi graphs of the same edge
-count (\emph{bipartite}); and two-block stochastic block models with
-$p_{\mathrm{in}} = 0.7$, $p_{\mathrm{out}} = 0.1$ against Erd\H{o}s--R\'enyi
-graphs of the same expected density (\emph{community}). The coined walk uses
-the Grover coin and the flip-flop shift of Section~\ref{sec:dtqw-graphs},
-starts in the uniform superposition over arcs, and runs for $T = 8$ steps;
-at each step the position marginal $p_t$ yields its Shannon entropy, its
-inverse participation ratio and its maximum (each scaled by $n$), and $n$
-further walks started at each vertex yield the mean return probability. The
-$32$-dimensional signature is standardised and fed to an RBF support vector
-machine; the classical control replaces the quantum walk by the lazy random
-walk and the return probability by $\operatorname{tr}(P^t)/n$. Two further
-baselines are the Weisfeiler--Lehman subtree kernel~\cite{Shervashidze_2011}
-with three refinement rounds, and an RBF kernel on hand-made statistics (the
-degree histogram, average clustering, spectral radius, smallest adjacency
-eigenvalue and density). The walk network of the second experiment is the
-same walk with one trainable coin angle per step, $C_t = \cos\theta_t\,
-\mathbb{I} - i\sin\theta_t\,G$, followed by a logistic read-out of the
-signature and trained end to end with COBYLA; its control fixes every
-$\theta_t$ at the Grover value. All figures are the mean and standard
-deviation of test accuracy over three repeats of stratified ten-fold
-cross-validation, with the SVM grid chosen by an inner three-fold search.
+Four public benchmarks are used, chosen to span the standard graph-kernel
+test-bed: MUTAG (188 nitroaromatic compounds, mutagenic or not; $125/63$),
+PTC\_MR (344 compounds, carcinogenic or not in male rats; $152/192$),
+PROTEINS (1113 protein graphs, enzyme or not; $450/663$) and IMDB-BINARY
+(1000 ego-networks of actors, genre; $500/500$)~\cite{Shervashidze_2011,
+Xu_2019}. MUTAG was obtained from the test data bundled with the GraKeL
+package and the other three from the dataset bundle of Xu et al.'s GIN
+repository; the TU~Dortmund collection itself was not reachable from the
+simulation environment. Three synthetic binary tasks are kept as controlled
+checks, each with one hundred graphs per class on eight to twelve vertices and
+edge counts matched between classes: random $3$-regular graphs against
+Erd\H{o}s--R\'enyi graphs of the same edge count (\emph{regular}), random
+bipartite graphs against the same (\emph{bipartite}), and two-block
+stochastic block models with $p_{\mathrm{in}} = 0.7$, $p_{\mathrm{out}} =
+0.1$ against Erd\H{o}s--R\'enyi graphs of the same expected density
+(\emph{community}).
 
-\paragraph*{The walk signature is competitive, and the quantum walk edges
-the classical one.}
-Table~\ref{tab:graph} and Figure~\ref{fig:graphacc} give the result. The
-regular task is trivial and every method is at or near $100$ per cent; it is
-retained as a sanity check and carries no information. On the bipartite task
-the discrete-time walk signature reaches $99.5 \pm 1.5$ per cent against the
-classical walk's $97.7 \pm 3.3$, and on the community task $83.7 \pm 9.3$
-against $82.7 \pm 7.3$. The quantum walk is ahead on both informative tasks,
-but the margins are within one standard deviation over folds and the claim
-is correspondingly weak: the quantum walk's statistics are at least as
-informative as the classical walk's at equal step count, and slightly more
-so on the two tasks that are not trivial. The WL kernel is the weakest
-method on both, at $70.8$ and $64.8$ per cent, which is expected rather than
-surprising --- these graphs carry no vertex labels, and the subtree kernel on
-unlabelled graphs sees little beyond the degree sequence, which is matched by
-construction on the bipartite task. The hand-made statistics match the
-walks on bipartiteness, where the spectral symmetry $\lambda_{\min} =
--\lambda_{\max}$ decides the question exactly, and fall slightly behind on
-the community task. The bipartite result deserves one mechanistic remark.
-Before the return probability was added to the signature the walk kernels
-scored in the low seventies on this task, well behind the spectral baseline;
-the entropy, participation and maximum of the position distribution of a
-walk started in the uniform arc state barely distinguish a bipartite graph
-from a random one of the same density, and the return probability, which is
-a spectral quantity, does. The signature is
-therefore not a free lunch: which statistics are taken from the walk matters
-as much as which walk is run.
+The coined walk uses the Grover coin and the flip-flop shift of
+Section~\ref{sec:dtqw-graphs}, starts in the uniform superposition over
+arcs, and runs for $T = 8$ steps; at each step the position marginal $p_t$
+yields its Shannon entropy, its inverse participation ratio and its maximum
+(each scaled by $n$), and $n$ further walks started at each vertex yield the
+mean return probability. The $32$-dimensional signature is standardised and
+fed to an RBF support vector machine; the classical control replaces the
+quantum walk by the lazy random walk and the return probability by
+$\operatorname{tr}(P^t)/n$. The walk is blind to vertex labels throughout.
+Two further baselines are the Weisfeiler--Lehman subtree
+kernel~\cite{Shervashidze_2011} with three refinement rounds, which does use
+the vertex labels where a dataset has them, and an RBF kernel on hand-made
+statistics (degree histogram, average clustering, spectral radius, smallest
+adjacency eigenvalue and density). The walk network of the second experiment
+is the same walk with one trainable coin angle per step, $C_t =
+\cos\theta_t\,\mathbb{I} - i\sin\theta_t\,G$, followed by a logistic
+read-out of the signature and trained end to end with COBYLA; its control
+fixes every $\theta_t$ at the Grover value. It is run on the synthetic sets,
+MUTAG and PTC\_MR; on the two sets of a thousand graphs the derivative-free
+training was not affordable and only the kernels are reported. All figures
+are the mean and standard deviation of test accuracy over three repeats of
+stratified ten-fold cross-validation, with the SVM grid chosen by an inner
+three-fold search.
+
+\paragraph*{On the benchmarks the walk signature matches the field and does
+not beat it.}
+Table~\ref{tab:graph} and Figure~\ref{fig:graphacc} give the result. On
+MUTAG the walk-signature kernel reaches $84.2 \pm 8.8$ per cent, on PTC\_MR
+$57.0 \pm 7.0$, on PROTEINS $74.6 \pm 3.7$ and on IMDB-BINARY $70.6 \pm
+3.5$. Every one of these is within the range the graph-kernel literature
+reports for the WL subtree kernel on the same data, and within one standard
+deviation of the WL kernel as implemented here ($82.0$, $60.3$, $75.0$ and
+$71.0$), which is itself in line with the published figures --- a check that
+the protocol is sound. The label-blind walk therefore recovers, from the walk
+dynamics alone, what the WL kernel recovers from vertex labels and
+neighbourhood refinement; on MUTAG it does so with a two-point margin, on
+PTC\_MR it trails by three. But the classical random-walk signature with the
+same four statistics does the same: $87.2$, $58.5$, $74.8$ and $70.6$. On
+MUTAG the classical walk is three points \emph{ahead} of the quantum walk,
+and on the other three the two are indistinguishable. The hand-made
+statistics are likewise within noise everywhere except PTC\_MR. The honest
+summary of the benchmark block is that the walk signature is a competent
+graph representation and that the quantum walk is not a better one than the
+classical walk on any of the four datasets.
+
+\paragraph*{On the synthetic tasks the quantum walk edges the classical one,
+within noise.}
+The regular task is trivial and every method is at or near $100$ per cent; it
+is a sanity check only. On the bipartite task the quantum signature reaches
+$99.5 \pm 1.5$ against the classical walk's $97.7 \pm 3.3$, and on the
+community task $83.7 \pm 9.3$ against $82.7 \pm 7.3$: ahead on both, by less
+than one fold standard deviation. The WL kernel fails on both ($70.8$ and
+$64.8$), as expected on unlabelled graphs whose degree sequences are matched
+by construction. One mechanistic remark is worth recording. Before the return
+probability was added to the signature the walk kernels scored in the low
+seventies on the bipartite task, well behind the spectral baseline; the
+entropy, participation and maximum of a walk started in the uniform arc state
+barely distinguish a bipartite graph from a random one of the same density,
+and the return probability, a spectral quantity, does. Which statistics are
+taken from the walk matters as much as which walk is run.
 
 \paragraph*{Training the coin adds nothing.}
-The walk network with fixed Grover coins reaches $100$, $100$ and $84.0 \pm
-7.8$ per cent on the three tasks; with the eight coin angles trained end to
-end it reaches $100$, $100$ and $83.8 \pm 8.1$. The trainable coin is
-therefore not the source of whatever the walk contributes, on these data, and
-this is consistent with the finding of Section~\ref{sec:qnnresults} that
-additional coin freedom enlarges the search space without enlarging the set
-of reachable behaviours enough to pay for it. The optimiser was given sixty
-evaluations per fold and started near the Grover point, so a better-trained
-coin cannot be excluded; but a fairer statement is that on graphs of this
-size the eight-step Grover walk already extracts what the read-out can use.
+The walk network with fixed Grover coins reaches $88.1 \pm 8.2$ on MUTAG,
+$57.5 \pm 4.9$ on PTC\_MR and $84.0 \pm 7.8$ on the community task; with the
+eight coin angles trained end to end it reaches $88.3 \pm 7.0$, $57.6 \pm
+6.6$ and $83.8 \pm 8.1$. The differences are a fraction of a point against
+fold standard deviations of five to eight. On MUTAG the walk network with a
+logistic read-out is the best method in the table, a point above the
+classical-walk kernel and six above WL, but the fixed-coin control is equally
+good, so the credit belongs to the read-out on the walk signature and not to
+the trainable coin. This is consistent with Section~\ref{sec:qnnresults}: the
+additional coin freedom enlarges the search space without enlarging the set of
+reachable behaviours enough to pay for it. The optimiser had sixty
+evaluations per fold from a start near the Grover point, so a better-trained
+coin is not excluded; a fairer statement is that on these graphs the
+eight-step Grover walk already extracts what the read-out can use.
 
 \paragraph*{What this does and does not show.}
 The section establishes that a coined discrete-time walk, run with the same
-tooling as the rest of the thesis, gives a graph representation that is at
-least as good as its classical counterpart and better than the standard
-unlabelled subtree kernel on structural tasks; it does not establish an
-advantage on any benchmark that the literature uses, because none could be
-obtained, and the synthetic tasks are small and easy enough that the
-strongest classical baseline is within a few points on every one. The
-kernels here are, as in the published quantum-walk kernels, classical
-kernels on walk-derived invariants, and nothing in the construction requires
-a quantum device: the walk is a $\dim = n d$ unitary on graphs of at most
-twelve vertices and is simulated exactly. The result is a statement about
-the walk as a feature extractor, not about quantum advantage.
+tooling as the rest of the thesis, gives a graph representation that is
+competitive with the standard graph kernels on four public benchmarks and
+better than the unlabelled subtree kernel on structural synthetic tasks. It
+does not establish an advantage for the quantum walk over the classical walk
+as a feature extractor: on the benchmarks the two are within noise, and on
+MUTAG the classical walk is ahead. This is the result the benchmarking
+literature of Section~\ref{sec:lr-bench} would predict, and it is reported
+as such. The kernels here are, as in the published quantum-walk kernels,
+classical kernels on walk-derived invariants; nothing in the construction
+requires a quantum device, the walk being an exactly simulated unitary of
+dimension $nd$ on graphs of at most a few hundred vertices. What the walk
+buys, on this evidence, is a label-free representation that reaches the
+labelled WL kernel's accuracy --- and the classical walk buys the same.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{fig_graph_acc.pdf}
-  \caption[Graph classification with walk signatures]{Test accuracy on the
-  three synthetic graph-classification tasks, mean and standard deviation
-  over thirty stratified folds. The dotted line is chance. Both walk
-  signatures use $T = 8$ steps and the same four statistics per step.}
+  \caption[Graph classification with walk signatures]{Test accuracy on
+  three synthetic graph-classification tasks and four public benchmarks,
+  mean and standard deviation over thirty stratified folds; dotted marks are
+  each dataset's majority-class rate. Both walk signatures use $T = 8$ steps
+  and the same four statistics per step. The walk network was not run on the
+  two thousand-graph sets.}
   \label{fig:graphacc}
 \end{figure}
 

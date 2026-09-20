@@ -1,0 +1,58 @@
+\subsection{The Gap Addressed by This Thesis}
+\label{sec:lr-gap}
+% Reframed 20 Sep 2026 (author): the thesis is about the quantum walk as a
+% general algorithmic tool. The coin is ONE design dimension examined inside
+% that programme, not the contribution. Do not restore the earlier version,
+% in which all three observations were about the coin.
+
+Two things stand out from the survey above, and together they define the gap
+this thesis addresses.
+
+The first is that the walk's claim to generality rests on results that are
+almost never exercised. Childs~\cite{PhysRevLett.102.180501} and Lovett et
+al.~\cite{ett2010universal} establish that a walk on a suitably constructed
+graph is universal for quantum computation, so that every quantum algorithm
+has, in principle, a walk formulation. What follows in the literature is not
+a programme built on that statement but a collection of individual
+algorithms, each constructed for its own problem and analysed in its own
+terms: search on particular families of graphs, element distinctness on the
+Johnson graph, a mixer for the quantum approximate optimisation algorithm,
+kernels between graphs, a feature map for a variational classifier. Every one
+of them is a walk; none is presented as an instance of one primitive, and
+almost none reports what the walk cost to build as a circuit or what it
+bought over the obvious alternative. Generality is asserted at the level of
+a compilation theorem and left untested at the level of practice.
+
+The second is that the walk is not one object but a family with several free
+choices, and that where quantitative answers do exist they are unusually
+sensitive to choices the literature makes by convention. The lackadaisical
+self-loop weight decides whether search on the grid obtains a speed-up at
+all, and its correct value shifts with the number of marked
+vertices~\cite{Nahimovs_2018}, need not be uniform across
+vertices~\cite{Rhodes_2019}, and may break the graph's symmetry without
+loss~\cite{Rapoza_2021}. Search on the two-dimensional grid succeeds with
+the flip-flop shift and fails outright with the moving
+shift~\cite{Ambainis_2004}. The coin itself --- position-dependent,
+step-dependent or a general element of $U(d)$ --- is known to change the
+walk materially~\cite{Tregenna_2003, Ahmad_2020, Panahiyan_2018, Li_2012,
+Souza_2013}, and yet outside the search literature it is fixed in advance to
+Hadamard, Grover or Fourier and reported for that choice alone. The
+parameters that decide whether a walk-based algorithm works are therefore
+the ones least often varied.
+
+This thesis accordingly treats the quantum walk as a general algorithmic
+tool and exercises the same primitive across several algorithm families on
+common terms: order finding, the quantum approximate optimisation algorithm
+and unstructured search in Chapter~\ref{ch:algorithms}, and quantum neural
+networks, variational classifiers, quantum kernels and graph classification
+in Chapters~\ref{ch:methodology} and~\ref{ch:results}. For each the same
+three questions are asked --- what the walk formulation actually is, what it
+costs as a circuit, and what it achieves against a tuned baseline --- and
+the design choices inside the walk, the coin above all but also the shift
+and the formulation, are varied rather than fixed by convention wherever an
+application makes the comparison meaningful. The question is not whether one
+coin outperforms another on one task; it is what the walk is worth as a way
+of building quantum algorithms. All of it is answered on simulators, under
+the reporting discipline of Bowles et al.~\cite{Bowles_2024}, and a negative
+answer for any family is a result and is reported as one.
+
