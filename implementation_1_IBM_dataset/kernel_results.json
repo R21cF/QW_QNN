@@ -1,0 +1,602 @@
+[
+  {
+    "dataset": "ad hoc (2f)",
+    "method": "walk kernel",
+    "family": "quantum",
+    "acc_mean": 82.5925925925926,
+    "acc_std": 4.319223625811331,
+    "qubits": 3,
+    "min_eig": -8.66999749532738e-15,
+    "offdiag": 0.21698096461766228,
+    "lams": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "depths": [
+      3,
+      1,
+      1,
+      3,
+      3
+    ]
+  },
+  {
+    "dataset": "ad hoc (2f)",
+    "method": "Z kernel",
+    "family": "quantum",
+    "acc_mean": 80.74074074074075,
+    "acc_std": 3.813196348513702,
+    "qubits": 2,
+    "min_eig": -1.1263918999663857e-14,
+    "offdiag": 0.2811633994348338,
+    "lams": [
+      1.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "depths": [
+      2,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "ad hoc (2f)",
+    "method": "ZZ kernel",
+    "family": "quantum",
+    "acc_mean": 77.03703703703704,
+    "acc_std": 4.157397096415488,
+    "qubits": 2,
+    "min_eig": -1.0689636784646478e-14,
+    "offdiag": 0.3006001306222334,
+    "lams": [
+      2.0,
+      2.0,
+      0.4,
+      0.4,
+      0.4
+    ],
+    "depths": [
+      1,
+      1,
+      2,
+      1,
+      2
+    ]
+  },
+  {
+    "dataset": "ad hoc (2f)",
+    "method": "classical RBF",
+    "family": "classical",
+    "acc_mean": 73.33333333333333,
+    "acc_std": 5.31581484978049,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "ad hoc (2f)",
+    "method": "classical linear",
+    "family": "classical",
+    "acc_mean": 54.074074074074076,
+    "acc_std": 4.2873470010334165,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "iris v-v (4f)",
+    "method": "walk kernel",
+    "family": "quantum",
+    "acc_mean": 98.00000000000001,
+    "acc_std": 2.666666666666666,
+    "qubits": 5,
+    "min_eig": -2.566022766719748e-15,
+    "offdiag": 0.7903417147439873,
+    "lams": [
+      0.2,
+      0.1,
+      0.1,
+      0.1,
+      0.4
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "iris v-v (4f)",
+    "method": "Z kernel",
+    "family": "quantum",
+    "acc_mean": 98.00000000000001,
+    "acc_std": 2.666666666666666,
+    "qubits": 4,
+    "min_eig": -2.363773116279819e-16,
+    "offdiag": 0.7903417147439867,
+    "lams": [
+      0.2,
+      0.1,
+      0.1,
+      0.1,
+      0.4
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "iris v-v (4f)",
+    "method": "ZZ kernel",
+    "family": "quantum",
+    "acc_mean": 95.33333333333334,
+    "acc_std": 3.399346342395189,
+    "qubits": 4,
+    "min_eig": 6.052350173300165e-16,
+    "offdiag": 0.3531656715955157,
+    "lams": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "iris v-v (4f)",
+    "method": "classical RBF",
+    "family": "classical",
+    "acc_mean": 98.66666666666667,
+    "acc_std": 1.6329931618554516,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "iris v-v (4f)",
+    "method": "classical linear",
+    "family": "classical",
+    "acc_mean": 98.00000000000001,
+    "acc_std": 2.666666666666666,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "wine 0-1 (4f)",
+    "method": "walk kernel",
+    "family": "quantum",
+    "acc_mean": 95.89743589743588,
+    "acc_std": 4.166173540838952,
+    "qubits": 5,
+    "min_eig": -2.415398395423654e-15,
+    "offdiag": 0.8077180555114929,
+    "lams": [
+      0.4,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "wine 0-1 (4f)",
+    "method": "Z kernel",
+    "family": "quantum",
+    "acc_mean": 94.87179487179486,
+    "acc_std": 3.6261886214694727,
+    "qubits": 4,
+    "min_eig": -3.554384416705264e-15,
+    "offdiag": 0.8861007744688566,
+    "lams": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      3,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "wine 0-1 (4f)",
+    "method": "ZZ kernel",
+    "family": "quantum",
+    "acc_mean": 93.84615384615384,
+    "acc_std": 4.755701792561898,
+    "qubits": 4,
+    "min_eig": 9.006332667476588e-07,
+    "offdiag": 0.27834806672731083,
+    "lams": [
+      0.1,
+      0.1,
+      0.4,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      1,
+      2,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "dataset": "wine 0-1 (4f)",
+    "method": "classical RBF",
+    "family": "classical",
+    "acc_mean": 95.89743589743588,
+    "acc_std": 3.478117940064239,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "wine 0-1 (4f)",
+    "method": "classical linear",
+    "family": "classical",
+    "acc_mean": 95.38461538461537,
+    "acc_std": 1.9187986598840703,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "breast cancer (8f)",
+    "method": "walk kernel",
+    "family": "quantum",
+    "acc_mean": 94.33333333333334,
+    "acc_std": 3.431876713662333,
+    "qubits": 9,
+    "min_eig": 1.4302824341726014e-07,
+    "offdiag": 0.6874701725614893,
+    "lams": [
+      0.1,
+      0.2,
+      0.2,
+      0.2,
+      0.1
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "breast cancer (8f)",
+    "method": "Z kernel",
+    "family": "quantum",
+    "acc_mean": 94.33333333333334,
+    "acc_std": 1.3333333333333324,
+    "qubits": 8,
+    "min_eig": 6.734541398866771e-07,
+    "offdiag": 0.6773254499215283,
+    "lams": [
+      0.1,
+      0.2,
+      0.1,
+      0.2,
+      0.1
+    ],
+    "depths": [
+      2,
+      1,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "dataset": "breast cancer (8f)",
+    "method": "ZZ kernel",
+    "family": "quantum",
+    "acc_mean": 89.66666666666667,
+    "acc_std": 5.906681715556447,
+    "qubits": 8,
+    "min_eig": 0.12276159469924242,
+    "offdiag": 0.10359525307379455,
+    "lams": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "breast cancer (8f)",
+    "method": "classical RBF",
+    "family": "classical",
+    "acc_mean": 94.33333333333334,
+    "acc_std": 1.6996731711975954,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "breast cancer (8f)",
+    "method": "classical linear",
+    "family": "classical",
+    "acc_mean": 96.0,
+    "acc_std": 2.905932629027114,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "digits 3v8 (8f)",
+    "method": "walk kernel",
+    "family": "quantum",
+    "acc_mean": 97.66666666666666,
+    "acc_std": 1.3333333333333324,
+    "qubits": 9,
+    "min_eig": 3.8396686511898396e-07,
+    "offdiag": 0.5968687349216787,
+    "lams": [
+      0.2,
+      0.1,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "digits 3v8 (8f)",
+    "method": "Z kernel",
+    "family": "quantum",
+    "acc_mean": 97.0,
+    "acc_std": 1.632993161855453,
+    "qubits": 8,
+    "min_eig": 5.504649255802927e-07,
+    "offdiag": 0.5978016917106184,
+    "lams": [
+      0.2,
+      0.1,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "depths": [
+      1,
+      1,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "digits 3v8 (8f)",
+    "method": "ZZ kernel",
+    "family": "quantum",
+    "acc_mean": 95.66666666666667,
+    "acc_std": 1.6996731711975936,
+    "qubits": 8,
+    "min_eig": 0.10645438617959509,
+    "offdiag": 0.09661487988942662,
+    "lams": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "dataset": "digits 3v8 (8f)",
+    "method": "classical RBF",
+    "family": "classical",
+    "acc_mean": 98.00000000000001,
+    "acc_std": 1.943650631615101,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "dataset": "digits 3v8 (8f)",
+    "method": "classical linear",
+    "family": "classical",
+    "acc_mean": 97.66666666666666,
+    "acc_std": 1.3333333333333324,
+    "qubits": "--",
+    "min_eig": 0.0,
+    "offdiag": NaN,
+    "lams": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "depths": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+]
