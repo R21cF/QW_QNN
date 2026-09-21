@@ -1,27 +1,4 @@
-"""Standard quantum-kernel baselines: the Z and ZZ feature maps.
-
-These are the existing quantum algorithms for this application -- the maps of
-Havlicek et al. (2019) as shipped in Qiskit -- and the walk map has to be measured
-against them, not only against classical kernels.
-
-Both are phase layers diagonal in the computational basis, sandwiched between
-Hadamard layers, so the statevector can be built exactly in numpy without a
-circuit simulator:
-
-    |psi(x)> = [ U_Phi(x) . H^(x)d ]^reps |0>^d
-
-    Z map     Phi(x) = sum_j  lam * x_j * z_j
-    ZZ map    Phi(x) = sum_j  lam * x_j * z_j
-                     + sum_{j<k} lam * (pi - x_j)(pi - x_k) * z_j z_k
-
-with z_j = +/-1 the Z eigenvalue of qubit j on that basis state. The phase applied
-is 2*Phi, matching Qiskit's P(2*phi) convention. `check()` asserts agreement with
-Qiskit's ZFeatureMap / ZZFeatureMap statevectors.
-
-Both maps get an encoding scale `lam` and a repetition count `reps`, tuned on the
-same grid the walk map's hyperparameters are tuned on, so no map is handicapped by
-a setting chosen for a different one.
-"""
+"""Standard quantum-kernel baselines: the Z and ZZ feature maps."""
 from __future__ import annotations
 import numpy as np
 

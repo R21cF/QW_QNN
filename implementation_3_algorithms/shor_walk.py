@@ -1,27 +1,4 @@
-"""
-Order finding as a quantum walk on the functional graph of x -> a x (mod N).
-
-What is shown (and only this):
-
-  1. The modular-multiplication unitary U_a |x> = |a x mod N> is a permutation
-     matrix, i.e. the one-step operator of a (coinless) quantum walk on the
-     directed graph whose arcs are x -> a x mod N.  On the units of Z_N that
-     graph is a disjoint union of directed cycles, every cycle length divides
-     the order r of a, and the cycle through 1 has length exactly r.
-
-  2. The walk's eigenphases on the cycle through 1 are exactly 2 pi k / r, so
-     phase estimation on the walk operator -- Shor's order-finding step --
-     reads r.  We build the QPE circuit in Qiskit, sample it with Aer, and
-     recover r by continued fractions, then the factors of N.
-
-  3. A walk-native but *inefficient* alternative: the return probability
-     |<1| U_a^t |1>|^2 is 1 iff r divides t, so stepping the walk and watching
-     for the revival also reveals r -- at a cost of r steps, i.e. no speed-up.
-     This is included precisely to show where the speed-up lives (in the
-     Fourier read-out, not in the walk itself).
-
-Everything is exact or sampled at 4096 shots with a fixed seed.
-"""
+"""Order finding as a quantum walk on the functional graph of x -> a x (mod N)."""
 
 from __future__ import annotations
 
@@ -72,7 +49,10 @@ def walk_unitary(a, N, n):
 
 
 def eigenphases_on_cycle(a, N, n):
-    """Exact eigenphases of the walk restricted to the cycle through 1, as fractions of 2 pi."""
+    """
+    Exact eigenphases of the walk restricted to the cycle through 1, as
+    fractions of 2 pi.
+    """
     U = walk_unitary(a, N, n)
     cyc = [c for c in functional_graph_cycles(a, N) if 1 in c][0]
     sub = U[np.ix_(cyc, cyc)]

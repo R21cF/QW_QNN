@@ -1,15 +1,4 @@
-"""Benchmark the walk kernel against tuned classical baselines.
-
-Protocol, identical for every method so no method is handicapped:
-  * N_SPLITS stratified train/test splits, the same splits for every method
-  * hyperparameters chosen by K-fold CV on the TRAINING half only
-  * the selected model refit on the full training half and scored once on test
-
-Classical baselines get a real grid (C, gamma), not defaults -- a fixed-baseline
-comparison is what invalidated the node-embedding track and is not repeated here.
-A periodic classical kernel is included because the walk map is periodic in each
-feature by construction, and a comparison that omits it would flatter the walk.
-"""
+"""Benchmark the walk kernel against tuned classical baselines."""
 from __future__ import annotations
 import itertools, json, sys, time
 import numpy as np

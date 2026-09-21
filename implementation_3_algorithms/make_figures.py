@@ -1,7 +1,6 @@
 """
-Thesis figures and tables for implementation_3_algorithms.  Reads the four
-results JSONs and writes fig_*.pdf and tab_*.tex; nothing is computed here.
-Style matches implementation_1's plot scripts.
+Reads the four results JSONs and writes fig_*.pdf and tab_*.tex; nothing is
+computed here. Style matches implementation_1's plot scripts.
 """
 
 import json

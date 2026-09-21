@@ -1,22 +1,4 @@
-"""
-Statevector cores for the QNN comparison.
-
-Two model families share one interface, ``forward(x, weights) -> <Z...Z>``:
-
-  gate models   the course's own construction -- a ZFeatureMap encoding
-                followed by a rotation/CNOT ansatz, on one qubit per pixel
-  walk models   a discrete-time quantum walk on the pixel grid graph, with the
-                image driving the coins (feature map) and/or trainable coins
-                (ansatz), on log2(N*d) qubits
-
-Everything is plain numpy because training calls the forward pass tens of
-thousands of times and Qiskit's Statevector is far too slow for that.
-``crosscheck.py`` asserts these cores agree with Qiskit-built circuits, so the
-speed costs no fidelity.
-
-Qubit convention matches Qiskit: qubit 0 is the least significant bit of the
-statevector index.
-"""
+"""Statevector cores for the QNN comparison."""
 
 from __future__ import annotations
 
@@ -84,11 +66,7 @@ def parity_signs(n):
 
 
 def z_feature_map(x, n, reps=2):
-    """Qiskit's ZFeatureMap: per rep, H on every qubit then P(2 x_i) on i.
-
-    No entangling gates -- that is the defining property of the Z map, and the
-    reason the course's ansatz has to supply all the structure.
-    """
+    """Qiskit's ZFeatureMap: per rep, H on every qubit then P(2 x_i) on i."""
     state = np.zeros(1 << n, dtype=complex)
     state[0] = 1.0
     for _r in range(reps):
@@ -136,13 +114,9 @@ class GateQNN:
 
 
 def givens_chain(deg, theta, phase=None):
-    """One-parameter real coin: a chain of Givens rotations (0,1), (1,2), ...
-    all by the same angle.  Degree-agnostic, equals the identity at theta = 0.
-
-    ``phase`` adds diag(exp(i * phase * k)), k = 0..deg-1.  The multiplier
-    grows with k on purpose: a constant phase vector is a global phase on the
-    block and has no observable effect, so a constant would make the complex
-    condition identical to the real one.
+    """
+    One-parameter real coin: a chain of Givens rotations (0,1), (1,2), ... all
+    by the same angle. Degree-agnostic, equals the identity at theta = 0.
     """
     m = np.eye(deg, dtype=complex)
     c, s = np.cos(theta), np.sin(theta)
@@ -157,13 +131,7 @@ def givens_chain(deg, theta, phase=None):
 
 
 class GridWalk:
-    """DTQW on the pixel-grid graph, with per-vertex coins.
-
-    The graph is the image's own 4-neighbour adjacency.  That is the point of
-    the construction: the structural prior the course installs by hand, by
-    choosing which qubit pairs get CNOTs, is here carried by the walk's
-    connectivity instead.
-    """
+    """DTQW on the pixel-grid graph, with per-vertex coins."""
 
     def __init__(self, edges=None, n_nodes=N_PIXELS):
         edges = grid_edges() if edges is None else edges
@@ -198,12 +166,7 @@ class GridWalk:
         return perm
 
     def _uniform_start(self):
-        """Uniform over the real (vertex, direction) pairs.
-
-        Localising the walker at one vertex would make the feature map depend
-        on an arbitrary choice of origin; a uniform start treats every pixel
-        alike, which is what an image classifier needs.
-        """
+        """Uniform over the real (vertex, direction) pairs."""
         psi = np.zeros((self.n_pad, self.d), dtype=complex)
         for v in range(self.n_nodes):
             psi[v, : self.degrees[v]] = 1.0
@@ -237,13 +200,7 @@ class GridWalk:
 
 
 class WalkQNN:
-    """Walk feature map and/or walk ansatz.
-
-    feature_map : "walk" | "none"
-    ansatz      : "walk" | "gate"
-    complex_fm  : phases in the feature-map coins
-    complex_ans : phases in the ansatz coins
-    """
+    """Walk feature map and/or walk ansatz."""
 
     def __init__(self, fm_steps=2, ans_steps=2, complex_fm=False,
                  complex_ans=False, ansatz="walk", scale=1.0):

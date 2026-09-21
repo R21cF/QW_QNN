@@ -1,20 +1,6 @@
 """
 Quantum kernel comparison: the walk map against the standard product and
 entangling maps, and against classical kernels.
-
-Protocol, applied identically to every quantum map so that no map is
-advantaged by its tuning:
-  * features standardised, then reduced by PCA to a power of two when needed
-  * bandwidth lambda selected from a fixed grid by 3-fold cross-validation on
-    the TRAINING fold only, jointly with the SVM's C
-  * the selected model refitted on the full training fold and scored once on
-    the held-out test fold
-  * five stratified splits, so every number carries a spread
-
-The kernel is the fidelity kernel K(x,y) = |<Phi(x)|Phi(y)>|^2, computed
-exactly from statevectors. Positive semi-definiteness is checked rather than
-assumed: a fidelity kernel is PSD by construction, and a violation beyond
-numerical tolerance would mean a bug.
 """
 
 from __future__ import annotations
@@ -33,9 +19,6 @@ import featuremaps as FM
 
 LAMBDAS = [0.1, 0.2, 0.4, 0.7, 1.0, 1.5, 2.0]
 CS = [0.1, 1.0, 10.0, 100.0]
-# depth of the encoding: repetitions for the Z/ZZ maps, layers for the walk.
-# Tuned on the same grid for every quantum map, so no map is handicapped by
-# a repetition count chosen for a different one.
 DEPTHS = [1, 2, 3]
 N_SPLITS = 5
 RNG = np.random.default_rng(0)

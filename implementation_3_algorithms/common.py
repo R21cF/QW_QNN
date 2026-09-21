@@ -1,16 +1,4 @@
-"""
-Shared pieces for implementation_3_algorithms.
-
-A coined discrete-time quantum walk on an arbitrary graph, as a dense numpy
-operator, with the same conventions as code/implementation_1_IBM_dataset/dtqw.py:
-
-  H = H_position (x) H_coin,   basis index of |v, c> is v * d + c,
-  flip-flop shift  S|v, i> = |u, j>   (u = i-th neighbour of v, v = j-th of u),
-  padding coin states i >= deg(v) are fixed points of S.
-
-Everything here is numpy only; the Qiskit circuits, where a circuit is the
-object of a claim, live in the experiment scripts.
-"""
+"""Shared pieces for implementation_3_algorithms."""
 
 from __future__ import annotations
 
@@ -44,14 +32,7 @@ def grover_coin(d: int) -> np.ndarray:
 
 
 def walk_operator(G: nx.Graph, coin_fn=None, marked=(), marked_coin=None):
-    """
-    Dense step operator W = S (C_v (+) ...) for the coined walk on G.
-
-    coin_fn(v, deg) -> deg x deg unitary; default is the Grover coin.
-    Vertices in `marked` use `marked_coin(deg)` instead (default -I, the
-    standard oracle for walk-based search).
-    Returns (W, nodes, d) with d = max degree (coin dimension).
-    """
+    """Dense step operator W = S (C_v (+) ...) for the coined walk on G."""
     nodes = list(G.nodes())
     idx = {v: i for i, v in enumerate(nodes)}
     n = len(nodes)

@@ -1,48 +1,4 @@
-"""A discrete-time coined quantum walk used as a feature map for a quantum kernel.
-
-Built from scratch for this thesis.
-
-What is being studied
----------------------
-A discrete-time coined walk has several free choices, and this module exposes them
-as variables rather than fixing them on principle:
-
-    where the data enters   the coin angle (this variant) or a phase layer on the
-                            position register (`entry="position"`)
-    coin bias theta0        the coin the data perturbs; pi/4 is Hadamard
-    cycle size 2^n          where the walk wraps
-    number of steps T       how many times the walk is driven by the features
-
-The point of the experiment is to measure how these choices affect kernel
-performance, not to assert in advance that any of them matters. Entering through
-the coin makes the walk's trajectory depend on the data -- two inputs produce
-different spreading and different interference -- whereas entering as a position
-phase leaves the encoding a layer of commuting single-qubit phases that the walk
-then redistributes. Which of the two is better, and by how much, is measured.
-
-Construction
-------------
-    registers   position : n qubits, read as a site in Z_{2^n}
-                coin     : 1 qubit
-    initial     |coin = 0> (x) |position = 0>     -- localised, so the walk spreads
-    step t      C(theta_t)  then  S
-        C(th)   [[ cos th,  sin th],
-                 [ sin th, -cos th]]      -- real symmetric coin; th = pi/4 is Hadamard
-        S       |0>|p> -> |0>|p-1 mod 2^n>,   |1>|p> -> |1>|p+1 mod 2^n>
-    data        theta_t = theta0 + lambda * x_{t mod d}   for t = 0 .. T-1
-    output      psi(x) in C^{2 . 2^n}
-    kernel      K(x, y) = |<psi(x) | psi(y)>|^2
-
-Hyperparameters, all selected by cross-validation on training data only:
-    lam     encoding scale
-    T       number of walk steps (T >= d; T/d passes over the features)
-    n       position qubits.  2^n is the cycle length, and it sets where the walk
-            wraps -- the source of the map's periodic structure.
-    theta0  coin bias, fixed at pi/4 (Hadamard) unless swept.
-
-Cost per step: one single-qubit coin gate and one controlled cyclic increment on n
-qubits. The whole map is T coin gates and T shifts -- no O(d^2) entangling layer.
-"""
+"""A discrete-time coined quantum walk used as a feature map for a quantum kernel."""
 from __future__ import annotations
 
 import numpy as np
@@ -70,12 +26,7 @@ def walk_state(x, lam, T, n, theta0=np.pi / 4):
 
 
 def walk_states(X, lam, T, n, theta0=np.pi / 4, entry="coin"):
-    """(m, 2*2^n) matrix of walk states, one row per sample.
-
-    Vectorised over samples: the coin is the same 2x2 for a given (t, feature value),
-    but the value differs per sample, so the contraction is done per sample-batch with
-    einsum rather than looping in Python.
-    """
+    """(m, 2*2^n) matrix of walk states, one row per sample."""
     X = np.atleast_2d(np.asarray(X, dtype=float))
     m, d = X.shape
     N = 1 << n

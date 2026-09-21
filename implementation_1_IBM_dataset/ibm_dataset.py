@@ -1,21 +1,6 @@
 """
-The line-detection dataset from IBM's Quantum Machine Learning course,
-lesson "QVCs and QNNs".
-
-A 2 x 4 pixel grid, flattened row-major, so pixels 0-3 are the top row and 4-7
-the bottom row.  Each image carries one line of two lit pixels:
-
-    horizontal   two pixels adjacent within a row   label -1
-    vertical     two pixels in the same column      label +1
-
-Lit pixels take the value pi/2; every other pixel is drawn uniformly from
-(0, pi/4).  Pixel values are used directly as rotation angles.
-
-The row-major reading is fixed by the course's own result rather than guessed:
-the lesson reports that adding CNOTs on the pairs (0,1) (1,2) (2,3) (4,5)
-(5,6) (6,7) -- "all horizontally adjacent qubits" -- lifts accuracy from 60%
-to 100%.  Those pairs are the within-row adjacencies of a row-major 2 x 4
-grid, and of no other flattening.
+The line-detection dataset from IBM's Quantum Machine Learning course, lesson
+"QVCs and QNNs".
 """
 
 from __future__ import annotations
@@ -44,12 +29,7 @@ def vertical_pairs() -> list[tuple[int, int]]:
 
 
 def grid_edges() -> list[tuple[int, int]]:
-    """All 4-neighbour adjacencies of the pixel grid.
-
-    This is the graph the walk-based feature map runs on: the walk's
-    connectivity is the image's own connectivity, which is the structural
-    prior the course had to put into its ansatz by hand.
-    """
+    """All 4-neighbour adjacencies of the pixel grid."""
     return horizontal_pairs() + vertical_pairs()
 
 

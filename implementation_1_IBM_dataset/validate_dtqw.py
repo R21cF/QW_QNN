@@ -1,11 +1,4 @@
-"""
-Validation for dtqw.py.
-
-Nothing downstream is worth running until the walk itself is right, so these
-checks are deliberately independent of the implementation they test: the
-reference walk below is written with explicit loops over amplitudes and shares
-no code path with the matrix construction in dtqw.py.
-"""
+"""Validation for dtqw.py."""
 
 import numpy as np
 import networkx as nx
@@ -237,12 +230,9 @@ print(f"        TVD(Grover, step-dependent)      = {tvd(p0, p_step):.4f}")
 print(f"        TVD(real, complex) same angles   = {tvd(p_struct, p_cplx):.4f}")
 check("structure-dependent coin changes the distribution", tvd(p0, p_struct) > 1e-3)
 check("step-dependent coin changes the distribution", tvd(p0, p_step) > 1e-3)
-check("complex phases change the distribution (axis 2 is not vacuous)",
+check("complex phases change the distribution (complex coin is not equivalent to a real one)",
       tvd(p_struct, p_cplx) > 1e-3)
 
-# Control on the gauge: a phase vector with equal entries is a global phase on
-# the block and must be unobservable.  If this ever fails, the complex results
-# downstream are measuring a gauge artefact rather than physics.
 from dtqw import coin_parametric as _cp
 
 

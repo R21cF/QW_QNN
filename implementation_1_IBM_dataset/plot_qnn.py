@@ -1,18 +1,3 @@
-"""
-Thesis figures for the QNN experiment.
-
-Two figures, each answering one question:
-  fig_qnn_accuracy  which architecture classifies better, and is any gap
-                    larger than the seed-to-seed spread
-  fig_qnn_training  how the optimisation behaves, which is what Sec. 5.2.1
-                    ("Training Behaviour") reports
-
-Colour carries one distinction only -- real coin against complex coin -- with
-the non-walk baselines in neutral ink, because that contrast is the question
-the experiment was built to answer.  Palette slots are the validated
-categorical blue and orange; every bar is directly labelled, so identity never
-rests on colour alone and the figures survive greyscale printing.
-"""
 
 import json
 
@@ -50,9 +35,6 @@ CLASSICAL_RBF = 100.0
 def kind(name):
     if name.startswith("course"):
         return "baseline"
-    # the coin family that carries the trainable weights is what the
-    # real/complex question is about; a complex feature map with a real
-    # ansatz is counted as complex because the encoding is where it differs
     return "complex" if "cplx" in name else "real"
 
 
@@ -94,7 +76,7 @@ for side in ("top", "right", "left"):
     ax.spines[side].set_visible(False)
 
 handles = [plt.Line2D([], [], color=c, linewidth=5, label=l) for c, l in
-           [(NEUTRAL, "course baseline (no walk)"), (REAL, "real coin"),
+           [(NEUTRAL, "reference baseline (no walk)"), (REAL, "real coin"),
             (CPLX, "complex coin")]]
 ax.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 1.01),
           ncol=3, frameon=False, fontsize=7.5)
@@ -158,7 +140,8 @@ with open("tab_qnn_results.tex", "w") as f:
     f.write("\\begin{tabular}{lrrr}\n\\hline\n")
     f.write("Model & Qubits & Params & Test acc.\\ (\\%) \\\\\n\\hline\n")
     for r in sorted(rows, key=lambda r: -r["test_acc_mean"]):
-        nm = r["name"].replace("&", "\\&").replace("_", "\\_")
+        nm = (r["name"].replace("course ZFeatureMap", "reference ZFeatureMap")
+              .replace("&", "\\&").replace("_", "\\_"))
         f.write(f"{nm} & {r['qubits']} & {r['weights']} & "
                 f"${r['test_acc_mean'] * 100:.1f} \\pm "
                 f"{r['test_acc_std'] * 100:.1f}$ \\\\\n")

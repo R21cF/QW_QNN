@@ -1,13 +1,4 @@
-"""
-The numpy cores must agree with Qiskit, or the speed they buy is worthless.
-
-Checks, in order of how much rests on them:
-  1  the ZFeatureMap encoding matches qiskit.circuit.library.z_feature_map
-  2  the full gate model matches a Qiskit circuit plus StatevectorEstimator
-  3  the walk coins are unitary and the walk conserves norm
-  4  the walk model matches an equivalent Qiskit circuit built from
-     UnitaryGates, which also gives the transpiled depth Chapter 5 needs
-"""
+"""The numpy cores must agree with Qiskit, or the speed they buy is worthless."""
 
 import numpy as np
 from qiskit import QuantumCircuit, transpile

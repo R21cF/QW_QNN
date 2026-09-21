@@ -1,16 +1,3 @@
-"""
-Thesis figure and table for the quantum kernel study.
-
-The question is which encoding classifies better across five datasets, so the
-form is a grouped bar chart: datasets along the axis, one bar per method.
-Colour separates the three quantum kernels; the best classical baseline is a
-neutral reference bar rather than a fourth hue, because it plays a different
-role in the argument -- it is the bar the quantum methods have to reach, not
-another encoding.
-
-Every bar is directly labelled, which also discharges the contrast warning
-the validator raises on the aqua slot.
-"""
 
 import json
 
@@ -51,10 +38,6 @@ SERIES = [("walk kernel", WALK, "walk kernel"),
           ("Z kernel", ZMAP, "$Z$ kernel"),
           ("ZZ kernel", ZZMAP, "$ZZ$ kernel")]
 
-# A bar chart would need a zero baseline, and at accuracies of 90-98 per cent
-# that hides every difference the experiment is about. A dot plot encodes the
-# value by position instead of length, so a truncated axis is legitimate and
-# the small margins stay readable.
 fig, ax = plt.subplots(figsize=(7.4, 4.2))
 y = np.arange(len(datasets))[::-1]
 off = [0.27, 0.09, -0.09, -0.27]

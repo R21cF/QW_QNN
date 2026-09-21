@@ -1,17 +1,4 @@
-"""
-Fast state-space evolver for the uniform-coin case.
-
-dtqw.DTQW builds dense (N*d) x (N*d) operators, which is the right thing for
-circuit synthesis and for reporting resource costs but far too slow inside an
-optimiser loop.  When the coin is the same matrix at every vertex, one step is
-
-    psi <- S (psi C^T)
-
-with psi held as an (N_pad, d) array: the coin is a single d x d matmul
-broadcast over vertices, O(N d^2), and the shift is an index permutation.  That
-is the same operator dtqw.DTQW.step_matrix builds -- ``check_against_dtqw``
-below asserts it.
-"""
+"""Fast state-space evolver for the uniform-coin case."""
 
 from __future__ import annotations
 

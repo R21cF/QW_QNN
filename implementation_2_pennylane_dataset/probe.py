@@ -1,5 +1,7 @@
-"""Is the optimum at the grid boundary because the map degenerates, or because the
-grid was too narrow?  Extend it in both directions and look at the whole surface."""
+"""
+Is the optimum at the grid boundary because the map degenerates, or because the
+grid was too narrow? Extend it in both directions and look at the whole surface.
+"""
 import sys, numpy as np
 sys.path.insert(0, "qmlb")
 from sklearn.model_selection import StratifiedShuffleSplit, StratifiedKFold

@@ -1,12 +1,4 @@
-"""
-Scaling of one walk step: dense synthesis against a structured construction.
-
-Dense synthesis of an n-qubit operator costs O(4^n) two-qubit gates, and
-n = log2(N d), so the cost is O(N^2 d^2) in the graph size.  The structured
-constructions should be polylogarithmic in N.  This measures both, on the two
-families where an arithmetic description of the colour classes exists, and
-fits an exponent to each so the claim is a number rather than an impression.
-"""
+"""Scaling of one walk step: dense synthesis against a structured construction."""
 
 import json
 

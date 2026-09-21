@@ -1,14 +1,4 @@
-"""The same feature map as a Qiskit circuit.
-
-walkmap.py is a fast statevector path used for the hyperparameter search; this is
-the circuit that actually defines the map. `check()` asserts the two agree to
-machine precision, so any number produced by the fast path is a number this
-circuit would produce.
-
-Qubit order: position qubits are q0..q_{n-1} (little-endian, q0 the LSB of the
-site index) and the coin is q_n, so Statevector index = p + 2^n * c, matching
-walkmap's psi[c, p].reshape(-1).
-"""
+"""The same feature map as a Qiskit circuit."""
 from __future__ import annotations
 
 import numpy as np
@@ -24,7 +14,10 @@ def _c_increment(qc, ctrl, pos):
 
 
 def _c_decrement(qc, ctrl, pos):
-    """Controlled -1 mod 2^n: the increment's gates in reverse (each is self-inverse)."""
+    """
+    Controlled -1 mod 2^n: the increment's gates in reverse (each is
+    self-inverse).
+    """
     n = len(pos)
     qc.cx(ctrl, pos[0])
     for k in range(1, n):

@@ -1,24 +1,6 @@
 """
 Unstructured search by quantum walk: the sqrt(N) law, and what a nonlinearity
 does to it.
-
-Three models, all on the complete graph K_N with one marked vertex, all
-exact statevector simulation:
-
-  (a) coined DTQW, Grover coin, oracle = -I coin at the marked vertex
-      (the walk analogue of Grover's algorithm; Ambainis-Kempe-Rivosh 2005
-      style search on the complete graph).  Linear.  Expect t_peak ~ sqrt(N).
-
-  (b) CTQW search, H = -gamma A - |w><w| at the critical gamma = 1/N
-      (Childs & Goldstone 2004).  Linear.  Expect t_peak = (pi/2) sqrt(N).
-
-  (c) nonlinear CTQW, H = -gamma A - |w><w| - g |psi(x)|^2   (Gross-Pitaevskii
-      cubic term; Meyer & Wong 2013).  The PRA 110, 052411 (2024) result is
-      the cubic-quintic, many-body generalisation of this.  Constant time is
-      possible ONLY if g grows with N; the experiment measures how fast.
-
-Nothing here can beat sqrt(N) with a linear walk, and the script says so in
-its output: that is the BBBV bound, not a limitation of the implementation.
 """
 
 from __future__ import annotations
@@ -38,9 +20,9 @@ def dtqw_search(N: int, tmax: int | None = None, check=False):
     """
     Coined walk on K_N without matrices: psi[v, i] is the amplitude on the arc
     from v to its i-th neighbour (neighbours of v in increasing vertex order,
-    skipping v).  Coin = Grover on every vertex except the marked one (-I);
-    shift = flip-flop.  For N <= 32 the result is cross-checked against the
-    dense operator of common.walk_operator.
+    skipping v). Coin = Grover on every vertex except the marked one (-I); shift
+    = flip-flop. For N <= 32 the result is cross-checked against the dense
+    operator of common.walk_operator.
     """
     d = N - 1
     # neighbour table and its inverse index for the flip-flop shift
@@ -73,9 +55,6 @@ def dtqw_search(N: int, tmax: int | None = None, check=False):
             ref.append(position_marginal(p2, N, dd)[0])
             p2 = W @ p2
         assert np.allclose(ref, probs, atol=1e-10), "fast path disagrees with dense operator"
-    # The flip-flop shift makes odd and even steps alternate (the walk is
-    # bipartite in the arc space), so the stopping time is read off the
-    # even-step envelope: its first local maximum.
     env = probs[0::2]
     k = 0
     while k + 1 < len(env) and env[k + 1] >= env[k]:
@@ -108,18 +87,13 @@ def ctqw_search(N: int, gamma: float | None = None, tmax: float | None = None, n
 def nonlinear_search(N: int, g: float, gamma: float | None = None,
                      tmax: float | None = None, nt=600):
     """
-    i d/dt psi = (-gamma A - |w><w|) psi - g |psi|^2 psi.
-    By symmetry the state lives in span{|w>, |s_perp>}: a = amplitude on the
-    marked vertex, b = common amplitude on each of the N-1 unmarked ones.
+    i d/dt psi = (-gamma A - |w><w|) psi - g |psi|^2 psi. By symmetry the state
+    lives in span{|w>, |s_perp>}: a = amplitude on the marked vertex, b = common
+    amplitude on each of the N-1 unmarked ones.
     """
     tmax = tmax or 2.5 * np.sqrt(N)
 
     def gamma_of(a, b):
-        # Meyer-Wong resonance condition, kept as the state evolves: the
-        # diagonal energies of |w> and |s_perp> in the reduced two-level
-        # picture must stay equal,  -1 - g|a|^2 = -gamma (N-2) - g|b|^2,
-        # so gamma is time dependent whenever g != 0.  With g = 0 this is the
-        # Childs-Goldstone critical value 1/(N-2) ~ 1/N.
         if gamma is not None:
             return gamma
         return (1.0 + g * abs(a) ** 2 - g * abs(b) ** 2) / (N - 2)
@@ -152,9 +126,11 @@ def time_to_success(N, g, thresh=0.5, tmax=None, nt=1500):
 
 
 def peak_width(N, g, tmax=None, nt=1500):
-    """Time of the first peak of the success probability and its full width
-    at half maximum -- the quantity the cubic-quintic construction of
-    DalFavero et al. is designed to widen."""
+    """
+    Time of the first peak of the success probability and its full width at half
+    maximum -- the quantity the cubic-quintic construction of DalFavero et al.
+    is designed to widen.
+    """
     t, p, ts, pw = nonlinear_search(N, g, tmax=tmax or 3.0 * np.sqrt(N), nt=nt)
     # first local maximum
     k = 1

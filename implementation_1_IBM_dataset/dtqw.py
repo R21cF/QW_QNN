@@ -1,33 +1,4 @@
-"""
-Discrete-time coined quantum walks on graphs, as Qiskit circuits.
-
-The thesis modifies the walk along two axes and this module is where both are
-made concrete:
-
-  axis 1  the coin is a design space, not a fixed choice.  A coin may depend on
-          the local structure at a vertex (its degree, or an arbitrary
-          per-vertex feature) and on the step index.
-  axis 2  the coin's entries need not be real.  The reference architectures
-          restrict themselves to real coins -- Dernbach et al. (2019) to real
-          Householder reflections for cheap gradients, Zhang et al. (2022) to
-          the real Grover diffusion matrix -- so the real/complex contrast is
-          a controlled experiment, not a free parameter.
-
-Conventions
------------
-State space  H = H_position (x) H_coin, dimension N * d padded up to a power of
-two, with the coin register as the LOW-order qubits: basis index of |v, c> is
-v * d_pad + c.  Qiskit's little-endian convention then puts the coin register
-first in the qubit list, which is what ``DTQW.circuit`` assembles.
-
-Shift  The flip-flop shift, S|v, i> = |u, j> where u is v's i-th neighbour and
-v is u's j-th neighbour.  S is an involution, so it is a permutation matrix and
-manifestly unitary.  On |v, i> with i >= deg(v) -- the padding states outside
-the walk subspace -- S acts as the identity, which keeps it a permutation on
-the whole padded space.
-
-Nothing here assumes a regular graph.
-"""
+"""Discrete-time coined quantum walks on graphs, as Qiskit circuits."""
 
 from __future__ import annotations
 
@@ -49,10 +20,6 @@ __all__ = [
 # --------------------------------------------------------------------------
 # coin families
 # --------------------------------------------------------------------------
-# Every coin constructor returns a d x d unitary.  ``d`` is the padded coin
-# dimension; ``deg`` is the true degree of the vertex the coin sits on.  A coin
-# acts as the identity on the deg..d-1 block so that amplitude never leaks into
-# directions the vertex does not have.
 
 
 def _embed(block: np.ndarray, d: int) -> np.ndarray:
@@ -66,8 +33,10 @@ def _embed(block: np.ndarray, d: int) -> np.ndarray:
 
 
 def coin_hadamard(d: int, deg: int | None = None, **_) -> np.ndarray:
-    """Hadamard coin.  Defined only for d a power of two; the textbook choice
-    on the line and the cycle, where d = 2."""
+    """
+    Hadamard coin. Defined only for d a power of two; the textbook choice on the
+    line and the cycle, where d = 2.
+    """
     k = int(np.log2(d))
     if 2 ** k != d:
         raise ValueError(f"Hadamard coin needs d a power of two, got d={d}")
@@ -79,20 +48,17 @@ def coin_hadamard(d: int, deg: int | None = None, **_) -> np.ndarray:
 
 
 def coin_grover(d: int, deg: int | None = None, **_) -> np.ndarray:
-    """Grover diffusion coin, 2|s><s| - I on the deg-dimensional subspace.
-
-    This is the coin Zhang et al. (2022) fix for FQWK, and the one the
-    walk-based kernel baseline uses.  It is real, symmetric and, for deg > 2,
-    the unique coin invariant under permutation of the incident edges.
-    """
+    """Grover diffusion coin, 2|s><s| - I on the deg-dimensional subspace."""
     deg = d if deg is None else deg
     s = np.ones((deg, 1)) / np.sqrt(deg)
     return _embed(2 * (s @ s.T) - np.eye(deg), d)
 
 
 def coin_fourier(d: int, deg: int | None = None, **_) -> np.ndarray:
-    """DFT coin on the deg-dimensional subspace.  Complex for deg > 2, and so
-    the simplest fixed member of the extended (complex) coin family."""
+    """
+    DFT coin on the deg-dimensional subspace. Complex for deg > 2, and so the
+    simplest fixed member of the extended (complex) coin family.
+    """
     deg = d if deg is None else deg
     j = np.arange(deg)
     f = np.exp(2j * np.pi * np.outer(j, j) / deg) / np.sqrt(deg)
@@ -100,13 +66,7 @@ def coin_fourier(d: int, deg: int | None = None, **_) -> np.ndarray:
 
 
 def coin_householder(d: int, deg: int | None = None, *, w: np.ndarray) -> np.ndarray:
-    """Real elementary (Householder) reflection I - 2 w w^T / (w^T w).
-
-    Dernbach et al. (2019) use exactly this family for the learned coins in
-    QWNN, on the grounds that the forward pass and the gradient are both cheap
-    and no unitary projection is needed.  It is real orthogonal by
-    construction, which is the restriction axis 2 lifts.
-    """
+    """Real elementary (Householder) reflection I - 2 w w^T / (w^T w)."""
     deg = d if deg is None else deg
     w = np.asarray(w, dtype=float).reshape(-1)[:deg]
     nrm = float(w @ w)
@@ -122,18 +82,9 @@ def coin_parametric(
     theta: np.ndarray,
     phase: np.ndarray | None = None,
 ) -> np.ndarray:
-    """A parameterised coin covering the real and complex cases under one
+    """
+    A parameterised coin covering the real and complex cases under one
     parameterisation, so the two can be compared at equal parameter count.
-
-    The deg-dimensional block is a product of Givens rotations over every pair
-    (p, q), p < q, one angle each -- that sweeps the real orthogonal group.
-    ``phase``, when given, multiplies on the right by diag(exp(i phi_k)),
-    lifting the result out of O(deg) into U(deg).  Setting ``phase=None``
-    recovers the real restriction exactly, so the two conditions differ only in
-    whether those phases are free.
-
-    theta   length deg*(deg-1)/2
-    phase   length deg, or None
     """
     deg = d if deg is None else deg
     theta = np.asarray(theta, dtype=float).reshape(-1)
@@ -165,16 +116,7 @@ def coin_parametric(
 
 
 class DTQW:
-    """A coined discrete-time quantum walk on a fixed graph.
-
-    Parameters
-    ----------
-    graph
-        Any networkx graph.  Nodes are relabelled to 0..N-1 in sorted order.
-    coin_dim
-        Padded coin dimension.  Defaults to the next power of two at or above
-        the maximum degree.
-    """
+    """A coined discrete-time quantum walk on a fixed graph."""
 
     def __init__(self, graph: nx.Graph, coin_dim: int | None = None):
         self.graph = nx.convert_node_labels_to_integers(graph, ordering="sorted")
@@ -224,14 +166,7 @@ class DTQW:
         return s
 
     def coin_matrix(self, coin_fn, step: int = 0, **kwargs) -> np.ndarray:
-        """Block-diagonal coin operator.
-
-        ``coin_fn`` is called once per vertex as
-        ``coin_fn(d=coin_dim, deg=deg_v, vertex=v, step=step, **kwargs)`` and
-        must return a coin_dim x coin_dim unitary.  Passing ``vertex`` and
-        ``step`` is what makes axis 1 -- structure- and step-dependence --
-        expressible without special-casing anything here.
-        """
+        """Block-diagonal coin operator."""
         c = np.eye(self.dim, dtype=complex)
         for v in range(self.n_nodes):
             block = coin_fn(
@@ -255,13 +190,7 @@ class DTQW:
 
     def initial_state(self, vertex: int, coin_state: np.ndarray | None = None
                       ) -> np.ndarray:
-        """A walker localised at ``vertex``.
-
-        ``coin_state`` defaults to the uniform superposition over that vertex's
-        real incident directions, which is the standard unbiased start and the
-        one that makes the walk's spreading comparable across vertices of
-        different degree.
-        """
+        """A walker localised at ``vertex``."""
         psi = np.zeros(self.dim, dtype=complex)
         deg = int(self.degrees[vertex])
         if coin_state is None:
@@ -296,15 +225,7 @@ class DTQW:
     def circuit(self, coin_fn, steps: int, start: int = 0,
                 coin_state: np.ndarray | None = None,
                 label: str = "DTQW", **kwargs) -> QuantumCircuit:
-        """The walk as a Qiskit circuit.
-
-        Each step is synthesised as a dense UnitaryGate.  That is the honest
-        general construction for an arbitrary graph -- specialised shallower
-        constructions exist for highly symmetric or sparse graphs (Loke & Wang)
-        but do not apply here -- and it means transpiled depth reported from
-        this circuit is an upper bound, which is how Chapter 5 should present
-        it.
-        """
+        """The walk as a Qiskit circuit."""
         qc_coin = QuantumRegister(self.n_coin_qubits, "c")
         qc_pos = QuantumRegister(self.n_pos_qubits, "p")
         qc = QuantumCircuit(qc_coin, qc_pos, name=label)
@@ -335,26 +256,11 @@ def fixed(coin_builder):
 
 
 def _phase_vector(angle: float, deg: int) -> np.ndarray:
-    """Phases that are not all equal.
-
-    A coin phase vector with every entry the same is diag(e^{i a}) = e^{i a} I,
-    a global phase on that vertex's block and therefore unobservable.  Only
-    phase DIFFERENCES within a block change anything, so any generator of
-    complex coins must produce a non-constant vector or axis 2 is vacuous by
-    construction.  Gauge-fixing the first entry to zero also removes the
-    redundant overall phase.
-    """
+    """Phases that are not all equal."""
     return angle * np.arange(deg, dtype=float)
 
 
 def structure_dependent(angle_of_degree, *, complex_phases=False):
-    """Axis 1: a coin whose angle is a function of the vertex's degree.
-
-    ``angle_of_degree`` maps an integer degree to a single rotation angle; for
-    deg > 2 that angle is repeated across the Givens sweep.  Crude on purpose --
-    it is the minimal way to make the coin depend on local structure without
-    introducing free parameters that would confound the comparison.
-    """
     def fn(d, deg, vertex=None, step=None, **kw):
         a = angle_of_degree(deg)
         n_ang = max(1, deg * (deg - 1) // 2)
@@ -365,7 +271,6 @@ def structure_dependent(angle_of_degree, *, complex_phases=False):
 
 
 def step_dependent(angle_of_step, *, complex_phases=False):
-    """Axis 1, the other half: a coin that changes with the step index."""
     def fn(d, deg, vertex=None, step=0, **kw):
         a = angle_of_step(step)
         n_ang = max(1, deg * (deg - 1) // 2)

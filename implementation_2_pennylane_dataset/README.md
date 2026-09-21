@@ -1,7 +1,8 @@
-# qwk — a discrete-time quantum walk as a feature map for a quantum kernel
+# implementation_2_pennylane_dataset — a discrete-time quantum walk as a feature map for a quantum kernel
 
-Built from scratch for the QML track of the thesis. Independent of `code/qwml/`, which
-was used as reference only and shares no code with this directory.
+A self-contained kernel experiment on the `qml-benchmarks` dataset generators.
+It is exploratory and is not reported in the thesis; the kernel results in the
+thesis come from `implementation_1_IBM_dataset/run_kernel.py`.
 
 ## What the map is
 

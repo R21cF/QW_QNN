@@ -1,15 +1,4 @@
-"""
-Feature maps under one interface, so the comparison is like for like.
-
-Every map exposes ``states(X) -> (n_samples, dim)`` and ``n_qubits``, and
-every one carries a bandwidth ``scale`` that is tuned on the training set by
-the same procedure. Quantum kernels are acutely sensitive to bandwidth, so
-comparing a tuned map against an untuned one measures the tuning, not the
-map.
-
-The numpy implementations of the Z and ZZ maps are checked against Qiskit's
-own circuit library in ``check_featuremaps.py``.
-"""
+"""Feature maps under one interface, so the comparison is like for like."""
 
 from __future__ import annotations
 
@@ -42,10 +31,7 @@ def _cx(state, c, t, n):
 
 
 class ZMap:
-    """Qiskit's ZFeatureMap: per rep, H on all, then P(2 x_i) on qubit i.
-
-    Product encoding, no entangling gate. One qubit per feature.
-    """
+    """Qiskit's ZFeatureMap: per rep, H on all, then P(2 x_i) on qubit i."""
     name = "Z feature map"
 
     def __init__(self, n_features, reps=2, scale=1.0):
@@ -70,13 +56,7 @@ class ZMap:
 
 
 class ZZMap:
-    """Qiskit's ZZFeatureMap with full entanglement.
-
-    Per rep: H on all, P(2 x_i) on i, then for every pair i<j a
-    CX-P-CX block with angle 2 (pi - x_i)(pi - x_j). One qubit per feature,
-    and O(n^2) two-qubit gates per rep -- the cost the walk map is meant to
-    undercut.
-    """
+    """Qiskit's ZZFeatureMap with full entanglement."""
     name = "ZZ feature map"
 
     def __init__(self, n_features, reps=2, scale=1.0):

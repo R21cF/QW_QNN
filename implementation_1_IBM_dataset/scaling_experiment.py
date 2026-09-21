@@ -1,15 +1,4 @@
-"""
-Does the coloured construction actually scale better, and is it the same walk?
-
-Correctness first: the efficient circuit must implement exactly the operator
-the dense circuit implements.  If that fails, the depth numbers are a
-comparison between a walk and something else.
-
-Then the scaling: transpiled depth and CX count for one walk step, dense
-against coloured, over graphs of growing size.  The per-vertex coin is priced
-separately, because that cost is a property of axis 1 rather than of the
-synthesis method.
-"""
+"""Does the coloured construction actually scale better, and is it the same walk?"""
 
 import numpy as np
 import networkx as nx
@@ -93,9 +82,7 @@ for name, g in GRAPHS:
           f"{dstr} {cstr} {d_eff:>10} {cx_eff:>7} {ratio:>9}")
 
 
-# --------------------------------------------- the cost of axis 1 ---------
-
-print("\n[3] cost of a per-vertex (structure-dependent) coin -- axis 1")
+print("\n[3] cost of a per-vertex (structure-dependent) coin")
 print(f"{'graph':<16} {'N':>4} {'qb':>3} {'uniform CX':>11} {'per-vertex CX':>14} "
       f"{'penalty':>9}")
 print("-" * 62)

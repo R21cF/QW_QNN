@@ -1,36 +1,4 @@
-"""
-Walk-step circuits built from structure, not from synthesis.
-
-The colouring in ``efficient_walk.py`` is necessary but not sufficient.  It
-turns one dense n-qubit operator into k controlled permutations of the
-position register -- but a permutation handed to Qiskit as a dense
-UnitaryGate is still synthesised generically, at O(4^m) in the position
-register, and adding controls makes it worse.  Measured, that construction is
-slower than the dense one beyond five qubits.
-
-What makes a walk step cheap is that, for a structured graph, each colour
-class is not an arbitrary matching but a matching with an arithmetic
-description:
-
-  hypercube Q_m   colour i is "every edge that flips bit i", so M_i is a
-                  single X on qubit i and the whole shift is m controlled-X
-                  gates.  This is the Shenvi-Kempe-Whaley construction.
-
-  cycle / torus   the neighbours of a site are its coordinate +/- 1, so the
-                  shift is a controlled increment or decrement of a
-                  coordinate register -- a ripple of multi-controlled X
-                  gates, O(m^2) two-qubit gates in m = log2 N, not O(4^m).
-
-Both use the moving shift, S|v, (j,s)> = |v + s e_j, (j,s)>, which is the
-standard convention on lattices; the flip-flop convention used elsewhere in
-this work gives the same asymptotics by the same argument.
-
-The caveat that matters for Chapter 4: none of this applies to a graph with
-no exploitable structure.  A molecular graph from a classification benchmark
-has no arithmetic description of its colour classes, and there the dense cost
-stands.  The cheap constructions buy the lattice-like cases, not the general
-one.
-"""
+"""Walk-step circuits built from structure, not from synthesis."""
 
 from __future__ import annotations
 
@@ -54,7 +22,7 @@ def cost(qc, opt=3, seed=7):
 
 
 class HypercubeWalk:
-    """DTQW on Q_m.  Coin dimension m, one direction per dimension."""
+    """DTQW on Q_m. Coin dimension m, one direction per dimension."""
 
     def __init__(self, m: int):
         self.m = m
@@ -104,13 +72,7 @@ class HypercubeWalk:
 
 
 def _increment(qc, reg, ctrl_qubits=None, ctrl_state=None, sign=+1):
-    """In-place +/-1 modulo 2^m on ``reg``, optionally controlled.
-
-    Increment is the ripple  for k = m-1 .. 1:  MCX(q_0..q_{k-1} -> q_k),
-    then X on q_0.  Decrement is the same sequence reversed, which is its
-    inverse.  Everything is modulo 2^m by construction -- the carry out of
-    the top qubit is simply dropped, which is the wrap the cycle needs.
-    """
+    """In-place +/-1 modulo 2^m on ``reg``, optionally controlled."""
     m = len(reg)
     ctrl_qubits = list(ctrl_qubits or [])
     nc = len(ctrl_qubits)
@@ -145,11 +107,7 @@ def _increment(qc, reg, ctrl_qubits=None, ctrl_state=None, sign=+1):
 
 
 class TorusWalk:
-    """DTQW on a product of cycles, each of length a power of two.
-
-    dims = (L_1, ..., L_r); coin directions are (dimension, sign), so the
-    coin dimension is 2r.
-    """
+    """DTQW on a product of cycles, each of length a power of two."""
 
     def __init__(self, dims):
         self.dims = list(dims)

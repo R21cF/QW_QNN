@@ -1,24 +1,4 @@
-"""
-Is the complex coin actually buying anything?
-
-Axis 2 of the thesis claims that letting coin entries be complex reaches walk
-behaviour a real coin cannot.  That is not self-evident: a uniform phase on a
-coin block is a global phase and does nothing, so some of U(d) is gauge.
-Before any application result rests on axis 2, the axis has to be shown
-non-vacuous and its size measured rather than asserted.
-
-The experiment is a reachability test.  Draw a target position distribution
-from a Haar-random COMPLEX coin, then optimise over REAL orthogonal coins to
-reproduce it.  The residual total variation distance is the part of
-complex-coin behaviour the real family cannot reach.
-
-Two controls decide whether a non-zero residual means anything:
-  * real target    -- fitting a real target with real coins must reach ~0, or
-                      the optimiser is the story rather than the coin family.
-  * complex target, complex fit -- fitting a complex target with complex coins
-                      must also reach ~0, confirming the target is reachable at
-                      all and the parameterisation covers U(d).
-"""
+"""Is the complex coin actually buying anything?"""
 
 import numpy as np
 import networkx as nx
@@ -52,9 +32,11 @@ def tvd(a, b):
 
 
 def fit(walk, target, start, builder, d, n_par, n_restarts=N_RESTARTS):
-    """Minimise a smooth surrogate (squared Hellinger), report TVD at the
-    optimum.  TVD itself is piecewise linear and defeats gradient-free
-    simplex methods near the optimum."""
+    """
+    Minimise a smooth surrogate (squared Hellinger), report TVD at the optimum.
+    TVD itself is piecewise linear and defeats gradient-free simplex methods
+    near the optimum.
+    """
     def surrogate(p):
         q = walk.distribution(builder(p, d), STEPS, start)
         return float(((np.sqrt(np.maximum(q, 0)) - np.sqrt(target)) ** 2).sum())
@@ -73,10 +55,6 @@ def fit(walk, target, start, builder, d, n_par, n_restarts=N_RESTARTS):
     return tvd(walk.distribution(builder(best_p, d), STEPS, start), target)
 
 
-# Every graph here is degree-regular with degree equal to the padded coin
-# dimension.  Petersen (degree 3, coin dimension 4) was dropped: a coin acting
-# on the padding direction leaks amplitude into a state the shift never moves,
-# which is a different walk and confounds the comparison.
 GRAPHS = [
     ("cycle-33 (deg 2)", nx.cycle_graph(33), 16),
     ("hypercube Q4 (deg 4)", nx.hypercube_graph(4), 0),
@@ -122,7 +100,8 @@ print("""
 ctrl real  median residual TVD fitting a real target with real coins
 ctrl cplx  median residual TVD fitting each complex target with complex coins
 REAL FIT   median residual TVD fitting those same complex targets with REAL
-           coins -- the behaviour axis 2 adds, if the two controls are ~0
+           coins; nonzero when the two controls are ~0 means the complex
+           coin reaches distributions a real coin cannot
 
 dim O(d) counts Givens angles only; the fit also carries d sign parameters.
 """)

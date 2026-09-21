@@ -1,52 +1,4 @@
-"""
-Walk-based kernels and a walk-based network for graph classification.
-
-Data are three synthetic binary tasks with controlled ground truth, all on
-graphs of 8-12 vertices with matched edge counts between classes so that
-size and density alone do not separate them, plus four public benchmarks:
-MUTAG (TU-Dortmund format, from the GraKeL wheel's test data) and PTC_MR,
-PROTEINS and IMDB-BINARY (from the GIN repository's dataset bundle,
-weihua916/powerful-gnns; the nd7141 mirror of PTC_MR has only 235 graphs and
-was not used).
-The TU-Dortmund site itself is not reachable from this environment.  Node
-labels are used by the WL baseline only; the walk is label-blind.  The
-COBYLA-trained walk network is run on the synthetic sets, MUTAG and PTC_MR
-only; PROTEINS (1113 graphs) and IMDB-BINARY (1000) get the kernels only.
-
-  regular    random 3-regular  vs  Erdos-Renyi with the same number of edges
-  bipartite  random bipartite   vs  Erdos-Renyi with the same number of edges
-  community  two-block SBM      vs  Erdos-Renyi with the same expected density
-
-Walk signature.  A coined DTQW (Grover coin, flip-flop shift) is started in
-the uniform superposition over arcs and run for T steps.  At every step the
-position marginal p_t(v) gives three permutation-invariant numbers:
-    H_t     Shannon entropy of p_t,
-    I_t     inverse participation ratio  sum_v p_t(v)^2 * n,
-    M_t     max_v p_t(v) * n,
-and a fourth from n further walks started localised at each vertex,
-    R_t     mean return probability (1/n) sum_v P_t(v | start v).
-The signature is the 4T-vector; graphs of different sizes get vectors of the
-same length.  Classical control: the same three numbers from the lazy
-classical random walk started uniformly.
-
-Kernel.  RBF on the standardised signature, i.e. the same construction as the
-quantum-walk kernels of Bai et al. and Rossi et al., where a walk-derived
-invariant is fed to a classical kernel.  (A fidelity kernel |<psi_G|psi_G'>|^2
-between walk states is not defined across graphs of different size, and would
-not be permutation invariant on graphs of the same size; the signature is
-what makes the walk usable as a kernel at all.)  Baseline: the WL subtree
-kernel, h = 3, and an RBF on hand-made statistics (degree histogram,
-clustering, spectral radius).
-
-Network.  The walk with trainable coins  C_t = cos(th_t) I - i sin(th_t) G
-(th = pi/2 is the Grover coin up to phase), followed by a logistic read-out
-of the final-step signature.  Trained end-to-end with COBYLA.  Control: the
-same read-out on the fixed-Grover-coin signature (i.e. is the trainable coin
-worth anything).
-
-Protocol: 10-fold stratified CV, 3 repeats, inner 3-fold CV over the SVM
-grid.  Reported: mean and s.d. of test accuracy over the 30 folds.
-"""
+"""Walk-based kernels and a walk-based network for graph classification."""
 
 from __future__ import annotations
 
@@ -106,9 +58,11 @@ def make_dataset(kind, rng):
 
 
 def load_tu(root, name):
-    """TU-Dortmund format (Morris et al.): *_A.txt, *_graph_indicator.txt,
-    *_graph_labels.txt, optional *_node_labels.txt.  Node labels are stored as
-    the 'label' attribute; the walk ignores them, the WL kernel uses them."""
+    """
+    TU-Dortmund format (Morris et al.): *_A.txt, *_graph_indicator.txt,
+    *_graph_labels.txt, optional *_node_labels.txt. Node labels are stored as
+    the 'label' attribute; the walk ignores them, the WL kernel uses them.
+    """
     import os
     p = lambda suf: os.path.join(root, name, f"{name}_{suf}.txt")
     ind = np.loadtxt(p("graph_indicator"), dtype=int)
@@ -139,8 +93,10 @@ def load_tu(root, name):
 
 
 def load_gin(root, name):
-    """Format of Xu et al.'s GIN repository (weihua916/powerful-gnns/dataset):
-    line 1 = #graphs; per graph a header 'n y' then n lines 'label deg nb...'."""
+    """
+    Format of Xu et al.'s GIN repository (weihua916/powerful-gnns/dataset): line
+    1 = #graphs; per graph a header 'n y' then n lines 'label deg nb...'.
+    """
     import os
     with open(os.path.join(root, name, f"{name}.txt")) as f:
         ng = int(f.readline())
@@ -174,12 +130,7 @@ def _stats(p):
 
 
 class WalkSignature:
-    """Precomputes the walk as index maps so that trainable-coin sweeps are cheap.
-
-    Walks are run as a batch: row 0 starts in the uniform superposition over
-    arcs (the global signature), rows 1..n start localised at vertex v with a
-    uniform coin (for the mean return probability R_t = (1/n) sum_v P_t(v|v)).
-    """
+    """Precomputes the walk as index maps so that trainable-coin sweeps are cheap."""
 
     def __init__(self, G):
         self.G = G

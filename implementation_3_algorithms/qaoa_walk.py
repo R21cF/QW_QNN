@@ -1,33 +1,6 @@
 """
-Quantum walks as QAOA mixers, on a constrained problem where the choice of
-mixer is not cosmetic.
-
-Problem.  Balanced Max-Cut (graph bisection): maximise the cut of a weighted
-graph on n vertices subject to |S| = n/2.  Feasible strings have Hamming
-weight n/2; they are the vertices of the Johnson graph J(n, n/2), two strings
-adjacent iff they differ by one swap.
-
-Mixers compared (all with p layers, the cost layer e^{-i gamma C} identical):
-
-  X        transverse-field mixer e^{-i beta sum_i X_i} on the full 2^n space,
-           with a quadratic penalty lam (sum_i z_i)^2 in the cost.  This IS a
-           continuous-time walk -- on the hypercube -- which does not respect
-           the constraint.
-  CTQW-J   e^{-i beta A_J}, the continuous-time walk on the Johnson graph
-           (Marsh & Wang 2019; identical to the complete XY mixer).  Stays
-           in the feasible subspace by construction.
-  DTQW-J   one coined discrete-time walk step on the Johnson graph per
-           layer, W(beta) = S (I (x) exp(-i beta G)) with G the Grover coin;
-           coin register of dimension n/2 * n/2 traced out at the end.
-           Also feasibility preserving.
-
-Initial state: uniform superposition over feasible strings (CTQW-J), uniform
-over feasible arcs (DTQW-J), |+>^n (X).  Parameters optimised by COBYLA from
-R random starts; the best of R is reported, which is the usual protocol and
-favours no mixer over another.
-
-Reported: approximation ratio  E[C(x) 1[x feasible]] / C_opt, and the
-probability of a feasible outcome.
+Quantum walks as QAOA mixers, on a constrained problem where the choice of mixer
+is not cosmetic.
 """
 
 from __future__ import annotations

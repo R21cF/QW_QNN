@@ -6,25 +6,13 @@
 
 #     http://www.apache.org/licenses/LICENSE-2.0
 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 
 def fourier_series(t, coeffs, degree=5, noise=0.00):
-    """Fourier series of input t.
-
-    Args:
-        t (float): scalar input
-        coeffs (ndarray): coefficient tensor of dimension ()
-        degree (int): maximum degree of Fourier series
-        noise (flaot): standard deviation of Gaussian noise added to output
-    """
+    """Fourier series of input t."""
     scaling = 0.5 * 2 * np.pi
     res = coeffs[0, 0] + coeffs[0, 1]
     for frequency in range(1, degree + 1):
@@ -35,15 +23,7 @@ def fourier_series(t, coeffs, degree=5, noise=0.00):
 
 
 def generate_two_curves(n_samples, n_features, degree, offset, noise):
-    """Data generation procedure for 'two curves'.
-
-    Args:
-        n_samples (int): number of samples to generate
-        n_features (int): dimension of the data samples
-        degree (int): maximum degree of Fourier series
-        offset (float): distance between two curves
-        noise (float): standard deviation of Gaussian noise added to curves
-    """
+    """Data generation procedure for 'two curves'."""
     fourier_coeffs = np.random.uniform(size=(n_features, degree + 1, 2))
     fourier_coeffs = fourier_coeffs / np.linalg.norm(fourier_coeffs)
 

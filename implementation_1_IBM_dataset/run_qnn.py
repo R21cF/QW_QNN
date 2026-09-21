@@ -1,19 +1,4 @@
-"""
-Train and evaluate every model on the course's line-detection task.
-
-Two speedups, both exact:
-  * the feature map does not depend on the weights, so every sample's
-    post-encoding state is computed once and reused for the whole optimisation
-  * the ansatz is the same operator for every sample, so it is applied to the
-    batch of states at once
-
-``--verify`` asserts the batched path matches the per-sample forward in
-qnn_core, so the speed changes nothing but the runtime.
-
-Reported per model: test accuracy over several weight initialisations, weight
-count, qubit count, and transpiled depth -- accuracy alone would hide that the
-walk models cost two orders of magnitude more depth.
-"""
+"""Train and evaluate every model on the IBM Quantum line-detection task."""
 
 from __future__ import annotations
 
@@ -176,11 +161,6 @@ def build_models():
          WalkRunner(2, 2, False, True, "walk")),
         ("walk FM (cplx) + walk ansatz (cplx)",
          WalkRunner(2, 2, True, True, "walk")),
-        # Equal-parameter controls.  A complex coin carries two numbers per
-        # vertex where a real one carries one, so any complex "win" is a
-        # parameter-count win until a real model with the same budget is shown
-        # to fall short.  Four real steps = 32 weights = a two-step complex
-        # ansatz, with the feature map held fixed on each side.
         ("walk FM (real) + walk ansatz (real, 4 steps)",
          WalkRunner(2, 4, False, False, "walk")),
         ("walk FM (cplx) + walk ansatz (real, 4 steps)",
@@ -232,9 +212,6 @@ if __name__ == "__main__":
     print(f"IBM line-detection task: {len(ytr)} train, {len(yte)} test, "
           f"{args.seeds} seeds, COBYLA maxiter {args.maxiter}\n")
 
-    # How hard is this task actually?  Without this, a quantum model scoring
-    # 98% sounds impressive when a linear classifier on the raw pixels may
-    # already be at ceiling, in which case the comparison is about nothing.
     from sklearn.linear_model import LogisticRegression
     from sklearn.svm import SVC
     from sklearn.dummy import DummyClassifier

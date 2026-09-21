@@ -1,16 +1,3 @@
-"""
-Thesis figure for the circuit-scaling result.
-
-One question: how does the cost of a walk step grow with the number of
-vertices, and does the construction change the answer?  That is
-change-over-a-scale, so a log-log line chart, with the two constructions
-separated by colour and the graph families by line style.  The per-vertex
-coin is a third colour because it is a different claim -- not a cheaper way
-to build the same thing, but the term that survives the improvement.
-
-Every line is directly labelled at its right-hand end, so the series are
-identifiable without the legend and in greyscale.
-"""
 
 import json
 
@@ -53,9 +40,6 @@ for fam in ("cycle", "torus", "hypercube"):
     ax.plot(*zip(*ns), color=STRUCT, linestyle=STYLE[fam], marker=MARK[fam],
             markersize=3.5, linewidth=1.5, zorder=3)
 
-# split by family: two points can share an N (C16 and T4x4 both have 16
-# vertices), and joining them would draw a vertical jump that is a family
-# difference, not a scaling effect
 for fam, style in (("C", "-"), ("T", "--")):
     cn = sorted([(r["N"], r["cx_pv"]) for r in coin if r["name"].startswith(fam)])
     ax.plot(*zip(*cn), color=COIN, linestyle=style, marker="D", markersize=3.5,
@@ -79,7 +63,7 @@ ax.annotate("dense synthesis\n$\\sim N^{2}$", xy=(256, 119383),
 ax.annotate("structured shift\npolylog $N$", xy=(1024, 1614),
             xytext=(120, 4200), color=STRUCT, fontsize=8,
             ha="left", va="center")
-ax.annotate("per-vertex coin\n(axis 1)", xy=(32, 132515),
+ax.annotate("per-vertex coin", xy=(32, 132515),
             xytext=(4.2, 60000), color=COIN, fontsize=8,
             ha="left", va="center")
 

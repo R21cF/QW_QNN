@@ -1,33 +1,4 @@
-"""
-A walk-step circuit that does not synthesise a dense operator.
-
-The naive construction appends each step S(I (x) C) as one dense UnitaryGate on
-all n qubits, and generic n-qubit synthesis costs O(4^n) two-qubit gates.  On
-the eight-vertex grid that is ~420 CX per step, which is why the classifier of
-Chapter 4 transpiles to depth 6119.
-
-The construction here follows Douglas and Wang: proper-edge-colour the graph,
-index the coin by COLOUR rather than by a per-vertex neighbour ordering, and
-the shift decomposes as
-
-    S  =  sum_c  |c><c| (x) M_c
-
-where M_c is the involution that swaps the endpoints of every edge in colour
-class c.  Because a colour class is a matching, M_c is a permutation of the
-position register alone, and the coin index is untouched by the shift.  Each
-term is therefore a small permutation on ceil(log2 N) qubits, controlled on
-the coin register -- never a generic operator on all n qubits.
-
-By Vizing's theorem a graph needs at most Delta+1 colours and a bipartite one
-exactly Delta, so the number of terms grows with the DEGREE, not with the
-number of vertices.  That is where the scaling comes from.
-
-The cost of the coin is a separate matter, and the more consequential one for
-this thesis.  A coin that is the same at every vertex is a single gate on the
-coin register: free.  A coin that varies per vertex -- axis 1 -- is a distinct
-controlled operation for each of the N vertices, and no colouring helps with
-that.  ``StepCost`` measures both so the trade is visible rather than implied.
-"""
+"""A walk-step circuit that does not synthesise a dense operator."""
 
 from __future__ import annotations
 
@@ -45,13 +16,7 @@ BASIS = ["cx", "rz", "sx", "x"]
 
 
 def edge_colouring(g: nx.Graph) -> dict[tuple[int, int], int]:
-    """Proper edge colouring by greedy colouring of the line graph.
-
-    Greedy is not guaranteed to hit Vizing's bound, but it is within one or
-    two colours in practice and every colour class it returns is a genuine
-    matching, which is all the construction requires.  ``n_colours`` is
-    reported alongside the maximum degree so the gap is visible.
-    """
+    """Proper edge colouring by greedy colouring of the line graph."""
     lg = nx.line_graph(g)
     colours = nx.greedy_color(lg, strategy="largest_first")
     return {tuple(sorted(e)): c for e, c in colours.items()}
@@ -72,13 +37,7 @@ def colour_classes(g: nx.Graph) -> list[list[tuple[int, int]]]:
 
 
 class ColouredWalk:
-    """DTQW whose coin directions are edge colours.
-
-    S|v, c> = |m_c(v), c>, with m_c(v) = v when v has no edge of colour c.
-    The coin index is preserved by the shift, unlike the flip-flop convention
-    used for the dense construction; both are legitimate coined walks, and
-    the coloured one is the one that admits a cheap circuit.
-    """
+    """DTQW whose coin directions are edge colours."""
 
     def __init__(self, graph: nx.Graph):
         self.g = nx.convert_node_labels_to_integers(graph, ordering="sorted")
@@ -157,14 +116,7 @@ class ColouredWalk:
 
     def data_phase_circuit(self, x: np.ndarray, scale: float = 1.0
                            ) -> QuantumCircuit:
-        """Encode data as diag(exp(i * scale * x_v)) on the position register.
-
-        A diagonal unitary on m qubits costs 2^m - 1 CX under the standard
-        Walsh-Hadamard (Gray-code) decomposition, independent of how many
-        distinct values the data takes -- and 2^m = N, so this is one CX per
-        vertex rather than one multi-controlled gate per vertex.  It is how
-        the data enters without reintroducing a per-vertex coin.
-        """
+        """Encode data as diag(exp(i * scale * x_v)) on the position register."""
         from qiskit.circuit.library import Diagonal
         ang = np.zeros(self.n_pad)
         ang[: len(x)] = scale * np.asarray(x, dtype=float)
@@ -187,13 +139,6 @@ def cost(qc: QuantumCircuit, opt: int = 3, seed: int = 7):
 
 def per_vertex_coin_circuit(w: ColouredWalk, coins: list[np.ndarray]
                             ) -> QuantumCircuit:
-    """Axis 1 priced honestly: a different coin at every vertex.
-
-    Each vertex needs its coin applied conditioned on the position register
-    holding that vertex, so the gate count grows with N however the shift is
-    built.  This is the cost of structure-dependent coins, and no edge
-    colouring reduces it.
-    """
     qc_coin, qc_pos = w.registers()
     qc = QuantumCircuit(qc_coin, qc_pos, name="C(v)")
     for v in range(w.n_nodes):

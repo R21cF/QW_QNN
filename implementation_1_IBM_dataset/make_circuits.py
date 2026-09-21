@@ -1,22 +1,3 @@
-"""
-Circuit diagrams for the thesis.
-
-Four figures, drawn from the same code that produces the results so they
-cannot drift from it:
-
-  fig_circ_walk_fm      the walk feature map, one layer, shown at the level
-                        of encode / coin / shift
-  fig_circ_walk_shift   the shift decomposed into its two ripple increments,
-                        which is the part that is not obvious from the
-                        block diagram
-  fig_circ_kernel       the fidelity-kernel overlap circuit,
-                        U(y)^dagger U(x) followed by a measurement of |0..0>
-  fig_circ_vqc          the full variational classifier: walk feature map,
-                        hardware-efficient ansatz, and the observable
-
-Drawn at four features so the structure is legible; the experiments use four
-and eight.
-"""
 
 import matplotlib
 matplotlib.use("Agg")

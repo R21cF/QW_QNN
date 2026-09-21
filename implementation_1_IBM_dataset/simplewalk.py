@@ -1,41 +1,4 @@
-"""
-A plain coined quantum walk on a cycle, used as a feature map.
-
-Nothing here is novel machinery: it is the textbook coined walk on Z_{2^d}
-with a one-qubit coin, the same object Chapter 2 develops. The only choice
-being made is where the data enters.
-
-    registers   position: d qubits, read as a site in Z_{2^d}
-                coin:     1 qubit
-    initial     H on every qubit -- uniform over coin and position
-    layer       D(x) -> C -> S
-        D(x)    P(2 lambda x_j) on position qubit j, for each feature j.
-                This is exactly the Z feature map's phase layer: d
-                single-qubit gates and no entangling gate at all.
-        C       a fixed one-qubit coin (Hadamard by default).
-        S       |0>|p> -> |0>|p-1>,  |1>|p> -> |1>|p+1>, modulo 2^d.
-
-The design point. The encoding layer on its own IS the Z feature map, which
-is separable and cannot represent any interaction between features. The shift
-is what couples them: it is an arithmetic operation on the position register
-read as an integer, so incrementing mixes every qubit through the carry
-chain, and after a layer the amplitude at a site carries phase contributions
-from its neighbours. Feature interaction arrives through the carry, where the
-ZZ map installs it as an explicit layer of O(d^2) two-qubit rotations.
-
-An earlier version of this map used a cycle of length d rather than 2^d --
-one site per feature -- which needs only log2(d)+1 qubits. It is far cheaper
-and it does not work: the feature space collapses to 2d dimensions, the
-fidelity kernel goes flat, and classification falls to chance. The Hilbert
-space has to be comparable to the baselines' for the comparison to be about
-the encoding rather than about dimension, so the position register is d
-qubits here, one per feature, and the walk costs one qubit more than the ZZ
-map rather than exponentially fewer.
-
-Cost per layer: d single-qubit phase gates, one coin gate, and two controlled
-ripple increments at O(d^2) two-qubit gates -- the same order as the ZZ map's
-entangling layer.
-"""
+"""A plain coined quantum walk on a cycle, used as a feature map."""
 
 from __future__ import annotations
 

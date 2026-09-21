@@ -1,18 +1,4 @@
-"""
-Two things the raw scaling table does not settle.
-
-First, the fitted exponent over the whole range is contaminated by the
-smallest instances, where constant overheads dominate.  Refitting on the
-upper half gives the asymptotic behaviour, and the two fits are reported
-together so the difference is visible.
-
-Second, and more consequential for this thesis: the structured construction
-makes the SHIFT cheap.  It does nothing for the coin.  A coin that varies
-per vertex -- axis 1 of the contribution -- needs one controlled operation
-per vertex however the shift is built, so its cost is linear in N no matter
-what.  If that term dominates, the structured shift buys nothing for the
-model actually proposed, and the thesis needs to say so.
-"""
+"""Two things the raw scaling table does not settle."""
 
 import json
 
@@ -61,7 +47,7 @@ in the number of vertices, against the dense step's ~N^2.
 
 # ------------------------------------------------ the per-vertex coin -----
 
-print("Cost of the coin: uniform vs per-vertex (axis 1), structured shift")
+print("Cost of the coin: uniform vs per-vertex, structured shift")
 print(f"{'graph':<10} {'N':>5} {'qb':>3} {'shift CX':>9} {'uniform CX':>11} "
       f"{'per-vertex CX':>14} {'total penalty':>14}")
 print("-" * 72)
@@ -108,11 +94,11 @@ print(f"\nfitted alpha: uniform coin {a_un:.2f}, per-vertex coin {a_pv:.2f}")
 print("""
 The per-vertex coin is the dominant term and it grows at least linearly in N.
 The structured shift removes the shift from the cost budget; it does not make
-a structure-dependent coin affordable.  Axis 1 as implemented in Chapter 4 is
-therefore simulation-only regardless of how the shift is built, and a
-hardware-realisable walk model has to either share coins across vertices or
-encode the per-vertex data somewhere cheaper -- a diagonal phase on the
-position register costs N-1 CX once, rather than N controlled coins per step.
+a structure-dependent coin affordable.  A per-vertex coin built this way is
+simulation-only regardless of how the shift is built; a hardware-realisable
+walk model has to share coins across vertices or encode the per-vertex data
+somewhere cheaper (a diagonal phase on the position register costs N-1 CX
+once, rather than N controlled coins per step).
 """)
 
 json.dump(pv_rows, open("coin_cost.json", "w"), indent=2)
