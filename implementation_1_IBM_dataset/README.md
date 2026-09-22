@@ -31,5 +31,6 @@ real coins cannot.
 | `scaling_structured.py` | `scaling_structured.json` | `scaling_analysis.py` → `coin_cost.json`; `plot_scaling.py` → `fig_walk_scaling.*`, `tab_scaling.tex` |
 | `scaling_experiment.py` | — | prints the dense-versus-structured comparison |
 | `make_circuits.py` | `fig_circ_walk_fm.*`, `fig_circ_walk_shift.*`, `fig_circ_kernel.*` | circuit diagrams |
+| `plot_walk_compare.py` | `walk_compare.json`, `fig_walk_compare.*` | Chapter 2 comparison of the classical random walk and the Hadamard walk on the line (exact, NumPy + matplotlib only; independent of `dtqw.py`) |
 
 Requirements: numpy, scipy, scikit-learn, matplotlib, qiskit>=2, qiskit-aer.
