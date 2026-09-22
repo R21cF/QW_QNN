@@ -8,7 +8,7 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
-
+implementation_2*/
 # Editors / OS
 .vscode/
 .idea/
