@@ -27,6 +27,7 @@ real coins cannot.
 | script | writes | then |
 |---|---|---|
 | `run_qnn.py` | `qnn_results.json` | `plot_qnn.py` → `fig_qnn_training.*`, `fig_qnn_accuracy.*`, `tab_qnn_results.tex` |
+| `run_qnn_matched.py` | `qnn_matched.json` | `plot_qnn_matched.py` → `tab_qnn_matched.tex` (real vs complex ansatz coin at matched depth and parameter count; complex arm has its phase frozen at pi/2, three further phases as a robustness check; numpy + scipy only, ~7 min) |
 | `run_kernel.py` | `kernel_results.json` | `plot_kernel.py` → `fig_kernel_acc.*`, `tab_kernel.tex` |
 | `scaling_structured.py` | `scaling_structured.json` | `scaling_analysis.py` → `coin_cost.json`; `plot_scaling.py` → `fig_walk_scaling.*`, `tab_scaling.tex` |
 | `scaling_experiment.py` | — | prints the dense-versus-structured comparison |

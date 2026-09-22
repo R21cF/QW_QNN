@@ -204,7 +204,7 @@ if Gr:
         f.write("\\begin{table}[htbp]\n\\centering\\small\n")
         f.write("\\caption{Graph classification on three synthetic tasks and four public benchmarks: test accuracy (\\%), mean $\\pm$ s.d.\\ "
                 "over $3 \\times 10$ stratified folds. The WL kernel uses node labels where the dataset has them; the walks are label-blind. "
-                "The walk network is not run on PROTEINS and IMDB-BINARY (---); the trivial regular task (all methods at 100) is omitted. Kernels are RBF--SVMs on the walk signature "
+                "The walk network is not run on PROTEINS and IMDB-BINARY (---); the near-trivial regular task, on which every method scores 99.5 or 100, is omitted. Kernels are RBF--SVMs on the walk signature "
                 "($T=8$ steps, four statistics per step) or the WL subtree kernel ($h=3$); the walk network "
                 "is the same walk with one trainable coin angle per step and a logistic read-out.}\n")
         short = {"DTQW signature kernel": "DTQW signature", "classical RW signature kernel": "classical RW signature",

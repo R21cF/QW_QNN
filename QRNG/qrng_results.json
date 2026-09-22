@@ -1,0 +1,77 @@
+{
+  "n_position_qubits": 5,
+  "cycle_length": 32,
+  "coin": "Hadamard",
+  "initial_coin": "(|0>+i|1>)/sqrt(2)",
+  "best_steps_by_min_entropy": 61,
+  "best": {
+    "min_entropy_bits": 3.229090828178046,
+    "shannon_entropy_bits": 3.793990380273935,
+    "tv_from_uniform": 0.5500068245782934,
+    "max_prob": 0.10664654787441918
+  },
+  "worst_steps_by_min_entropy": 1,
+  "worst": {
+    "min_entropy_bits": 1.0,
+    "shannon_entropy_bits": 1.0,
+    "tv_from_uniform": 0.9375,
+    "max_prob": 0.5
+  },
+  "steps_8": {
+    "min_entropy_bits": 2.1420190048724272,
+    "shannon_entropy_bits": 2.7279612199120566,
+    "tv_from_uniform": 0.7734375,
+    "max_prob": 0.22656250000000008
+  },
+  "steps_32": {
+    "min_entropy_bits": 2.746873218073883,
+    "shannon_entropy_bits": 3.5217723031850054,
+    "tv_from_uniform": 0.5912013873457909,
+    "max_prob": 0.14897341281175616
+  },
+  "uniform_min_entropy_bits": 5.0,
+  "circuit_cost": {
+    "1": {
+      "cx": 900,
+      "depth": 1895,
+      "qubits": 6
+    },
+    "8": {
+      "cx": 7200,
+      "depth": 15111,
+      "qubits": 6
+    },
+    "32": {
+      "cx": 28800,
+      "depth": 60423,
+      "qubits": 6
+    }
+  },
+  "reference_hadamard_cost": {
+    "cx": 0,
+    "depth": 4,
+    "qubits": 5
+  },
+  "shots": 200000,
+  "sampled_at_steps": 61,
+  "tv_circuit_vs_exact": 0.0030373035132431492,
+  "monobit_ones_fraction": 0.600312,
+  "monobit_p_value": 0.0,
+  "chi2_uniformity_31df": 301736.41056,
+  "empirical_min_entropy_bits": 3.2253288876731157,
+  "bit_bias_at_best_t": [
+    0.9999999999999892,
+    0.49999999999999467,
+    0.49999999999999467,
+    0.4999999999999946,
+    0.4999999999999946
+  ],
+  "min_entropy_without_lsb_bits": 3.229090828178046,
+  "steps_8_bit_bias": [
+    0.0,
+    0.46874999999999917,
+    0.6874999999999989,
+    0.4687499999999992,
+    0.5351562499999991
+  ]
+}

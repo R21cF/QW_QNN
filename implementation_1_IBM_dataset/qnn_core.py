@@ -203,8 +203,16 @@ class WalkQNN:
     """Walk feature map and/or walk ansatz."""
 
     def __init__(self, fm_steps=2, ans_steps=2, complex_fm=False,
-                 complex_ans=False, ansatz="walk", scale=1.0):
+                 complex_ans=False, ansatz="walk", scale=1.0,
+                 fixed_phase=None):
+        """
+        fixed_phase: if given together with complex_ans, the ansatz coins are
+        complex with the phase ramp frozen at this value and only the rotation
+        angle trained -- one parameter per vertex per step, as for the real
+        coin. This isolates realness from parameter count and depth.
+        """
         self.g = GridWalk()
+        self.fixed_phase = fixed_phase
         self.fm_steps = fm_steps
         self.ans_steps = ans_steps
         self.complex_fm = complex_fm
@@ -213,7 +221,8 @@ class WalkQNN:
         self.scale = scale
         self.n = self.g.n_qubits
 
-        per_step = self.g.n_nodes * (2 if complex_ans else 1)
+        trains_phase = complex_ans and fixed_phase is None
+        per_step = self.g.n_nodes * (2 if trains_phase else 1)
         if ansatz == "walk":
             self.n_weights = ans_steps * per_step
         else:  # rotation ansatz on the walk register
@@ -236,7 +245,9 @@ class WalkQNN:
         stacks, k = [], 0
         for _t in range(self.ans_steps):
             th = w[k:k + nn]; k += nn
-            if self.complex_ans:
+            if self.complex_ans and self.fixed_phase is not None:
+                ph = np.full(nn, float(self.fixed_phase))
+            elif self.complex_ans:
                 ph = w[k:k + nn]; k += nn
             else:
                 ph = None
@@ -264,4 +275,5 @@ class WalkQNN:
     def describe(self):
         return dict(qubits=self.n, weights=self.n_weights,
                     fm_steps=self.fm_steps, ans_steps=self.ans_steps,
-                    complex_fm=self.complex_fm, complex_ans=self.complex_ans)
+                    complex_fm=self.complex_fm, complex_ans=self.complex_ans,
+                    fixed_phase=self.fixed_phase)

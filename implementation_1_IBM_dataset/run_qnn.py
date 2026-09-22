@@ -65,9 +65,9 @@ class WalkRunner:
     """Walk feature map, then either a walk ansatz or a rotation ansatz."""
 
     def __init__(self, fm_steps=2, ans_steps=2, complex_fm=False,
-                 complex_ans=False, ansatz="walk", scale=1.0):
+                 complex_ans=False, ansatz="walk", scale=1.0, fixed_phase=None):
         self.m = WalkQNN(fm_steps, ans_steps, complex_fm, complex_ans,
-                         ansatz, scale)
+                         ansatz, scale, fixed_phase)
         self.g = self.m.g
         self.n = self.g.n_qubits
         self.n_weights = self.m.n_weights
