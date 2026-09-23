@@ -32,6 +32,11 @@ real coins cannot.
 | `scaling_structured.py` | `scaling_structured.json` | `scaling_analysis.py` → `coin_cost.json`; `plot_scaling.py` → `fig_walk_scaling.*`, `tab_scaling.tex` |
 | `scaling_experiment.py` | — | prints the dense-versus-structured comparison |
 | `make_circuits.py` | `fig_circ_walk_fm.*`, `fig_circ_walk_shift.*`, `fig_circ_kernel.*` | circuit diagrams |
-| `plot_walk_compare.py` | `walk_compare.json`, `fig_walk_compare.*` | Chapter 2 comparison of the classical random walk and the Hadamard walk on the line (exact, NumPy + matplotlib only; independent of `dtqw.py`) |
+| `plot_walk_compare.py` | `walk_compare.json`, `fig_walk_compare.*` | comparison of the classical random walk and the Hadamard walk on the line (exact, NumPy + matplotlib only; independent of `dtqw.py`; not used in the thesis draft) |
+| `tune_classical_baselines.py` | `classical_baselines_tuned.json` | classical baselines for the line-detection task (majority class, logistic regression, linear and RBF SVM), hyperparameters chosen by stratified 3-fold CV on the training split, default-parameter scores alongside; seconds |
+| `gradient_variance.py` | `gradient_variance.json` | variance of the loss gradient at random parameters against ansatz depth (1–32) on the 5-qubit classifier register: real- and complex-coin walk ansatz vs a hardware-efficient ansatz; finite differences checked against the exact parameter-shift rule; ~5 min |
+| `gradient_variance_width.py` | `gradient_variance_width.json` (rows also in `.rows.jsonl`, so an interrupted run resumes) | the same against register width: grid graphs of 8 to 1024 vertices (5–12 qubits), per-vertex vs per-step walk coin vs hardware-efficient ansatz, local and global cost; per-row seeds; ~35 min |
+| `plot_gradient_variance.py` | `fig_gradient_variance.*`, `tab_gradvar.tex` | figure and table for the two gradient-variance runs |
+| `write_gradvar_section.py` | `sec_gradvar.tex` | generates the thesis subsection text from the two JSON files, so every number in it comes from the recorded runs |
 
 Requirements: numpy, scipy, scikit-learn, matplotlib, qiskit>=2, qiskit-aer.
