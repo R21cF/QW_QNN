@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering\small
+\caption[Gradient variance of the walk ansatz against register width]{Variance of the gradient of the cost with respect to one ansatz parameter, over 200 uniformly random parameter draws, on grid graphs of increasing size at depth $T = R + C$. Local cost: $Z$ on the most significant qubit; global cost: $Z$ on every qubit, the classifier's observable. The last row is the least-squares slope of $\log_2 \mathrm{Var}$ per added qubit.}
+\label{tab:gradvar}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrrrrr}
+\hline
+ & & \multicolumn{3}{c}{local cost} & \multicolumn{3}{c}{global cost} \\
+Grid & Qubits & per-vertex & per-step & HEA & per-vertex & per-step & HEA \\
+\hline
+2$\times$4 & 5 & $2.7\times10^{-2}$ & $2.6\times10^{-1}$ & $1.4\times10^{-2}$ & $2.6\times10^{-2}$ & $2.0\times10^{-1}$ & $1.6\times10^{-2}$ \\
+4$\times$4 & 6 & $5.2\times10^{-3}$ & $1.4\times10^{-1}$ & $7.3\times10^{-3}$ & $6.7\times10^{-3}$ & $1.0\times10^{-1}$ & $8.1\times10^{-3}$ \\
+4$\times$8 & 7 & $1.4\times10^{-3}$ & $1.3\times10^{-1}$ & $3.9\times10^{-3}$ & $1.5\times10^{-3}$ & $4.3\times10^{-2}$ & $3.8\times10^{-3}$ \\
+8$\times$8 & 8 & $1.8\times10^{-4}$ & $7.7\times10^{-2}$ & $2.0\times10^{-3}$ & $3.9\times10^{-4}$ & $1.8\times10^{-2}$ & $2.0\times10^{-3}$ \\
+8$\times$16 & 9 & $5.3\times10^{-5}$ & $9.7\times10^{-2}$ & $9.1\times10^{-4}$ & $1.0\times10^{-4}$ & $6.2\times10^{-3}$ & $9.8\times10^{-4}$ \\
+16$\times$16 & 10 & $8.0\times10^{-6}$ & $6.4\times10^{-2}$ & $5.0\times10^{-4}$ & $2.3\times10^{-5}$ & $1.9\times10^{-3}$ & $4.9\times10^{-4}$ \\
+16$\times$32 & 11 & $2.1\times10^{-6}$ & $9.8\times10^{-2}$ & $2.4\times10^{-4}$ & $5.5\times10^{-6}$ & $7.1\times10^{-4}$ & $2.4\times10^{-4}$ \\
+32$\times$32 & 12 & $2.6\times10^{-7}$ & $3.6\times10^{-2}$ & $1.2\times10^{-4}$ & $1.5\times10^{-6}$ & $2.3\times10^{-4}$ & $1.2\times10^{-4}$ \\
+\hline
+\multicolumn{2}{l}{slope} & $-2.35$ & $-0.31$ & $-0.98$ & $-2.02$ & $-1.42$ & $-1.00$ \\
+\hline
+\end{tabular}
+\end{table}

@@ -13,7 +13,7 @@ from sklearn.model_selection import StratifiedKFold, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-from common import walk_operator, position_marginal
+from common import walk_operator, uniform_arc_state, position_marginal
 
 SEED = 3
 N_PER_CLASS = 100
@@ -129,14 +129,6 @@ def _stats(p):
     return [float(-(p * np.log(p)).sum()), float((p ** 2).sum() * n), float(p.max() * n)]
 
 
-def _stats_avg(P):
-    """_stats of each row of P (one row per start vertex), averaged over rows."""
-    n = P.shape[1]
-    P = np.clip(P, 1e-15, None)
-    H = -(P * np.log(P)).sum(axis=1)
-    return [float(H.mean()), float(((P ** 2).sum(axis=1) * n).mean()), float((P.max(axis=1) * n).mean())]
-
-
 class WalkSignature:
     """Precomputes the walk as index maps so that trainable-coin sweeps are cheap."""
 
@@ -157,14 +149,11 @@ class WalkSignature:
         self.mask = np.zeros((self.n, self.d))
         for i in range(self.n):
             self.mask[i, :self.deg[i]] = 1.0
-        # One walk per start vertex, started in the uniform superposition over
-        # the arcs at that vertex. The uniform-over-ALL-arcs state is NOT used
-        # as a start: it is a fixed point of the Grover/flip-flop walk (global
-        # phase e^{-i theta} per step), so statistics of it carry no dynamics.
-        B = self.n
+        B = self.n + 1
         psi0 = np.zeros((B, self.n, self.d), dtype=complex)
+        psi0[0] = self.mask
         for v in range(self.n):
-            psi0[v, v] = self.mask[v]
+            psi0[v + 1, v] = self.mask[v]
         psi0 = psi0.reshape(B, -1)
         self.psi0 = psi0 / np.linalg.norm(psi0, axis=1, keepdims=True)
 
@@ -180,36 +169,28 @@ class WalkSignature:
         out[:, self.dst] = c[:, self.src]
         return out
 
-    def marginals(self, thetas):
-        """Position marginal after each step, for every start vertex: list of (n, n)."""
+    def run(self, thetas):
         psi = self.psi0
-        out = []
+        feats = []
         for th in thetas:
             psi = self.step(psi, th)
-            out.append((np.abs(psi.reshape(-1, self.n, self.d)) ** 2).sum(axis=2))   # (n_starts, n)
-        return out
-
-    def run(self, thetas):
-        feats = []
-        for P in self.marginals(thetas):
-            feats += _stats_avg(P)
-            feats.append(float(np.mean(np.diag(P))))       # mean return probability
+            P = (np.abs(psi.reshape(-1, self.n, self.d)) ** 2).sum(axis=2)   # (B, n)
+            feats += _stats(P[0])
+            feats.append(float(np.mean([P[v + 1, v] for v in range(self.n)])))
         return np.array(feats)
 
 
 def classical_signature(G, T):
-    """Lazy random walk under the same protocol as the quantum signature:
-    row v of P^t is the distribution of a walk started at v; the three
-    statistics are averaged over the start vertex and tr(P^t)/n is the mean
-    return probability."""
     n = G.number_of_nodes()
     A = nx.to_numpy_array(G)
     P = 0.5 * np.eye(n) + 0.5 * A / A.sum(axis=1, keepdims=True)
+    p = np.ones(n) / n
     Pt = np.eye(n)
     feats = []
     for _ in range(T):
+        p = p @ P
         Pt = Pt @ P
-        feats += _stats_avg(Pt)
+        feats += _stats(p)
         feats.append(float(np.trace(Pt) / n))
     return np.array(feats)
 
@@ -308,22 +289,12 @@ def cv_walk_network(sigs, y, rng, trainable=True, maxiter=60):
 
 
 if __name__ == "__main__":
-    import os
-    ORDER = ["regular", "bipartite", "community", "MUTAG", "PTC_MR", "PROTEINS", "IMDB-BINARY"]
-    RUN_FIRST = ["MUTAG", "PTC_MR", "PROTEINS", "IMDB-BINARY", "regular", "bipartite", "community"]
+    rng = np.random.default_rng(SEED)
+    out = []
     BENCH = {"MUTAG": ("tu", "MUTAG"), "PTC_MR": ("gin", "PTC"),
              "PROTEINS": ("gin", "PROTEINS"), "IMDB-BINARY": ("gin", "IMDBBINARY")}
     NETWORK_ON = {"regular", "bipartite", "community", "MUTAG", "PTC_MR"}   # walk network is COBYLA-trained; skipped on the two large sets
-    ROWS = "graph_results.rows.jsonl"          # one line per finished dataset: resumable
-    done = {}
-    if os.path.exists(ROWS):
-        for line in open(ROWS):
-            r = json.loads(line); done[r["task"]] = r
-    for kind in RUN_FIRST:
-        if kind in done:
-            continue
-        # per-dataset seed: results do not depend on run order or on resuming
-        rng = np.random.default_rng([SEED, ORDER.index(kind)])
+    for kind in ["regular", "bipartite", "community", "MUTAG", "PTC_MR", "PROTEINS", "IMDB-BINARY"]:
         if kind in BENCH:
             fmt, nm = BENCH[kind]
             graphs, y = load_tu("data", nm) if fmt == "tu" else load_gin("data/gin/dataset", nm)
@@ -334,16 +305,14 @@ if __name__ == "__main__":
         # cross-check the fast walk against the dense operator on one graph
         G0 = graphs[0]
         W, nodes, d = walk_operator(G0)
-        # dense walk from the localised start at vertex 0, compared step by step
-        psi = np.zeros(len(nodes) * d, dtype=complex)
-        psi[:G0.degree(nodes[0])] = 1.0
-        psi /= np.linalg.norm(psi)
-        fast = sigs[0].marginals([np.pi / 2] * T)
-        for t in range(T):
+        psi = uniform_arc_state(G0, nodes, d)
+        ref = []
+        for _ in range(T):
             psi = W @ psi
-            # Grover coin = -i * exp(-i pi/2 G) up to a global phase; marginals agree
-            assert np.allclose(position_marginal(psi, len(nodes), d), fast[t][0], atol=1e-8), \
-                "fast walk disagrees with dense operator"
+            ref += _stats(position_marginal(psi, len(nodes), d))
+        # Grover coin = -i * exp(-i pi/2 G) up to a global phase; stats agree
+        assert np.allclose(ref, Xq[0].reshape(T, 4)[:, :3].reshape(-1), atol=1e-8), \
+            "fast walk disagrees with dense operator"
         Xc = np.array([classical_signature(G, T) for G in graphs])
         Xh = np.array([handmade(G) for G in graphs])
         K_wl = wl_kernel(graphs)
@@ -356,10 +325,8 @@ if __name__ == "__main__":
         if kind in NETWORK_ON:
             row["walk network (fixed Grover coin)"] = cv_walk_network(sigs, y, rng, trainable=False)
             row["walk network (trained coins)"] = cv_walk_network(sigs, y, rng, trainable=True)
-        with open(ROWS, "a") as fh:
-            fh.write(json.dumps(row) + "\n")
-        done[kind] = row
+        out.append(row)
         for k_, v in row.items():
             if isinstance(v, tuple):
-                print(f"{kind:10s} {k_:36s} {100*v[0]:5.1f} +- {100*v[1]:4.1f}", flush=True)
-    json.dump([done[k] for k in ORDER], open("graph_results.json", "w"), indent=1)
+                print(f"{kind:10s} {k_:36s} {100*v[0]:5.1f} +- {100*v[1]:4.1f}")
+    json.dump(out, open("graph_results.json", "w"), indent=1)

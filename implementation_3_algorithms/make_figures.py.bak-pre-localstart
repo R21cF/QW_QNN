@@ -204,15 +204,14 @@ if Gr:
         f.write("\\begin{table}[htbp]\n\\centering\\small\n")
         f.write("\\caption{Graph classification on three synthetic tasks and four public benchmarks: test accuracy (\\%), mean $\\pm$ s.d.\\ "
                 "over $3 \\times 10$ stratified folds. The WL kernel uses node labels where the dataset has them; the walks are label-blind. "
-                "The walk network is not run on PROTEINS and IMDB-BINARY (---). Kernels are RBF--SVMs on the walk signature "
-                "($T=8$ steps, four statistics per step, each walk started at every vertex in turn and the statistics averaged over the start vertex, "
-                "the classical walk under the same protocol) or the WL subtree kernel ($h=3$); the walk network "
+                "The walk network is not run on PROTEINS and IMDB-BINARY (---); the near-trivial regular task, on which every method scores 99.5 or 100, is omitted. Kernels are RBF--SVMs on the walk signature "
+                "($T=8$ steps, four statistics per step) or the WL subtree kernel ($h=3$); the walk network "
                 "is the same walk with one trainable coin angle per step and a logistic read-out.}\n")
         short = {"DTQW signature kernel": "DTQW signature", "classical RW signature kernel": "classical RW signature",
                  "WL subtree kernel": "WL subtree", "hand-made statistics": "hand-made statistics",
                  "walk network (trained coins)": "walk network, trained coins",
                  "walk network (fixed Grover coin)": "walk network, Grover coin"}
-        Gt = list(Gr)
+        Gt = [r for r in Gr if r["task"] != "regular"]          # trivial task: figure only
         col = {"PTC_MR": "PTC\\_MR", "IMDB-BINARY": "IMDB-B"}
         f.write("\\label{tab:graph}\n\\setlength{\\tabcolsep}{2.5pt}\\scriptsize\n\\begin{tabular}{l" + "r" * len(Gt) + "}\n\\hline\n")
         f.write("Method & " + " & ".join(col.get(r["task"], r["task"]) for r in Gt) + " \\\\\n\\hline\n")
