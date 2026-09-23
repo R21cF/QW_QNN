@@ -1,7 +1,7 @@
 """
 Classical symmetric random walk versus the Hadamard quantum walk on the line.
 
-Produces fig_walk_compare.pdf/.png for Chapter 2 of the thesis and prints the
+Produces fig_walk_compare.pdf/.png for Chapter 3 of the thesis and prints the
 numbers quoted there. Exact arithmetic throughout (no sampling): the classical
 distribution is the binomial law, the quantum one is the coined walk iterated
 in NumPy with the symmetric initial coin state (|0> + i|1>)/sqrt(2). Needs only
