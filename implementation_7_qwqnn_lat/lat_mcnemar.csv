@@ -1,0 +1,13 @@
+n,a,b,acc_a,acc_b,a_only,b_only,p
+8,QW-QNN: Shor DLP -> Hadamard walk -> readout,Random forest,0.99,0.5,249,4,2.340672964666182e-68
+8,QW-QNN: Shor DLP -> Hadamard walk -> readout,LAT: Shor DLP -> quantum kernel SVM,0.99,0.984,3,0,0.25
+8,QW-QNN: Shor DLP -> Hadamard walk -> readout,Shor DLP -> no walk (t = 0) -> readout,0.99,0.97,10,0,0.001953125
+10,QW-QNN: Shor DLP -> Hadamard walk -> readout,MLP,0.99,0.498,249,3,7.371499086182165e-70
+10,QW-QNN: Shor DLP -> Hadamard walk -> readout,LAT: Shor DLP -> quantum kernel SVM,0.99,0.996,1,4,0.375
+10,QW-QNN: Shor DLP -> Hadamard walk -> readout,Shor DLP -> no walk (t = 0) -> readout,0.99,0.992,1,2,1.0
+12,QW-QNN: Shor DLP -> Hadamard walk -> readout,MLP,0.998,0.494,252,0,2.7635739376302223e-76
+12,QW-QNN: Shor DLP -> Hadamard walk -> readout,LAT: Shor DLP -> quantum kernel SVM,0.998,0.988,6,1,0.125
+12,QW-QNN: Shor DLP -> Hadamard walk -> readout,Shor DLP -> no walk (t = 0) -> readout,0.998,0.986,7,1,0.0703125
+16,QW-QNN: Shor DLP -> Hadamard walk -> readout,SVM (RBF),0.986,0.542,225,3,9.159805768491884e-63
+16,QW-QNN: Shor DLP -> Hadamard walk -> readout,LAT: Shor DLP -> quantum kernel SVM,0.986,0.98,5,2,0.453125
+16,QW-QNN: Shor DLP -> Hadamard walk -> readout,Shor DLP -> no walk (t = 0) -> readout,0.986,0.976,5,0,0.0625

@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering
+\caption[Discrete-logarithm task: main comparison]{Discrete-logarithm task: test accuracy (\%) over five draws; every model receives $x$, and $n$ is the bit length of $p$.}
+\label{tab:latmain}
+\begin{tabular}{lrrrr}
+\hline
+Model & $n=8$ & $n=10$ & $n=12$ & $n=16$ \\
+\hline
+QW-QNN: DLP $\to$ Hadamard walk $\to$ read-out & $99.0 \pm 1.4$ & $99.0 \pm 1.0$ & $99.8 \pm 0.4$ & $98.6 \pm 1.7$ \\
+LAT: DLP $\to$ quantum kernel SVM & $98.4 \pm 1.1$ & $99.6 \pm 0.5$ & $98.8 \pm 1.8$ & $98.0 \pm 2.3$ \\
+MLP & $49.6 \pm 4.6$ & $49.8 \pm 2.6$ & $49.4 \pm 3.2$ & $48.8 \pm 5.7$ \\
+SVM (RBF) & $48.8 \pm 4.2$ & $48.4 \pm 3.8$ & $47.4 \pm 5.3$ & $54.2 \pm 6.4$ \\
+Random forest & $50.0 \pm 2.3$ & $48.6 \pm 6.2$ & $43.6 \pm 3.5$ & $50.2 \pm 8.2$ \\
+\hline
+\end{tabular}
+\end{table}

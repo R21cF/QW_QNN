@@ -1,0 +1,82 @@
+{
+ "mean_test": {
+  "MLPClassifier": 0.7972,
+  "QW product kernel": 0.7947,
+  "RBF-SVM, same protocol": 0.7877,
+  "DressedQuantumCircuitClassifier": 0.7865,
+  "DataReuploadingClassifier": 0.7846,
+  "IQPKernelClassifier": 0.7763,
+  "ProjectedQuantumKernel": 0.7749,
+  "SVC": 0.7693,
+  "SeparableKernelClassifier": 0.7667,
+  "QuantumBoltzmannMachineSeparable": 0.7461,
+  "SeparableVariationalClassifier": 0.7447,
+  "IQPVariationalClassifier": 0.7437,
+  "QuantumMetricLearner": 0.7409,
+  "CircuitCentricClassifier": 0.6735,
+  "TreeTensorClassifier": 0.6512,
+  "QuantumKitchenSinks": 0.5796
+ },
+ "data_check_svc_reproduced": 19,
+ "walk_vs_MLPClassifier": {
+  "mean_diff": -0.0025,
+  "wins": 9,
+  "losses": 10,
+  "ties": 0,
+  "wilcoxon_p": 0.4653
+ },
+ "walk_vs_DressedQuantumCircuitClassifier": {
+  "mean_diff": 0.0082,
+  "wins": 11,
+  "losses": 7,
+  "ties": 1,
+  "wilcoxon_p": 0.5509
+ },
+ "walk_vs_DataReuploadingClassifier": {
+  "mean_diff": 0.0102,
+  "wins": 12,
+  "losses": 7,
+  "ties": 0,
+  "wilcoxon_p": 0.3124
+ },
+ "walk_vs_IQPKernelClassifier": {
+  "mean_diff": 0.0184,
+  "wins": 12,
+  "losses": 6,
+  "ties": 1,
+  "wilcoxon_p": 0.1297
+ },
+ "walk_vs_ProjectedQuantumKernel": {
+  "mean_diff": 0.0198,
+  "wins": 14,
+  "losses": 5,
+  "ties": 0,
+  "wilcoxon_p": 0.1336
+ },
+ "walk_vs_SVC": {
+  "mean_diff": 0.0254,
+  "wins": 11,
+  "losses": 4,
+  "ties": 4,
+  "wilcoxon_p": 0.0054
+ },
+ "walk_vs_RBF-SVM, same protocol": {
+  "mean_diff": 0.007,
+  "wins": 6,
+  "losses": 3,
+  "ties": 10,
+  "wilcoxon_p": 0.3008
+ },
+ "mcnemar_walk_vs_rbf_pooled": {
+  "walk_only": 29,
+  "rbf_only": 21,
+  "p": 0.3222
+ },
+ "walk_vs_rbf_gamma_2s2": {
+  "max_abs_diff": 0.0551,
+  "min_corr": 0.999
+ },
+ "walk_selected_n_vertices": {
+  "8": 19
+ }
+}
