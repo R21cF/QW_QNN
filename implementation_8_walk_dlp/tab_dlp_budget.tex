@@ -1,0 +1,40 @@
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption[Discrete-logarithm task with the walk DLP step: accuracy against budget]{The LAT pipeline with the discrete-time walk in place of the lookup table. For an attempt budget $K$ an input receives its verified logarithm if one of its first $K$ phase-estimation attempts succeeds, and a uniformly random exponent otherwise; $K = \infty$ repeats until verified. Fraction of inputs with the exact logarithm, mean oracle calls per input, and test accuracy (\%) of the walk QNN and of the LAT kernel, means over five draws.}
+\label{tab:dlpbudget}
+\begin{tabular}{rrrrrr}
+\hline
+$n$ & $K$ & exact & calls & walk QNN & LAT kernel \\
+\hline
+8 & 1 & $0.33$ & $18$ & $62.4$ & $63.4$ \\
+8 & 2 & $0.56$ & $30$ & $77.8$ & $79.0$ \\
+8 & 4 & $0.80$ & $43$ & $90.6$ & $90.6$ \\
+8 & 8 & $0.97$ & $51$ & $97.4$ & $97.8$ \\
+8 & 16 & $1.00$ & $53$ & $99.2$ & $98.4$ \\
+8 & $\infty$ & $1.00$ & $53$ & $99.4$ & $98.4$ \\
+\hline
+10 & 1 & $0.22$ & $24$ & $52.2$ & $53.8$ \\
+10 & 2 & $0.40$ & $43$ & $59.6$ & $65.8$ \\
+10 & 4 & $0.64$ & $68$ & $78.6$ & $79.0$ \\
+10 & 8 & $0.87$ & $93$ & $92.2$ & $92.8$ \\
+10 & 16 & $0.98$ & $106$ & $98.8$ & $98.6$ \\
+10 & $\infty$ & $1.00$ & $108$ & $99.8$ & $99.6$ \\
+\hline
+12 & 1 & $0.25$ & $28$ & $60.4$ & $54.0$ \\
+12 & 2 & $0.46$ & $49$ & $73.0$ & $73.2$ \\
+12 & 4 & $0.71$ & $75$ & $86.2$ & $86.8$ \\
+12 & 8 & $0.91$ & $97$ & $95.8$ & $95.0$ \\
+12 & 16 & $0.99$ & $107$ & $99.6$ & $99.0$ \\
+12 & $\infty$ & $1.00$ & $109$ & $100.0$ & $98.8$ \\
+\hline
+16 & 1 & $0.20$ & $36$ & $56.2$ & $53.6$ \\
+16 & 2 & $0.34$ & $65$ & $63.6$ & $65.0$ \\
+16 & 4 & $0.56$ & $108$ & $76.0$ & $77.2$ \\
+16 & 8 & $0.80$ & $156$ & $89.0$ & $89.0$ \\
+16 & 16 & $0.96$ & $186$ & $96.0$ & $96.4$ \\
+16 & $\infty$ & $1.00$ & $194$ & $98.6$ & $98.2$ \\
+\hline
+\end{tabular}
+\end{table}

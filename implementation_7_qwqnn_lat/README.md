@@ -83,6 +83,37 @@ from the tables and figure because they cover a single draw. Test accuracy on th
 Because these models weren't run, no claim can be made against them, including "best quantum model" beyond LAT's kernel.
 To run them, set `SKIP_MODELS = set()` in the config cell.
 
+## Continuous-time walk variant (added 25 Sep 2026): now the main model
+Since 25 Sep 2026 the continuous-time walk is the main model. The report cell, `tab_lat_main.tex` and `fig_lat_accuracy.*`
+show it in place of the Hadamard walk, and the thesis uses it. The Hadamard-walk results stay in `lat_results.json` and in the
+tables above.
+`CTWalkQNN` is the QW-QNN with the Hadamard walk replaced by the continuous-time walk exp(-itA) on the same cycle C_{2^h}.
+- **Input and read-out:** identical to the discrete-time model; t is continuous.
+- **Circuit:** QFT† → diagonal phase exp(-2it cos(2πk/N)) → QFT. It agrees with scipy `expm` and with the Qiskit circuit to 2e-15.
+- **Grid:** h ∈ {3..6}, t ∈ {0.25, 0.5, 1, 1.5, 2, 3, 4, 6, 8}, ridge as before, with the same draws and protocol.
+
+| model | n=8 | n=10 | n=12 | n=16 |
+|---|---|---|---|---|
+| QW-QNN, continuous-time walk | 0.990 ± 0.014 | 0.996 ± 0.009 | 0.998 ± 0.004 | 0.990 ± 0.017 |
+| QW-QNN, Hadamard walk | 0.990 ± 0.014 | 0.990 ± 0.010 | 0.998 ± 0.004 | 0.986 ± 0.017 |
+| LAT kernel | 0.984 ± 0.011 | 0.996 ± 0.005 | 0.988 ± 0.018 | 0.980 ± 0.023 |
+| no walk (t = 0) | 0.970 ± 0.019 | 0.992 ± 0.008 | 0.986 ± 0.026 | 0.976 ± 0.021 |
+
+With 100 or 1000 shots the continuous-time model scores within 0.004 of these values.
+
+**Exact McNemar tests** (continuous-time walk wins : comparator wins), per size n = 8 / 10 / 12 / 16:
+- **vs Hadamard walk:** 0:0, 4:1, 0:0, 2:0. None is significant.
+- **vs LAT kernel:** 3:0, 2:2, 6:1, 5:0, with p = 0.25, 1.0, 0.13, 0.06. None is significant.
+- **vs no walk:** 10:0, 3:1, 7:1, 7:0, with p = 0.002, 0.63, 0.07, 0.016. Only n = 8 survives a Bonferroni correction over the four sizes (threshold 0.0125).
+
+**Post hoc, pooled over all sizes** (not the planned test, so exploratory only):
+- **Continuous-time walk:** vs LAT 16:3 (p = 0.004), vs no walk 27:2 (p = 2e-6).
+- **Hadamard walk:** vs LAT 15:7 (p = 0.13), vs no walk 23:3 (p = 9e-5).
+
+**Selected walk time:** CV picked the smallest t in the grid, t = 0.25, in 11 of 20 draws.
+That is the edge of the grid, and the no-walk control is the t → 0 limit.
+The preferred walk is a short smoothing of amplitude across neighbouring bins, not a long, ballistic walk.
+
 ## Files
 - `qwqnn_lat_colab.ipynb`: the full experiment. Set `SMOKE = True` for a roughly one-minute check. It was executed end to end locally in smoke mode.
 - `lat_results.json`: per-fit records (CV accuracy, chosen hyperparameters, per-test-point correctness, shot results).
@@ -93,3 +124,81 @@ Upload the notebook and put `lat_results.json` in `MyDrive/qw_qnn_lat/`. Then *R
 After the pinned-package install (PennyLane 0.34 and JAX 0.4.23, the versions qml-benchmarks needs), choose
 *Runtime → Restart session* and *Run all* again. A CPU runtime is enough. The pinned install was tested in a
 Python 3.11 venv, not on Colab itself.
+
+## Confirmatory test, CTQW-QNN vs LAT kernel (pre-registered, `PREREGISTRATION.md`)
+`confirm_run.py` → `lat_confirm.json`, `lat_confirm_summary.json`, `lat_confirm.log`.
+- **Data:** 40 fresh draws (ids 100–109 at each of n = 8/10/12/16).
+- **Grids:** LAT width grid is every k ∈ {1..n−1}; CTQW t grid extended down to 0.1.
+
+**Primary test** (pooled McNemar over 4000 test points): LAT-only 34, CTQW-only 21, p = 0.10.
+**Not significant: the exploratory 16:3 did not replicate.**
+
+| model | n = 8 | n = 10 | n = 12 | n = 16 |
+|---|---|---|---|---|
+| CTQW-QNN | 98.8 | 98.3 | 98.8 | 99.0 |
+| LAT kernel | 98.7 | 99.2 | 99.2 | 99.1 |
+| no walk | 97.2 | 96.8 | 99.1 | 98.2 |
+
+- **Secondary (pre-specified):** CTQW vs no walk, pooled 51:15, p = 1e-5. On fresh data the short walk does improve on the walk-free read-out.
+- **Selected walk time:** CV chose t = 0.1, the grid edge, in 17 of 40 draws.
+
+## Walk properties (`walk_properties.py` → `walk_properties.log`)
+- **Type:** single-particle continuous-time walk (Farhi–Gutmann), H = A(C_N).
+  It is time-independent, real, circulant and coinless, with no potential or decoherence, and diagonalised exactly by the QFT.
+- **Laplacian vs adjacency:** probabilities are identical to the Laplacian walk (A is real and the cycle is 2-regular).
+- **Symmetry and spread:** the distribution is translation-invariant and reflection-symmetric. It spreads ballistically, sd = √2 t.
+- **Entanglement:** only between the binary-encoding qubits, so it is encoding-dependent.
+  The maximum over all cuts and start vertices is 0.08 bits at t = 0.1, 0.33 at t = 0.25 and 1.6 at t = 1.5.
+- **At the selected times:** P(stay) = 0.98 at t = 0.1 and 0.88 at t = 0.25. The walk works in its short-time, nearly unentangled regime.
+
+## Confirmatory test 2: resolution cap removed (`PREREGISTRATION_2.md`)
+`confirm_run2.py` → `lat_confirm2.json`, `lat_confirm2_summary.json`, `lat_confirm2.log`.
+- **Why:** test 1 limited the walk to h ≤ 6 (a cycle of at most 64 bins over the exponent), while the LAT kernel used the full exponent.
+  Test 2 allows h ∈ {3..n}. Everything else is unchanged, and it uses 40 fresh draws (ids 200–209).
+- **Fitting:** `CTWalkQNN.fit` now uses sklearn `Ridge`, which solves the same problem and uses the dual form when 2^h exceeds the sample count.
+  `ctqw_distribution` uses an FFT. All 20 original draws reproduce exactly.
+
+**Primary test:** LAT-only 27, CTQW-only 20, p = 0.38. **Tied.** Mean accuracy is 98.9% for the LAT kernel and 98.7% for the CTQW-QNN.
+
+| model | n = 8 | n = 10 | n = 12 | n = 16 |
+|---|---|---|---|---|
+| CTQW-QNN | 98.1 | 98.9 | 98.5 | 99.3 |
+| LAT kernel | 98.2 | 98.7 | 99.2 | 99.4 |
+| no walk | 96.6 | 96.9 | 98.0 | 97.3 |
+
+- **Secondary:** CTQW vs no walk, 79:19, p = 7e-10.
+- **Selected settings:** CV chose h > 6 in 16 of 40 draws, and t = 0.1 in 8 of 40.
+
+## Thesis table and figure: uncapped setup (25 Sep 2026)
+On the 20 development draws (ids 0–4), `tab_lat_main.tex`, `tab_lat_ablation.tex` and `fig_lat_accuracy.*` now use the uncapped setup:
+- **`QW-QNN (continuous-time walk, full resolution)`:** h ∈ {3..n}, t ∈ {0.1 … 8}.
+- **`LAT kernel (full grid)`:** k ∈ {1..n−1}, C ∈ {0.01 … 1000}.
+- **`No-walk control (full resolution)`:** as the walk model, at t = 0.
+
+The earlier capped records stay in `lat_results.json`.
+
+| model | n=8 | n=10 | n=12 | n=16 |
+|---|---|---|---|---|
+| CTQW-QNN (uncapped) | 99.4 | 99.8 | 100.0 | 98.6 |
+| LAT kernel (full grid) | 98.4 | 99.6 | 98.8 | 98.2 |
+| no walk | 97.0 | 99.2 | 98.6 | 97.6 |
+
+**On these development draws:**
+- **vs LAT, per size:** 5:0, 2:1, 6:0, 3:1 (p = 0.06, 1.0, 0.03, 0.63). None survives Bonferroni.
+- **vs LAT, pooled:** 16:2, p = 0.001.
+- **vs no walk, per size:** 12:0, 3:0, 7:0, 7:2.
+
+These draws were used to develop the model, so the pooled difference is exploratory. The two pre-registered runs on fresh data
+(tests 1 and 2 above) are tied, and they decide the claim.
+
+## Gradient variance of trainable walk ansätze (`gradvar_ctqw.py`, added 26 Sep 2026)
+`gradvar_ctqw.py` → `fig_gradvar_ctqw.pdf/.png`, `tab_gradvar_ctqw.tex`, `gradvar_ctqw.json`. Used by Section 5.1.3 of the thesis.
+The thesis classifier has no trainable parameter inside the walk; this measures what happens if it did.
+- **(A) walk-time ansatz** U(t) = exp(-itA), t ~ U[0, 8]: one parameter.
+- **(B) Fourier-phase ansatz** U(theta) = F^dag diag(e^{-i theta_k}) F, theta_k ~ U[0, 2 pi): the general translation-invariant unitary on C_N.
+- Input: a basis state |v>, v uniform. Read-outs: half-cycle (Z on the top position qubit), alternating (Z on the bottom qubit),
+  parity (Z^{(x)h}). h = 3..14, 4000 samples per point, bootstrap 95 % intervals.
+- Result: (B) gives Var = 2/N^2 for every traceless +-1 diagonal read-out (closed form, checked to within sampling error);
+  (A) gives an N-independent variance (about 0.5-0.7) for the alternating and parity read-outs and proportional to 1/N for the
+  half-cycle read-out, because i[A, O] is supported on the two boundary edges of the half-cycle only.
+Needs only NumPy and matplotlib; about three minutes.

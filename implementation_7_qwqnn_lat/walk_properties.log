@@ -1,0 +1,24 @@
+h=3 t= 0.1: P(stay)=0.9801 P(+1)=0.0099 spread sd=0.141 | max entanglement over all cuts and start vertices = 0.080 bits (max possible 1) | reflection asym 2.0e-20 | |P_L - P_A| 4.4e-16
+h=3 t=0.25: P(stay)=0.8807 P(+1)=0.0587 spread sd=0.354 | max entanglement over all cuts and start vertices = 0.326 bits (max possible 1) | reflection asym 1.4e-17 | |P_L - P_A| 2.2e-16
+h=3 t= 0.5: P(stay)=0.5855 P(+1)=0.1936 spread sd=0.707 | max entanglement over all cuts and start vertices = 0.736 bits (max possible 1) | reflection asym 6.9e-18 | |P_L - P_A| 1.4e-16
+h=3 t= 1.5: P(stay)=0.0671 P(+1)=0.1133 spread sd=2.144 | max entanglement over all cuts and start vertices = 1.000 bits (max possible 1) | reflection asym 8.3e-17 | |P_L - P_A| 2.5e-16
+h=3 t= 4.0: P(stay)=0.3828 P(+1)=0.0016 spread sd=2.228 | max entanglement over all cuts and start vertices = 0.997 bits (max possible 1) | reflection asym 2.9e-17 | |P_L - P_A| 5.6e-16
+h=3 t= 8.0: P(stay)=0.0279 P(+1)=0.1663 spread sd=1.960 | max entanglement over all cuts and start vertices = 1.000 bits (max possible 1) | reflection asym 3.1e-16 | |P_L - P_A| 8.3e-16
+h=4 t= 0.1: P(stay)=0.9801 P(+1)=0.0099 spread sd=0.141 | max entanglement over all cuts and start vertices = 0.081 bits (max possible 2) | reflection asym 6.5e-27 | |P_L - P_A| 2.2e-16
+h=4 t=0.25: P(stay)=0.8807 P(+1)=0.0587 spread sd=0.354 | max entanglement over all cuts and start vertices = 0.333 bits (max possible 2) | reflection asym 4.3e-19 | |P_L - P_A| 2.2e-16
+h=4 t= 0.5: P(stay)=0.5855 P(+1)=0.1936 spread sd=0.707 | max entanglement over all cuts and start vertices = 0.797 bits (max possible 2) | reflection asym 2.8e-17 | |P_L - P_A| 2.2e-16
+h=4 t= 1.5: P(stay)=0.0676 P(+1)=0.1150 spread sd=2.121 | max entanglement over all cuts and start vertices = 1.642 bits (max possible 2) | reflection asym 1.9e-16 | |P_L - P_A| 4.2e-16
+h=4 t= 4.0: P(stay)=0.0295 P(+1)=0.0549 spread sd=5.590 | max entanglement over all cuts and start vertices = 1.632 bits (max possible 2) | reflection asym 1.9e-16 | |P_L - P_A| 3.1e-16
+h=4 t= 8.0: P(stay)=0.0324 P(+1)=0.0012 spread sd=4.152 | max entanglement over all cuts and start vertices = 1.624 bits (max possible 2) | reflection asym 1.1e-16 | |P_L - P_A| 7.8e-16
+h=5 t= 0.1: P(stay)=0.9801 P(+1)=0.0099 spread sd=0.141 | max entanglement over all cuts and start vertices = 0.081 bits (max possible 2) | reflection asym 2.3e-26 | |P_L - P_A| 2.2e-16
+h=5 t=0.25: P(stay)=0.8807 P(+1)=0.0587 spread sd=0.354 | max entanglement over all cuts and start vertices = 0.333 bits (max possible 2) | reflection asym 4.3e-19 | |P_L - P_A| 2.2e-16
+h=5 t= 0.5: P(stay)=0.5855 P(+1)=0.1936 spread sd=0.707 | max entanglement over all cuts and start vertices = 0.797 bits (max possible 2) | reflection asym 5.6e-17 | |P_L - P_A| 3.3e-16
+h=5 t= 1.5: P(stay)=0.0676 P(+1)=0.1150 spread sd=2.121 | max entanglement over all cuts and start vertices = 1.649 bits (max possible 2) | reflection asym 1.8e-16 | |P_L - P_A| 6.1e-16
+h=5 t= 4.0: P(stay)=0.0295 P(+1)=0.0551 spread sd=5.657 | max entanglement over all cuts and start vertices = 1.921 bits (max possible 2) | reflection asym 8.3e-17 | |P_L - P_A| 4.2e-16
+h=5 t= 8.0: P(stay)=0.0306 P(+1)=0.0082 spread sd=11.205 | max entanglement over all cuts and start vertices = 1.875 bits (max possible 2) | reflection asym 1.5e-16 | |P_L - P_A| 5.3e-16
+h=6 t= 0.1: P(stay)=0.9801 P(+1)=0.0099 spread sd=0.141 | max entanglement over all cuts and start vertices = 0.081 bits (max possible 3) | reflection asym 2.3e-26 | |P_L - P_A| 2.2e-16
+h=6 t=0.25: P(stay)=0.8807 P(+1)=0.0587 spread sd=0.354 | max entanglement over all cuts and start vertices = 0.333 bits (max possible 3) | reflection asym 4.3e-19 | |P_L - P_A| 2.2e-16
+h=6 t= 0.5: P(stay)=0.5855 P(+1)=0.1936 spread sd=0.707 | max entanglement over all cuts and start vertices = 0.797 bits (max possible 3) | reflection asym 5.6e-17 | |P_L - P_A| 3.3e-16
+h=6 t= 1.5: P(stay)=0.0676 P(+1)=0.1150 spread sd=2.121 | max entanglement over all cuts and start vertices = 1.649 bits (max possible 3) | reflection asym 1.8e-16 | |P_L - P_A| 6.1e-16
+h=6 t= 4.0: P(stay)=0.0295 P(+1)=0.0551 spread sd=5.657 | max entanglement over all cuts and start vertices = 2.099 bits (max possible 3) | reflection asym 1.5e-16 | |P_L - P_A| 5.1e-16
+h=6 t= 8.0: P(stay)=0.0306 P(+1)=0.0082 spread sd=11.314 | max entanglement over all cuts and start vertices = 2.523 bits (max possible 3) | reflection asym 1.3e-16 | |P_L - P_A| 4.7e-16

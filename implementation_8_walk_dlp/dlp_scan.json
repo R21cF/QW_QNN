@@ -1,0 +1,1262 @@
+[
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 5,
+  "success": 0.0052,
+  "calls_per_attempt": 10,
+  "expected_calls": 1923.076923076923,
+  "qubits": 18
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 6,
+  "success": 0.0248,
+  "calls_per_attempt": 12,
+  "expected_calls": 483.8709677419355,
+  "qubits": 20
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 7,
+  "success": 0.0872,
+  "calls_per_attempt": 14,
+  "expected_calls": 160.55045871559633,
+  "qubits": 22
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 8,
+  "success": 0.25439999999999996,
+  "calls_per_attempt": 16,
+  "expected_calls": 62.8930817610063,
+  "qubits": 24
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 9,
+  "success": 0.32880000000000004,
+  "calls_per_attempt": 18,
+  "expected_calls": 54.74452554744525,
+  "qubits": 26
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 10,
+  "success": 0.3606,
+  "calls_per_attempt": 20,
+  "expected_calls": 55.46311702717693,
+  "qubits": 28
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 11,
+  "success": 0.37879999999999997,
+  "calls_per_attempt": 22,
+  "expected_calls": 58.07814149947202,
+  "qubits": 30
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 12,
+  "success": 0.397,
+  "calls_per_attempt": 24,
+  "expected_calls": 60.45340050377833,
+  "qubits": 32
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "DT",
+  "m": 13,
+  "success": 0.39380000000000004,
+  "calls_per_attempt": 26,
+  "expected_calls": 66.02336211274758,
+  "qubits": 34
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 4,
+  "success": 0.0074,
+  "calls_per_attempt": 41.23340357836604,
+  "expected_calls": 5572.081564644059,
+  "qubits": 16
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 5,
+  "success": 0.018000000000000002,
+  "calls_per_attempt": 85.21570072862313,
+  "expected_calls": 4734.205596034618,
+  "qubits": 18
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 6,
+  "success": 0.0646,
+  "calls_per_attempt": 173.18029502913734,
+  "expected_calls": 2680.8095205748814,
+  "qubits": 20
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 7,
+  "success": 0.1684,
+  "calls_per_attempt": 349.10948363016576,
+  "expected_calls": 2073.096696141127,
+  "qubits": 22
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 8,
+  "success": 0.26139999999999997,
+  "calls_per_attempt": 700.9678608322226,
+  "expected_calls": 2681.5908983635145,
+  "qubits": 24
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 9,
+  "success": 0.2962,
+  "calls_per_attempt": 1404.6846152363362,
+  "expected_calls": 4742.351840770885,
+  "qubits": 26
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 10,
+  "success": 0.33640000000000003,
+  "calls_per_attempt": 2812.1181240445635,
+  "expected_calls": 8359.447455542697,
+  "qubits": 28
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 11,
+  "success": 0.36900000000000005,
+  "calls_per_attempt": 5626.985141661018,
+  "expected_calls": 15249.282226723624,
+  "qubits": 30
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 12,
+  "success": 0.3922,
+  "calls_per_attempt": 11256.719176893928,
+  "expected_calls": 28701.476738638266,
+  "qubits": 32
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 13,
+  "success": 0.3936,
+  "calls_per_attempt": 22516.187247359747,
+  "expected_calls": 57205.76028292619,
+  "qubits": 34
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 14,
+  "success": 0.4042,
+  "calls_per_attempt": 45035.12338829138,
+  "expected_calls": 111417.9203074997,
+  "qubits": 36
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 15,
+  "success": 0.39480000000000004,
+  "calls_per_attempt": 90072.99567015466,
+  "expected_calls": 228148.418617413,
+  "qubits": 38
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 16,
+  "success": 0.40700000000000003,
+  "calls_per_attempt": 180148.7402338812,
+  "expected_calls": 442625.89738054347,
+  "qubits": 40
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 17,
+  "success": 0.4022,
+  "calls_per_attempt": 360300.2293613343,
+  "expected_calls": 895823.5439118207,
+  "qubits": 42
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 18,
+  "success": 0.3946,
+  "calls_per_attempt": 720603.2076162405,
+  "expected_calls": 1826161.19517547,
+  "qubits": 44
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 19,
+  "success": 0.3968,
+  "calls_per_attempt": 1441209.164126053,
+  "expected_calls": 3632079.546688642,
+  "qubits": 46
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 20,
+  "success": 0.4118,
+  "calls_per_attempt": 2882421.0771456775,
+  "expected_calls": 6999565.510310047,
+  "qubits": 48
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 21,
+  "success": 0.408,
+  "calls_per_attempt": 5764844.903184927,
+  "expected_calls": 14129521.821531685,
+  "qubits": 50
+ },
+ {
+  "n": 8,
+  "p": 251,
+  "kind": "CT",
+  "m": 22,
+  "success": 0.39820000000000005,
+  "calls_per_attempt": 11529692.555263426,
+  "expected_calls": 28954526.758572135,
+  "qubits": 52
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 7,
+  "success": 0.0034000000000000002,
+  "calls_per_attempt": 14,
+  "expected_calls": 4117.647058823529,
+  "qubits": 24
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 8,
+  "success": 0.015,
+  "calls_per_attempt": 16,
+  "expected_calls": 1066.6666666666667,
+  "qubits": 26
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 9,
+  "success": 0.04800000000000001,
+  "calls_per_attempt": 18,
+  "expected_calls": 374.99999999999994,
+  "qubits": 28
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 10,
+  "success": 0.14780000000000001,
+  "calls_per_attempt": 20,
+  "expected_calls": 135.31799729364005,
+  "qubits": 30
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 11,
+  "success": 0.198,
+  "calls_per_attempt": 22,
+  "expected_calls": 111.1111111111111,
+  "qubits": 32
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 12,
+  "success": 0.22859999999999997,
+  "calls_per_attempt": 24,
+  "expected_calls": 104.98687664041996,
+  "qubits": 34
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 13,
+  "success": 0.2368,
+  "calls_per_attempt": 26,
+  "expected_calls": 109.79729729729729,
+  "qubits": 36
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 14,
+  "success": 0.2464,
+  "calls_per_attempt": 28,
+  "expected_calls": 113.63636363636363,
+  "qubits": 38
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "DT",
+  "m": 15,
+  "success": 0.24059999999999998,
+  "calls_per_attempt": 30,
+  "expected_calls": 124.68827930174565,
+  "qubits": 40
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 6,
+  "success": 0.001,
+  "calls_per_attempt": 173.18029502913734,
+  "expected_calls": 173180.29502913734,
+  "qubits": 22
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 7,
+  "success": 0.0072,
+  "calls_per_attempt": 349.10948363016576,
+  "expected_calls": 48487.42828196747,
+  "qubits": 24
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 8,
+  "success": 0.04880000000000001,
+  "calls_per_attempt": 700.9678608322226,
+  "expected_calls": 14364.095508857019,
+  "qubits": 26
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 9,
+  "success": 0.11320000000000002,
+  "calls_per_attempt": 1404.6846152363362,
+  "expected_calls": 12408.874692900494,
+  "qubits": 28
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 10,
+  "success": 0.1618,
+  "calls_per_attempt": 2812.1181240445635,
+  "expected_calls": 17380.210902624003,
+  "qubits": 30
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 11,
+  "success": 0.19760000000000003,
+  "calls_per_attempt": 5626.985141661018,
+  "expected_calls": 28476.645453750087,
+  "qubits": 32
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 12,
+  "success": 0.22060000000000002,
+  "calls_per_attempt": 11256.719176893928,
+  "expected_calls": 51027.73878918371,
+  "qubits": 34
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 13,
+  "success": 0.2274,
+  "calls_per_attempt": 22516.187247359747,
+  "expected_calls": 99015.77505435246,
+  "qubits": 36
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 14,
+  "success": 0.24,
+  "calls_per_attempt": 45035.12338829138,
+  "expected_calls": 187646.3474512141,
+  "qubits": 38
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 15,
+  "success": 0.23639999999999997,
+  "calls_per_attempt": 90072.99567015466,
+  "expected_calls": 381019.4402290807,
+  "qubits": 40
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 16,
+  "success": 0.242,
+  "calls_per_attempt": 180148.7402338812,
+  "expected_calls": 744416.2819581868,
+  "qubits": 42
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 17,
+  "success": 0.2468,
+  "calls_per_attempt": 360300.2293613343,
+  "expected_calls": 1459887.4771528943,
+  "qubits": 44
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 18,
+  "success": 0.2532,
+  "calls_per_attempt": 720603.2076162405,
+  "expected_calls": 2845984.232291629,
+  "qubits": 46
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 19,
+  "success": 0.2428,
+  "calls_per_attempt": 1441209.164126053,
+  "expected_calls": 5935787.331655902,
+  "qubits": 48
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 20,
+  "success": 0.25199999999999995,
+  "calls_per_attempt": 2882421.0771456775,
+  "expected_calls": 11438178.877562216,
+  "qubits": 50
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 21,
+  "success": 0.247,
+  "calls_per_attempt": 5764844.903184927,
+  "expected_calls": 23339453.049331687,
+  "qubits": 52
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 22,
+  "success": 0.24799999999999997,
+  "calls_per_attempt": 11529692.555263426,
+  "expected_calls": 46490695.78735253,
+  "qubits": 54
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 23,
+  "success": 0.23660000000000003,
+  "calls_per_attempt": 23059387.859420426,
+  "expected_calls": 97461487.14886062,
+  "qubits": 56
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 24,
+  "success": 0.2616,
+  "calls_per_attempt": 46118778.46773442,
+  "expected_calls": 176295024.72375542,
+  "qubits": 58
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 25,
+  "success": 0.249,
+  "calls_per_attempt": 92237559.68436241,
+  "expected_calls": 370431966.6038651,
+  "qubits": 60
+ },
+ {
+  "n": 10,
+  "p": 1021,
+  "kind": "CT",
+  "m": 26,
+  "success": 0.255,
+  "calls_per_attempt": 184475122.1176184,
+  "expected_calls": 723431851.4416409,
+  "qubits": 62
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 9,
+  "success": 0.0054,
+  "calls_per_attempt": 18,
+  "expected_calls": 3333.333333333333,
+  "qubits": 30
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 10,
+  "success": 0.0176,
+  "calls_per_attempt": 20,
+  "expected_calls": 1136.3636363636363,
+  "qubits": 32
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 11,
+  "success": 0.062,
+  "calls_per_attempt": 22,
+  "expected_calls": 354.83870967741933,
+  "qubits": 34
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 12,
+  "success": 0.1704,
+  "calls_per_attempt": 24,
+  "expected_calls": 140.8450704225352,
+  "qubits": 36
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 13,
+  "success": 0.2414,
+  "calls_per_attempt": 26,
+  "expected_calls": 107.70505385252693,
+  "qubits": 38
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 14,
+  "success": 0.272,
+  "calls_per_attempt": 28,
+  "expected_calls": 102.94117647058823,
+  "qubits": 40
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 15,
+  "success": 0.281,
+  "calls_per_attempt": 30,
+  "expected_calls": 106.76156583629893,
+  "qubits": 42
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 16,
+  "success": 0.2808,
+  "calls_per_attempt": 32,
+  "expected_calls": 113.96011396011396,
+  "qubits": 44
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "DT",
+  "m": 17,
+  "success": 0.3008,
+  "calls_per_attempt": 34,
+  "expected_calls": 113.03191489361701,
+  "qubits": 46
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 8,
+  "success": 0.0018,
+  "calls_per_attempt": 700.9678608322226,
+  "expected_calls": 389426.5893512348,
+  "qubits": 28
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 9,
+  "success": 0.011600000000000001,
+  "calls_per_attempt": 1404.6846152363362,
+  "expected_calls": 121093.50131347725,
+  "qubits": 30
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 10,
+  "success": 0.052000000000000005,
+  "calls_per_attempt": 2812.1181240445635,
+  "expected_calls": 54079.194693164674,
+  "qubits": 32
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 11,
+  "success": 0.12440000000000001,
+  "calls_per_attempt": 5626.985141661018,
+  "expected_calls": 45232.999531037116,
+  "qubits": 34
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 12,
+  "success": 0.17860000000000004,
+  "calls_per_attempt": 11256.719176893928,
+  "expected_calls": 63027.54298372859,
+  "qubits": 36
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 13,
+  "success": 0.2278,
+  "calls_per_attempt": 22516.187247359747,
+  "expected_calls": 98841.91065566175,
+  "qubits": 38
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 14,
+  "success": 0.262,
+  "calls_per_attempt": 45035.12338829138,
+  "expected_calls": 171889.78392477625,
+  "qubits": 40
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 15,
+  "success": 0.2738,
+  "calls_per_attempt": 90072.99567015466,
+  "expected_calls": 328973.68761926465,
+  "qubits": 42
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 16,
+  "success": 0.27580000000000005,
+  "calls_per_attempt": 180148.7402338812,
+  "expected_calls": 653186.1502316213,
+  "qubits": 44
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 17,
+  "success": 0.2962,
+  "calls_per_attempt": 360300.2293613343,
+  "expected_calls": 1216408.606891743,
+  "qubits": 46
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 18,
+  "success": 0.2918,
+  "calls_per_attempt": 720603.2076162405,
+  "expected_calls": 2469510.6498157657,
+  "qubits": 48
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 19,
+  "success": 0.2816,
+  "calls_per_attempt": 1441209.164126053,
+  "expected_calls": 5117930.270333995,
+  "qubits": 50
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 20,
+  "success": 0.29700000000000004,
+  "calls_per_attempt": 2882421.0771456775,
+  "expected_calls": 9705121.471870966,
+  "qubits": 52
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 21,
+  "success": 0.3004,
+  "calls_per_attempt": 5764844.903184927,
+  "expected_calls": 19190562.260935176,
+  "qubits": 54
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 22,
+  "success": 0.28959999999999997,
+  "calls_per_attempt": 11529692.555263426,
+  "expected_calls": 39812474.2930367,
+  "qubits": 56
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 23,
+  "success": 0.2896,
+  "calls_per_attempt": 23059387.859420426,
+  "expected_calls": 79624958.0781092,
+  "qubits": 58
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 24,
+  "success": 0.29600000000000004,
+  "calls_per_attempt": 46118778.46773442,
+  "expected_calls": 155806684.01261625,
+  "qubits": 60
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 25,
+  "success": 0.3004,
+  "calls_per_attempt": 92237559.68436241,
+  "expected_calls": 307049133.4366259,
+  "qubits": 62
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 26,
+  "success": 0.2882,
+  "calls_per_attempt": 184475122.1176184,
+  "expected_calls": 640094108.6662679,
+  "qubits": 64
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 27,
+  "success": 0.2806,
+  "calls_per_attempt": 368950246.9841304,
+  "expected_calls": 1314861892.3169293,
+  "qubits": 66
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 28,
+  "success": 0.2846,
+  "calls_per_attempt": 737900496.7171543,
+  "expected_calls": 2592763516.2233105,
+  "qubits": 68
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 29,
+  "success": 0.28800000000000003,
+  "calls_per_attempt": 1475800996.1832023,
+  "expected_calls": 5124309014.525007,
+  "qubits": 70
+ },
+ {
+  "n": 12,
+  "p": 4093,
+  "kind": "CT",
+  "m": 30,
+  "success": 0.28859999999999997,
+  "calls_per_attempt": 2951601995.115298,
+  "expected_calls": 10227311140.385649,
+  "qubits": 72
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 13,
+  "success": 0.004,
+  "calls_per_attempt": 26,
+  "expected_calls": 6500.0,
+  "qubits": 42
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 14,
+  "success": 0.0132,
+  "calls_per_attempt": 28,
+  "expected_calls": 2121.212121212121,
+  "qubits": 44
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 15,
+  "success": 0.0482,
+  "calls_per_attempt": 30,
+  "expected_calls": 622.4066390041494,
+  "qubits": 46
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 16,
+  "success": 0.1274,
+  "calls_per_attempt": 32,
+  "expected_calls": 251.17739403453686,
+  "qubits": 48
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 17,
+  "success": 0.1744,
+  "calls_per_attempt": 34,
+  "expected_calls": 194.954128440367,
+  "qubits": 50
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 18,
+  "success": 0.1942,
+  "calls_per_attempt": 36,
+  "expected_calls": 185.37590113285273,
+  "qubits": 52
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 19,
+  "success": 0.19440000000000002,
+  "calls_per_attempt": 38,
+  "expected_calls": 195.47325102880657,
+  "qubits": 54
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 20,
+  "success": 0.2066,
+  "calls_per_attempt": 40,
+  "expected_calls": 193.61084220716359,
+  "qubits": 56
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "DT",
+  "m": 21,
+  "success": 0.2102,
+  "calls_per_attempt": 42,
+  "expected_calls": 199.80970504281638,
+  "qubits": 58
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 12,
+  "success": 0.0024,
+  "calls_per_attempt": 11256.719176893928,
+  "expected_calls": 4690299.657039138,
+  "qubits": 40
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 13,
+  "success": 0.009600000000000001,
+  "calls_per_attempt": 22516.187247359747,
+  "expected_calls": 2345436.1715999735,
+  "qubits": 42
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 14,
+  "success": 0.0374,
+  "calls_per_attempt": 45035.12338829138,
+  "expected_calls": 1204147.6841789137,
+  "qubits": 44
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 15,
+  "success": 0.0946,
+  "calls_per_attempt": 90072.99567015466,
+  "expected_calls": 952145.8316084002,
+  "qubits": 46
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 16,
+  "success": 0.1246,
+  "calls_per_attempt": 180148.7402338812,
+  "expected_calls": 1445816.534782353,
+  "qubits": 48
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 17,
+  "success": 0.1698,
+  "calls_per_attempt": 360300.2293613343,
+  "expected_calls": 2121909.477981945,
+  "qubits": 50
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 18,
+  "success": 0.18499999999999997,
+  "calls_per_attempt": 720603.2076162405,
+  "expected_calls": 3895152.4736013007,
+  "qubits": 52
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 19,
+  "success": 0.19279999999999997,
+  "calls_per_attempt": 1441209.164126053,
+  "expected_calls": 7475151.266213969,
+  "qubits": 54
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 20,
+  "success": 0.20299999999999996,
+  "calls_per_attempt": 2882421.0771456775,
+  "expected_calls": 14199118.606628956,
+  "qubits": 56
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 21,
+  "success": 0.21,
+  "calls_per_attempt": 5764844.903184927,
+  "expected_calls": 27451642.3961187,
+  "qubits": 58
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 22,
+  "success": 0.2008,
+  "calls_per_attempt": 11529692.555263426,
+  "expected_calls": 57418787.62581387,
+  "qubits": 60
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 23,
+  "success": 0.22079999999999994,
+  "calls_per_attempt": 23059387.859420426,
+  "expected_calls": 104435633.42128819,
+  "qubits": 62
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 24,
+  "success": 0.19519999999999998,
+  "calls_per_attempt": 46118778.46773442,
+  "expected_calls": 236264233.9535575,
+  "qubits": 64
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 25,
+  "success": 0.21119999999999997,
+  "calls_per_attempt": 92237559.68436241,
+  "expected_calls": 436730869.71762514,
+  "qubits": 66
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 26,
+  "success": 0.22080000000000002,
+  "calls_per_attempt": 184475122.1176184,
+  "expected_calls": 835485154.5181992,
+  "qubits": 68
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 27,
+  "success": 0.22099999999999997,
+  "calls_per_attempt": 368950246.9841304,
+  "expected_calls": 1669458131.1499114,
+  "qubits": 70
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 28,
+  "success": 0.2128,
+  "calls_per_attempt": 737900496.7171543,
+  "expected_calls": 3467577522.1670785,
+  "qubits": 72
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 29,
+  "success": 0.20779999999999998,
+  "calls_per_attempt": 1475800996.1832023,
+  "expected_calls": 7102025968.157856,
+  "qubits": 74
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 30,
+  "success": 0.2032,
+  "calls_per_attempt": 2951601995.115298,
+  "expected_calls": 14525600369.6619,
+  "qubits": 76
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 31,
+  "success": 0.21020000000000003,
+  "calls_per_attempt": 5903203992.979489,
+  "expected_calls": 28083748777.25732,
+  "qubits": 78
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 32,
+  "success": 0.2114,
+  "calls_per_attempt": 11806407988.707872,
+  "expected_calls": 55848665982.534874,
+  "qubits": 80
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 33,
+  "success": 0.2146,
+  "calls_per_attempt": 23612815980.16464,
+  "expected_calls": 110031761324.15955,
+  "qubits": 82
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 34,
+  "success": 0.2188,
+  "calls_per_attempt": 47225631963.07817,
+  "expected_calls": 215839268569.82712,
+  "qubits": 84
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 35,
+  "success": 0.21100000000000002,
+  "calls_per_attempt": 94451263928.90524,
+  "expected_calls": 447636321937.9395,
+  "qubits": 86
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 36,
+  "success": 0.21780000000000002,
+  "calls_per_attempt": 188902527860.55936,
+  "expected_calls": 867321064557.2054,
+  "qubits": 88
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 37,
+  "success": 0.21639999999999998,
+  "calls_per_attempt": 377805055723.8676,
+  "expected_calls": 1745864397984.601,
+  "qubits": 90
+ },
+ {
+  "n": 16,
+  "p": 65521,
+  "kind": "CT",
+  "m": 38,
+  "success": 0.2094,
+  "calls_per_attempt": 755610111450.4841,
+  "expected_calls": 3608453254300.306,
+  "qubits": 92
+ }
+]

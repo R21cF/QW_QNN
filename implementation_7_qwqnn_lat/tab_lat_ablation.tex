@@ -1,15 +1,17 @@
 \begin{table}[htbp]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
 \caption[Discrete-logarithm task: ablations]{Discrete-logarithm task, ablations: the walk removed, and classical models supplied with $\log_g x$, which no efficient classical algorithm computes for large $n$. Test accuracy (\%) over five draws.}
 \label{tab:latablation}
 \begin{tabular}{lrrrr}
 \hline
 Model & $n=8$ & $n=10$ & $n=12$ & $n=16$ \\
 \hline
-DLP $\to$ no walk ($t=0$) $\to$ read-out & $97.0 \pm 1.9$ & $99.2 \pm 0.8$ & $98.6 \pm 2.6$ & $97.6 \pm 2.1$ \\
-$\log_g x$ supplied $\to$ MLP & $97.6 \pm 1.3$ & $94.6 \pm 4.2$ & $93.8 \pm 5.6$ & $90.0 \pm 5.4$ \\
-$\log_g x$ supplied $\to$ SVM (RBF) & $96.8 \pm 1.5$ & $92.6 \pm 2.7$ & $85.4 \pm 3.6$ & $84.4 \pm 9.9$ \\
-$\log_g x$ supplied $\to$ random forest & $92.8 \pm 5.0$ & $94.2 \pm 4.3$ & $89.0 \pm 2.5$ & $88.4 \pm 7.1$ \\
+DLP $\to$ no walk $\to$ read-out & $97.0 \pm 1.9$ & $99.2 \pm 0.8$ & $98.6 \pm 2.6$ & $97.6 \pm 2.1$ \\
+$\log_g x$ given $\to$ MLP & $97.6 \pm 1.3$ & $94.6 \pm 4.2$ & $93.8 \pm 5.6$ & $90.0 \pm 5.4$ \\
+$\log_g x$ given $\to$ SVM (RBF) & $96.8 \pm 1.5$ & $92.6 \pm 2.7$ & $85.4 \pm 3.6$ & $84.4 \pm 9.9$ \\
+$\log_g x$ given $\to$ random forest & $92.8 \pm 5.0$ & $94.2 \pm 4.3$ & $89.0 \pm 2.5$ & $88.4 \pm 7.1$ \\
 \hline
 \end{tabular}
 \end{table}
