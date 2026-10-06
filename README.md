@@ -4,7 +4,7 @@
 
 ## Main result
 
-**`ch5_walk_qnn/main_result.ipynb`** regenerates the main result of the thesis (Section 5.1.2): the continuous-time
+**`ch5_walk_qnn/main_result.ipynb`** regenerates the main result in (5.1.2): the continuous-time
 walk QNN and the Liu–Arunachalam–Temme kernel, both after the discrete-logarithm step, against the classical
 baselines (MLP, RBF-SVM, random forest). It writes **Table 5.1** (`results/tab_lat_main.tex`) and **Figure 5.1**
 (`results/fig_lat_accuracy.pdf`), prints some tests quoted in the text, and compares every regenerated
