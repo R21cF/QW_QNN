@@ -1,6 +1,6 @@
 # qwt_c
 
-*Quantum Walks as a Tool for Quantum Machine Learning Algorithms* — code for the MS thesis (`thesis/draft_e.tex`).
+*Quantum Walks as a Tool for Quantum Machine Learning Algorithms* - code for QW-QNN results
 
 ## Main result in one notebook
 
@@ -21,9 +21,9 @@ pip install -r requirements.txt
 Python 3.11+. PennyLane/JAX are not needed: the benchmark suite's MLP and SVM are scikit-learn models with the
 suite's settings, and are built from scikit-learn directly (`qwt/selection.py`).
 
-## What produces what
+## Relation to thesis sections/chapters
 
-| thesis | folder | run | writes |
+| thesis | folder | run | output |
 |---|---|---|---|
 | §3.2 Table 3.1, Fig. 3.1 (walks vs classical random walks) | `ch3_walk_vs_crw` | `walk_vs_crw.py` | `tab_walk_crw.tex`, `fig_walk_crw.pdf`, `walk_vs_crw.json` |
 | §3.6.3 Table and figure (QAOA walk mixers) | `ch3_qaoa` | `qaoa_walk.py`, then `report_qaoa.py`; `check_qiskit.py` checks the mixers against Qiskit circuits | `qaoa_results.json`, `tab_qaoa.tex`, `fig_qaoa_mixers.pdf` |
@@ -32,12 +32,6 @@ suite's settings, and are built from scikit-learn directly (`qwt/selection.py`).
 | §5.1.4 gradient variance | `ch5_gradvar` | `gradvar_ctqw.py` | `gradvar_ctqw.json`, `tab_gradvar_ctqw.tex`, `fig_gradvar_ctqw.pdf` |
 | Appendix A listings | `appendix_a` | — (the listings printed in the thesis) | — |
 
-Each folder keeps the results files that the thesis numbers were taken from. The `.tex`/`.pdf` outputs are copied
-unchanged into `thesis/`, which includes them by file name.
-
-The pre-registrations of the two confirmatory runs quoted in §5.1.2 are `ch5_walk_qnn/PREREGISTRATION.md` and
-`PREREGISTRATION_2.md`; the runs themselves (and the ablation table, the Hadamard-walk control and the walk-property
-numbers of §5.1.1) are in `archive/implementation_7_qwqnn_lat` and are not part of the notebook.
 
 ## Shared code: `qwt/`
 

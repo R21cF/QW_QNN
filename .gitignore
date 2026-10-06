@@ -21,3 +21,10 @@ desktop.ini
 
 # Experiments not used by the thesis (draft_e.tex); kept on disk, untracked
 archive/
+
+# Not pushed for now: only the Chapter 5 QW-QNN result (ch5_walk_qnn + qwt) is tracked
+ch3_walk_vs_crw/
+ch3_qaoa/
+ch5_walk_dlp/
+ch5_gradvar/
+appendix_a/

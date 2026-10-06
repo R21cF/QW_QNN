@@ -1,5 +1,0 @@
-name,8,10,12,16
-Shor DLP -> no walk (t = 0) -> readout,0.970 ± 0.019,0.992 ± 0.008,0.986 ± 0.026,0.976 ± 0.021
-log x given (not classically efficient) -> MLP,0.976 ± 0.013,0.946 ± 0.042,0.938 ± 0.056,0.900 ± 0.054
-log x given (not classically efficient) -> SVM (RBF),0.968 ± 0.015,0.926 ± 0.027,0.854 ± 0.036,0.844 ± 0.099
-log x given (not classically efficient) -> Random forest,0.928 ± 0.050,0.942 ± 0.043,0.890 ± 0.025,0.884 ± 0.071
