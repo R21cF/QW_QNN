@@ -15,14 +15,8 @@ implementation_2*/
 Thumbs.db
 desktop.ini
 
-# NOTE: notebooks are committed *with* their outputs (rendered circuit
-# diagrams are thesis material), and the *_results.json files are the data
-# behind the manuscript's tables and figures. Neither is ignored on purpose.
-
-# Experiments not used by the thesis (draft_e.tex); kept on disk, untracked
+# NOTE: notebooks are committed with their outputs
 archive/
-
-# Not pushed for now: only the Chapter 5 QW-QNN result (ch5_walk_qnn + qwt) is tracked
 ch3_walk_vs_crw/
 ch3_qaoa/
 ch5_walk_dlp/
