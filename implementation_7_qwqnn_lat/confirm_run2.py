@@ -6,7 +6,7 @@ import numpy as np
 from scipy.stats import binomtest
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 warnings.filterwarnings("ignore")
-NB = os.environ.get("NB_DIR", "../nb")
+NB = os.environ.get("NB_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "nb"))   # exported from the notebook, see nb/README.md
 exec(open(os.path.join(NB, "c2_data.py")).read())
 exec(open(os.path.join(NB, "c3_models.py")).read())
 

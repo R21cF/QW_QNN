@@ -2,10 +2,10 @@
 counting-register size m. Writes dlp_scan.json."""
 import json, sys, os
 import numpy as np
-sys.path.insert(0, os.path.dirname(__file__))
+HERE = os.path.dirname(os.path.abspath(__file__)); NB = os.path.join(HERE, "..", "nb")   # nb/ is exported from the notebook, see nb/README.md
+sys.path.insert(0, HERE)
 from dlp_walk import attempt, calls_per_attempt
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "nb"))
-exec(open(os.path.join(os.path.dirname(__file__), "..", "nb", "c2_data.py")).read())
+exec(open(os.path.join(NB, "c2_data.py")).read())
 
 N_A, N_ATT = 25, 200          # 25 random exponents x 200 attempts per (kind, n, m)
 out = []

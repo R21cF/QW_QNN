@@ -11,13 +11,15 @@ Writes pipeline_walk_dlp.json."""
 import json, os, sys, time, warnings
 import numpy as np
 warnings.filterwarnings("ignore")
-HERE = os.path.dirname(os.path.abspath(__file__)); NB = os.path.join(HERE, "..", "nb")
+HERE = os.path.dirname(os.path.abspath(__file__)); NB = os.path.join(HERE, "..", "nb")   # nb/ is exported from the notebook, see nb/README.md
+LAT = os.path.join(HERE, "..", "implementation_7_qwqnn_lat")
 sys.path.insert(0, HERE)
 from dlp_walk import attempt, calls_per_attempt
 for f in ["c2_data.py", "c3_models.py"]:
     exec(open(os.path.join(NB, f)).read())
-os.environ.setdefault("QMLB_REPO", os.path.join(HERE, "..", "qml-benchmarks"))
-sys.path.insert(0, os.path.join(os.environ["QMLB_REPO"], "src"))
+# qml-benchmarks is optional here: only ct_walk_qnn_full and lat_kernel_full are used below
+if os.path.isdir(os.path.join(os.environ.get("QMLB_REPO", ""), "src")):
+    sys.path.insert(0, os.path.join(os.environ["QMLB_REPO"], "src"))
 exec(open(os.path.join(NB, "c4_suite.py")).read())
 
 scan = json.load(open(os.path.join(HERE, "dlp_scan.json")))
@@ -29,7 +31,7 @@ for d in scan:
     if key not in BEST_M or d["expected_calls"] < BEST_M[key]["expected_calls"]:
         BEST_M[key] = d
 K_MAX, BUDGETS = 64, [1, 2, 4, 8, 16, "inf"]
-stored = json.load(open(os.path.join(NB, "lat_results.json")))
+stored = json.load(open(os.path.join(LAT, "lat_results.json")))
 OUT = os.path.join(HERE, "pipeline_walk_dlp.json")
 res = json.load(open(OUT)) if os.path.exists(OUT) else {}
 

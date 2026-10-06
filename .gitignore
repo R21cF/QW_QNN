@@ -18,3 +18,10 @@ desktop.ini
 # NOTE: notebooks are committed *with* their outputs (rendered circuit
 # diagrams are thesis material), and the *_results.json files are the data
 # behind the manuscript's tables and figures. Neither is ignored on purpose.
+
+# Experiments not reported in the submitted thesis (draft_e.tex); kept on disk, untracked
+QRNG/
+implementation_1_IBM_dataset/
+implementation_4_walk_spectral/
+implementation_5_hyperplanes/
+implementation_6_interacting_walkers/

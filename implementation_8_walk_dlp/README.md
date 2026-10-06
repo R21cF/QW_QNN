@@ -12,7 +12,8 @@ on the exponents the walk produces.
 | `pipeline_walk_dlp.py` → `pipeline_walk_dlp.json`, `pipeline.log` | the LAT pipeline on walk-computed exponents at attempt budgets K = 1, 2, 4, 8, 16, ∞; both quantum models re-selected by CV per draw; K = ∞ checked to reproduce the lookup-table run exactly (40/40) |
 | `report_walk_dlp.py` → `tab_dlp_walk.tex`, `tab_dlp_budget.tex`, `fig_dlp_budget.{pdf,png}`, `pipeline_summary.json` | thesis table/figure and pooled McNemar tests |
 
-Depends on `../implementation_7_qwqnn_lat` (data generator, models, `lat_results.json`) and the qml-benchmarks checkout used there.
+Depends on `../nb` (the data generator, models and selectors exported from the LAT notebook, see `../nb/README.md`) and on
+`../implementation_7_qwqnn_lat/lat_results.json` for the K = ∞ identity check. qml-benchmarks is not needed.
 
 ## Formulations
 - **Discrete-time (DT):** phase estimation on the permutation walks U_g: |y> → |gy mod p> and U_x = U_g^a. Both are cyclic
