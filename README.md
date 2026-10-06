@@ -38,8 +38,3 @@ suite's settings, and are built from scikit-learn directly (`qwt/selection.py`).
 `lat.py` the discrete-logarithm concept class · `walks.py` the walks on the cycle and their Qiskit circuits ·
 `models.py` the walk QNN and the LAT kernel · `selection.py` the cross-validation protocol and grids ·
 `stats.py` the exact McNemar test.
-
-## `archive/`
-
-Everything not used by `draft_e.tex` (earlier benchmark experiments, QRNG, graph learning, search, the Colab
-notebook this code replaces). Kept on disk and ignored by git.
