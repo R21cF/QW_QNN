@@ -9,18 +9,17 @@ exponents, then scored on the test set. Classical baselines are unaffected (they
 Check: with K = inf the exponents equal log_g x exactly, so predictions must equal the stored lookup-table results.
 Writes pipeline_walk_dlp.json."""
 import json, os, sys, time, warnings
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))   # outputs are written next to this script
 import numpy as np
 warnings.filterwarnings("ignore")
-HERE = os.path.dirname(os.path.abspath(__file__)); NB = os.path.join(HERE, "..", "nb")   # nb/ is exported from the notebook, see nb/README.md
-LAT = os.path.join(HERE, "..", "implementation_7_qwqnn_lat")
-sys.path.insert(0, HERE)
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path[:0] = [HERE, os.path.join(HERE, "..")]
 from dlp_walk import attempt, calls_per_attempt
-for f in ["c2_data.py", "c3_models.py"]:
-    exec(open(os.path.join(NB, f)).read())
-# qml-benchmarks is optional here: only ct_walk_qnn_full and lat_kernel_full are used below
-if os.path.isdir(os.path.join(os.environ.get("QMLB_REPO", ""), "src")):
-    sys.path.insert(0, os.path.join(os.environ["QMLB_REPO"], "src"))
-exec(open(os.path.join(NB, "c4_suite.py")).read())
+from qwt.lat import make_lat
+from qwt.selection import ct_walk_qnn as ct_walk_qnn_full, lat_kernel as lat_kernel_full
+# the lookup-table run of the main-result notebook, for the K = inf identity check
+MAIN = os.path.join(HERE, "..", "ch5_walk_qnn", "results", "main_result.json")
 
 scan = json.load(open(os.path.join(HERE, "dlp_scan.json")))
 BEST_M = {}
@@ -31,7 +30,7 @@ for d in scan:
     if key not in BEST_M or d["expected_calls"] < BEST_M[key]["expected_calls"]:
         BEST_M[key] = d
 K_MAX, BUDGETS = 64, [1, 2, 4, 8, 16, "inf"]
-stored = json.load(open(os.path.join(LAT, "lat_results.json")))
+stored = {f"{r['n']}|{r['draw']}|{r['model']}": r for r in json.load(open(MAIN))}
 OUT = os.path.join(HERE, "pipeline_walk_dlp.json")
 res = json.load(open(OUT)) if os.path.exists(OUT) else {}
 
@@ -76,8 +75,8 @@ for n in [8, 10, 12, 16]:
                     row[name] = dict(test_acc=float(np.mean(pred == d["y_te"])), hp={k: (v.item() if hasattr(v, "item") else v) for k, v in hp.items()},
                                      correct=[int(c) for c in pred == d["y_te"]])
                 if K == "inf":   # identity check against the lookup-table run
-                    for name, sk in (("CTQW-QNN", "QW-QNN (continuous-time walk, full resolution)"), ("LAT kernel", "LAT kernel (full grid)")):
-                        ref = stored[f"{n}|{draw}|log x|{sk}"]["correct"]
+                    for name, sk in (("CTQW-QNN", "Walk QNN"), ("LAT kernel", "LAT kernel")):
+                        ref = stored[f"{n}|{draw}|{sk}"]["correct"]
                         row[name]["identical_to_lookup_table"] = bool(ref == row[name]["correct"])
                 res[key] = row
                 json.dump(res, open(OUT, "w"))

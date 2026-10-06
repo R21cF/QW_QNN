@@ -165,3 +165,9 @@ def check_against_qiskit(p=13, g=2, a=7, m=5):
         Pf = (F2(ph2)[:, :, None] * F2(ph1)[:, None, :]).sum(0) / r   # [c2, c1]
         res[kind] = float(0.5 * np.abs(P - Pf).sum())
     return res
+
+
+if __name__ == "__main__":
+    # Section 5.1.3: the sampled outcome distribution against a Qiskit state-vector simulation of both full circuits
+    for p, g, a in ((11, 2, 7), (13, 2, 7)):
+        print(f"p = {p}: total-variation distance, formula vs Qiskit:", check_against_qiskit(p=p, g=g, a=a))

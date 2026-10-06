@@ -1,7 +1,7 @@
 """
 Gradient variance of parametrised continuous-time-walk ansaetze on the cycle C_N, N = 2^h.
 
-Section 5.1.3 of the thesis. The classifier of implementation_7 has no trainable parameter inside the walk;
+Section 5.1.4 of the thesis. The classifier of implementation_7 has no trainable parameter inside the walk;
 this script measures what happens to the gradient if the walk is made trainable in the two natural ways:
 
   (A) walk-time ansatz      U(t) = exp(-i t A),            one parameter, t ~ Uniform[0, 8]
@@ -21,6 +21,8 @@ For (B) the variance is known in closed form: Var[d<O>/d theta_j] = 2/N^2 for ev
 Outputs: fig_gradvar_ctqw.pdf/.png, tab_gradvar_ctqw.tex, gradvar_ctqw.json.
 """
 import json
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))   # outputs are written next to this script
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")

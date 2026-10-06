@@ -27,6 +27,8 @@ Panels
       elsewhere).
 """
 import json
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))   # outputs are written next to this script
 import numpy as np
 from scipy.special import jv, iv
 import matplotlib

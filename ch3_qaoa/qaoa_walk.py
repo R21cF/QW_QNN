@@ -1,6 +1,8 @@
 """
-Quantum walks as QAOA mixers, on a constrained problem where the choice of mixer
-is not cosmetic.
+Quantum walks as QAOA mixers on balanced maximum cut (thesis Section 3.6.3): the transverse-field mixer with a
+penalty, the continuous-time walk on the Johnson graph J(8,4), and one coined (Grover-coin, flip-flop) walk step on
+J(8,4) per layer. Six random weighted instances, p = 1..4, best of twelve COBYLA starts. Writes qaoa_results.json;
+report_qaoa.py makes the figure and table, check_qiskit.py checks the mixers against Qiskit circuits.
 """
 
 from __future__ import annotations
@@ -123,6 +125,8 @@ def optimise(objective, p, rng):
 
 
 if __name__ == "__main__":
+    import os
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))   # writes qaoa_results.json next to this script
     rng = np.random.default_rng(SEED)
     out = []
     for inst in range(N_INST):

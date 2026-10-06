@@ -1,5 +1,7 @@
 """Figure and tables for the walk-DLP LAT pipeline. Reads dlp_scan.json and pipeline_walk_dlp.json."""
 import json, collections
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))   # outputs are written next to this script
 import numpy as np
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt

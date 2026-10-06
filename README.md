@@ -1,38 +1,51 @@
 # qwt_c
 
-*Quantum Walks as a Tool for Quantum Machine Learning Algorithms*
+*Quantum Walks as a Tool for Quantum Machine Learning Algorithms* — code for the MS thesis (`thesis/draft_e.tex`).
 
-Code for the MS thesis. Every figure and table in the thesis is produced by a script in this repository
-from a results file that the same directory's simulation scripts write; the map below says which.
+## Main result in one notebook
 
-## Requirements
+**`ch5_walk_qnn/main_result.ipynb`** regenerates the main result of the thesis (Section 5.1.2): the continuous-time
+walk QNN and the Liu–Arunachalam–Temme kernel, both after the discrete-logarithm step, against the classical
+baselines (MLP, RBF-SVM, random forest). It writes **Table 5.1** (`results/tab_lat_main.tex`) and **Figure 5.1**
+(`results/fig_lat_accuracy.pdf`), prints the McNemar tests quoted in the text, and compares every regenerated
+accuracy with the value printed in the thesis. *Run all*; about 5–10 minutes on a laptop CPU.
 
-Python 3.11+ with numpy, scipy, networkx, scikit-learn, matplotlib, qiskit (>= 2) and qiskit-aer.
-`qml-benchmarks` (PennyLane 0.34, JAX 0.4.23) is needed only to re-run the benchmark suite's own
-quantum models inside the LAT notebook; nothing the thesis reports depends on it.
+## Setup
+
+```
+python -m venv .venv
+.venv/Scripts/activate            # Windows;  source .venv/bin/activate elsewhere
+pip install -r requirements.txt
+```
+
+Python 3.11+. PennyLane/JAX are not needed: the benchmark suite's MLP and SVM are scikit-learn models with the
+suite's settings, and are built from scikit-learn directly (`qwt/selection.py`).
 
 ## What produces what
 
-| thesis artefact | directory | simulation → results file | report script |
+| thesis | folder | run | writes |
 |---|---|---|---|
-| `fig_walk_crw.pdf`, `tab_walk_crw.tex` (Ch. 3) | `implementation_8_walk_vs_crw` | `walk_vs_crw.py` → `walk_vs_crw.json` | same script |
-| `fig_qaoa_mixers.pdf`, `tab_qaoa.tex` (Ch. 3) | `implementation_3_algorithms` | `qaoa_walk.py` → `qaoa_results.json` | `make_figures.py` |
-| `tab_lat_main.tex`, `tab_lat_ablation.tex`, `fig_lat_accuracy.pdf` (Ch. 5) | `implementation_7_qwqnn_lat` | `qwqnn_lat_colab.ipynb` → `lat_results.json` | report cell of the notebook |
-| `tab_gradvar_ctqw.tex`, `fig_gradvar_ctqw.pdf` (Ch. 5) | `implementation_7_qwqnn_lat` | `gradvar_ctqw.py` → `gradvar_ctqw.json` | same script |
-| `tab_dlp_walk.tex`, `tab_dlp_budget.tex`, `fig_dlp_budget.pdf` (Ch. 5) | `implementation_8_walk_dlp` | `scan_dt_ct.py` → `dlp_scan.json`; `pipeline_walk_dlp.py` → `pipeline_walk_dlp.json` | `report_walk_dlp.py` |
-| `tf_text_classification.py`, `torch_image_classification.py` (Appendix) | top level | listings only | — |
+| §3.2 Table 3.1, Fig. 3.1 (walks vs classical random walks) | `ch3_walk_vs_crw` | `walk_vs_crw.py` | `tab_walk_crw.tex`, `fig_walk_crw.pdf`, `walk_vs_crw.json` |
+| §3.6.3 Table and figure (QAOA walk mixers) | `ch3_qaoa` | `qaoa_walk.py`, then `report_qaoa.py`; `check_qiskit.py` checks the mixers against Qiskit circuits | `qaoa_results.json`, `tab_qaoa.tex`, `fig_qaoa_mixers.pdf` |
+| §5.1.2 Table 5.1, Fig. 5.1 (**main result**) | `ch5_walk_qnn` | `main_result.ipynb` | `results/` |
+| §5.1.3 DLP step as a walk | `ch5_walk_dlp` | `dlp_walk.py` (Qiskit check), `scan_dt_ct.py`, `pipeline_walk_dlp.py` (needs the notebook's `results/main_result.json`), `report_walk_dlp.py` | `dlp_scan.json`, `pipeline_walk_dlp.json`, `tab_dlp_walk.tex`, `tab_dlp_budget.tex`, `fig_dlp_budget.pdf` |
+| §5.1.4 gradient variance | `ch5_gradvar` | `gradvar_ctqw.py` | `gradvar_ctqw.json`, `tab_gradvar_ctqw.tex`, `fig_gradvar_ctqw.pdf` |
+| Appendix A listings | `appendix_a` | — (the listings printed in the thesis) | — |
 
-The confirmatory runs quoted in Chapter 5 (`lat_confirm*.json`) come from `implementation_7_qwqnn_lat/confirm_run.py`
-and `confirm_run2.py`, whose specifications are `PREREGISTRATION.md` and `PREREGISTRATION_2.md`.
+Each folder keeps the results files that the thesis numbers were taken from. The `.tex`/`.pdf` outputs are copied
+unchanged into `thesis/`, which includes them by file name.
 
-The generated `fig_*.pdf` and `tab_*.tex` are copied unchanged into the thesis source directory, which includes
-them by file name.
+The pre-registrations of the two confirmatory runs quoted in §5.1.2 are `ch5_walk_qnn/PREREGISTRATION.md` and
+`PREREGISTRATION_2.md`; the runs themselves (and the ablation table, the Hadamard-walk control and the walk-property
+numbers of §5.1.1) are in `archive/implementation_7_qwqnn_lat` and are not part of the notebook.
 
-## Shared code
+## Shared code: `qwt/`
 
-`nb/` holds the LAT data generator, models and selection routines exported from the notebook; the confirmatory
-runs and the walk-DLP pipeline `exec` these files. See `nb/README.md` (and run `python nb/export_cells.py --check`
-after editing the notebook).
+`lat.py` the discrete-logarithm concept class · `walks.py` the walks on the cycle and their Qiskit circuits ·
+`models.py` the walk QNN and the LAT kernel · `selection.py` the cross-validation protocol and grids ·
+`stats.py` the exact McNemar test.
 
-`implementation_3_algorithms` also contains Shor-walk, unstructured-search and graph-learning experiments and
-their datasets; these are not reported in the thesis.
+## `archive/`
+
+Everything not used by `draft_e.tex` (earlier benchmark experiments, QRNG, graph learning, search, the Colab
+notebook this code replaces). Kept on disk and ignored by git.
