@@ -8,7 +8,7 @@
 walk QNN and the Liu–Arunachalam–Temme kernel, both after the discrete-logarithm step, against the classical
 baselines (MLP, RBF-SVM, random forest). It writes **Table 5.1** (`results/tab_lat_main.tex`) and **Figure 5.1**
 (`results/fig_lat_accuracy.pdf`), prints some tests quoted in the text, and compares every regenerated
-accuracy with the value printed in the thesis. Running all takes about 5–10 minutes on a laptop CPU.
+accuracy with the value printed in the draft. Running all cells takes about 5–10 minutes on a laptop CPU.
 
 ## Setup
 
