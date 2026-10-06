@@ -2,7 +2,7 @@
 
 *Quantum Walks as a Tool for Quantum Machine Learning Algorithms* - code for QW-QNN results
 
-## Main result in one notebook
+## Main result
 
 **`ch5_walk_qnn/main_result.ipynb`** regenerates the main result of the thesis (Section 5.1.2): the continuous-time
 walk QNN and the Liu–Arunachalam–Temme kernel, both after the discrete-logarithm step, against the classical
